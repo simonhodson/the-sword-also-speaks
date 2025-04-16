@@ -11,6 +11,10 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		41CADD083B9D4F60A7FAF550 /* Gaegu-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A9AE399615864D9090D94D06 /* Gaegu-Bold.ttf */; };
+		1B10DF98A32043C6BF896A3E /* Gaegu-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E5D1DE7D40224A60A4CEAF6D /* Gaegu-Light.ttf */; };
+		23665C58E1D148AF9EC48CC0 /* Gaegu-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28CB3B94E14446468E1F790D /* Gaegu-Regular.ttf */; };
+		F96751858227404D93537C42 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = D118050D9B9449688010B72C /* OFL.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +39,10 @@
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = TheSwordAlsoSpeaks/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = TheSwordAlsoSpeaks/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		A9AE399615864D9090D94D06 /* Gaegu-Bold.ttf */ = {isa = PBXFileReference; name = "Gaegu-Bold.ttf"; path = "../src/assets/fonts/Gaegu/Gaegu-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E5D1DE7D40224A60A4CEAF6D /* Gaegu-Light.ttf */ = {isa = PBXFileReference; name = "Gaegu-Light.ttf"; path = "../src/assets/fonts/Gaegu/Gaegu-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		28CB3B94E14446468E1F790D /* Gaegu-Regular.ttf */ = {isa = PBXFileReference; name = "Gaegu-Regular.ttf"; path = "../src/assets/fonts/Gaegu/Gaegu-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D118050D9B9449688010B72C /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../src/assets/fonts/Gaegu/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +101,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				69BB851EFA13459F98F68AFF /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -115,6 +124,18 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		69BB851EFA13459F98F68AFF /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				A9AE399615864D9090D94D06 /* Gaegu-Bold.ttf */,
+				E5D1DE7D40224A60A4CEAF6D /* Gaegu-Light.ttf */,
+				28CB3B94E14446468E1F790D /* Gaegu-Regular.ttf */,
+				D118050D9B9449688010B72C /* OFL.txt */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -185,6 +206,10 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				41CADD083B9D4F60A7FAF550 /* Gaegu-Bold.ttf in Resources */,
+				1B10DF98A32043C6BF896A3E /* Gaegu-Light.ttf in Resources */,
+				23665C58E1D148AF9EC48CC0 /* Gaegu-Regular.ttf in Resources */,
+				F96751858227404D93537C42 /* OFL.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
