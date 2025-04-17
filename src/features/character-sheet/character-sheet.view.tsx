@@ -10,16 +10,21 @@ import { AbilityScores } from './types/ability-score-types';
 type CharacterSheetView = PropsWithChildren<{
   characterDetails: CharacterDetails;
   abilityScores: AbilityScores;
+  editDetails: () => void;
 }>;
 
 function CharacterSheetView({
   characterDetails,
   abilityScores,
+  editDetails
 }: CharacterSheetView): React.JSX.Element {
 
   return (
     <View >
-        <CharacterDetailsView characterDetails={characterDetails} />
+        <CharacterDetailsView
+          characterDetails={characterDetails}
+          editDetails={editDetails}
+        />
         <View style={{ margin: 5 }}/>
         <AbilityScoresView abilityScores={abilityScores} />
     </View>
