@@ -1,33 +1,35 @@
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import { StyleSheet, View, Text} from 'react-native';
+import type { PropsWithChildren } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 
-import { AttributesContainerView } from './components/attributes-container-view';
-import { CharacterDetails, AbilityScores } from './types/character-sheet-types';
+import { CharacterDetails } from './types/character-details.types';
+import { CharacterDetailsView } from './components/character-details-view';
+import { AbilityScoresView } from './components/ability-scores-view';
+import { AbilityScores } from './types/ability-score-types';
 
 type CharacterSheetView = PropsWithChildren<{
-    characterDetails: CharacterDetails;
+  characterDetails: CharacterDetails;
+  abilityScores: AbilityScores;
 }>;
 
 function CharacterSheetView({
-    characterDetails,
+  characterDetails,
+  abilityScores,
 }: CharacterSheetView): React.JSX.Element {
 
-    return (
-        <View style={styles.main}>
-            <AttributesContainerView>
-                <Text>Name</Text>
-                <Text>Age</Text>
-                <Text>Sex</Text>
-            </AttributesContainerView>
-        </View>
-    )
+  return (
+    <View style={styles.main}>
+        <CharacterDetailsView characterDetails={characterDetails}/>
+        <View style={{ margin: 5 }}/>
+        <AbilityScoresView abilityScores={abilityScores}/>
+    </View>
+  )
 }
 
 export { CharacterSheetView }
 
 const styles = StyleSheet.create({
-    main: {
-        flex: 1,
-    }
+  main: {
+    flex: 1,
+  }
 })

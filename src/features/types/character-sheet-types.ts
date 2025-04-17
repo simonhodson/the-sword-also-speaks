@@ -1,23 +1,10 @@
-export type Suit = "spades" | "hearts" | "clubs" | "diamonds";
+import { AbilityScores } from "./ability-score-types";
+import { CharacterDetails } from "./character-details.types";
 
-export type Species = "dragonborn" | "dwarf" | "elf" | "gnome" |"human" | "poxxa";
-export type Archetype = "control" | "defender" | "martial" | "spellcaster" ;
+export type Suit = "Spades" | "Hearts" | "Clubs" | "Diamonds";
 
-export type CharacterDetails = {
-  name: string;
-  species: Species | undefined;
-  archetype: Archetype | undefined;
-  currentLevel: number | undefined;
-};
-
-export type AbilityStat = { suit: Suit, total: number };
-
-export type AbilityScores = {
-  strength: AbilityStat;
-  agility: AbilityStat;
-  intelligence: AbilityStat;
-  charisma: AbilityStat;
-};
+export type Species = "Dragonborn" | "Dwarf" | "Elf" | "Gnome" |"Human" | "Poxxa";
+export type Archetype = "Control" | "Defender" | "Martial" | "Spellcaster" ;
 
 export type SkillsLevel = { suit: Suit, rank: number };
 export type Skills = {
@@ -48,7 +35,7 @@ export type SpecialBonuses = Record<string, string>;
 
 export type Character = {
   details: CharacterDetails;
-  abilityScores: AbilityScores;
+  abilityScores: AbilityScores
   skils: Skills;
   specialBonuses?: SpecialBonuses;
 };
