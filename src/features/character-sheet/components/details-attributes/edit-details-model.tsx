@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Button, TextInput } from 'react-native';
 import { useNavigation, RouteProp, useRoute } from "@react-navigation/native";
-import { CharacterDetails } from "../types/character-details.types";
-import { EditDetailsRouteProp } from "../../../navigation/root-stack";
+import { CharacterDetails } from "../../types/character-details.types";
+import { EditDetailsRouteProp } from "../../../../navigation/root-stack";
 
 
 function EditDetailsModal() {

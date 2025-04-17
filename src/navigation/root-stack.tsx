@@ -1,17 +1,14 @@
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {  RouteProp } from "@react-navigation/native";
-import CharactersView from '../features/character-sheet/characters-view';
-import { EditDetailsModal } from '../features/character-sheet/components/edit-details-model';
+import { EditDetailsModal } from '../features/character-sheet/components/details-attributes/edit-details-model';
 import { CharacterDetails } from '../features/character-sheet/types/character-details.types';
+import CharacterSheetData from '../features/character-sheet/character-sheet-data';
 
 const Stack = createNativeStackNavigator();
 
 export type RootStackParamList = {
-  CharacterSheet: undefined;
-  EditDetails: {
-        currentDetails: CharacterDetails
-        setDetails: (details: CharacterDetails) => void;
-  }
+  CharacterSheet: undefined
+  EditDetails:  { id: string };
 }
 
 export type EditDetailsRouteProp = RouteProp<RootStackParamList, 'EditDetails'>;
@@ -30,7 +27,7 @@ export function RootStack() {
       <Stack.Group>
         <Stack.Screen
           name='CharacterSheet'
-          component={CharactersView}
+          component={CharacterSheetData}
           options={{ headerTitle: 'Character Sheet'}}
         />
       </Stack.Group>

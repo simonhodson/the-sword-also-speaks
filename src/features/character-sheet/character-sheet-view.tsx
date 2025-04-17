@@ -1,24 +1,24 @@
 import React from 'react';
 import { FlatList, View, Dimensions } from 'react-native';
-import { CharactersStack } from '../../navigation/characters-stack';
-import CharacterSheetData from './character-sheet-data';
-import { AbilityScoresView } from './components/ability-scores-view';
-import SkillsData from '../skills/skills-data';
+import SkillsData from './components/skills/skills-data';
+import { DetailsAbiltiesCombinedData } from './components/details-attributes/details-abilities-view';
 
+type CharacterSheetViewProps = { id: string };
 
-// Characters Data Sheet for now
-// this will be the Characters screen listing all characters saved
-export default function CharactersView() {
+/**
+ * Controls current view for character sheet
+ */
+function CharacterSheetView({ id }: CharacterSheetViewProps) {
 
   const { width: screenWidth } = Dimensions.get('window');
 
   const subScreens = [
-    { key: 'character-abilities', content: <CharacterSheetData /> },
-    { key: 'skills', content: <SkillsData /> },
+    { key: 'character-abilities', content: <DetailsAbiltiesCombinedData id={id} /> },
+    { key: 'skills', content: <SkillsData id={id} /> },
   ];
 
   return (
-    <View style={{ flex: 1 }}>
+    <View>
       <FlatList
         horizontal
         pagingEnabled
@@ -34,3 +34,5 @@ export default function CharactersView() {
     </View>
   );
 };
+
+export { CharacterSheetView };

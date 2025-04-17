@@ -1,14 +1,16 @@
 import React from 'react';
 import { View, Dimensions } from 'react-native';
 
-import { Skills } from './types/skills-types';
+import { Skills } from '../../types/skills-types';
 import { SkillsView } from './skills-view';
 
+type SkillDataProps = { id: string };
 
 /**
  * Data is responsible for creating, storing, fetching data for views
  */
-export default function SkillsData() {
+export default function SkillsData({ id }: SkillDataProps) {
+
     const { width: screenWidth } = Dimensions.get('window');
     const skills: Skills = {
         acrobatics: { suit: 'Spades', rank: 0 },

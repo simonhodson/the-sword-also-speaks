@@ -3,15 +3,14 @@ import type { PropsWithChildren } from 'react';
 import { StyleSheet, View, Text, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
-import { CharacterDetails, characterDetailsDisplayText, CharacterDetailsKey } from '../types/character-details.types';
-import { AttributesContainerView } from '../../../common/components/attributes-container-view';
+import { CharacterDetails, characterDetailsDisplayText, CharacterDetailsKey } from '../../types/character-details.types';
+import { AttributesContainerView } from '../../../../common/components/attributes-container-view';
 
 type CharacterDetailsView = PropsWithChildren<{
   characterDetails: CharacterDetails;
-  editDetails: () => void;
 }>;
 
-function CharacterDetailsView({ characterDetails, editDetails }: CharacterDetailsView) {
+function CharacterDetailsView({ characterDetails }: CharacterDetailsView) {
 
   function renderDetails() {
     const entries = Object.entries(characterDetails) as [CharacterDetailsKey, any][];
@@ -31,7 +30,7 @@ function CharacterDetailsView({ characterDetails, editDetails }: CharacterDetail
   return (
     <AttributesContainerView >
       <Pressable
-        onPress={editDetails}
+        onPress={() => console.log('Wooo')}
         style={{ alignSelf: 'flex-end' }}
       >
         <Icon name='edit' size={26} />

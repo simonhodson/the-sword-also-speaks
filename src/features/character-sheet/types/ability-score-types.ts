@@ -12,6 +12,8 @@ const abilityScoreTemplate = {
   export type AbilityStat = { suit: Suit, total: number };
   
   export type AbilityKey = keyof typeof abilityScoreTemplate;
+
+  
   export type AbilityScores = Record<AbilityKey, AbilityStat>;
   
   export const abilityKeys = Object.keys(abilityScoreTemplate) as AbilityKey[];
