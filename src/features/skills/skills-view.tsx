@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import type { PropsWithChildren } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { AttributesContainerView } from './attributes-container-view';
-import { skillDisplayText, Skills, SkillsKey, SkillsLevel } from '../types/skills-types';
+import { AttributesContainerView } from '../../common/components/attributes-container-view';
+import { skillDisplayText, Skills, SkillsKey, SkillsLevel } from './types/skills-types';
 
 type SkillsView = PropsWithChildren<{
   skills: Skills

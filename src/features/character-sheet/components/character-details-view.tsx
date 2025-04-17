@@ -2,15 +2,13 @@ import React, { useEffect } from 'react';
 import type { PropsWithChildren } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { CharacterDetails, characterDetailsDisplayText, CharacterDetailsKey } from '../types/character-details.types';
-import { AttributesContainerView } from './attributes-container-view';
+import { AttributesContainerView } from '../../../common/components/attributes-container-view';
 
 type CharacterDetailsView = PropsWithChildren<{
   characterDetails: CharacterDetails
 }>;
 
 function CharacterDetailsView({ characterDetails }: CharacterDetailsView) {
-
-  console.log(characterDetails)
 
   function renderDetails() {
     const entries = Object.entries(characterDetails) as [CharacterDetailsKey, any][];
@@ -24,7 +22,7 @@ function CharacterDetailsView({ characterDetails }: CharacterDetailsView) {
           <Text style={styles.text}>{value}</Text>
         </View>
       )
-    } )
+    })
   }
 
   return (

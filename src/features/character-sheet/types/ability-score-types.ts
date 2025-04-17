@@ -1,5 +1,5 @@
 import { Suit } from './character-sheet-types';
-import { createDisplayText } from '../../utilities/display-text';
+import { createDisplayText } from '../../../utilities/display-text';
 
 // Template created to avoid Typescript teardown at compile
 const abilityScoreTemplate = {
