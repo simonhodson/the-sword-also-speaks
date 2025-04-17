@@ -14,6 +14,6 @@ export type Character = {
   id: string;
   details: CharacterDetails;
   abilityScores: AbilityScores
-  skils: Skills;
+  skills: Skills;
   specialBonuses?: SpecialBonuses;
 };

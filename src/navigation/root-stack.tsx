@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator();
 
 export type RootStackParamList = {
   CharacterSheet: undefined
-  EditDetails:  { id: string };
+  EditDetails:  { characterId: string };
 }
 
 export type EditDetailsRouteProp = RouteProp<RootStackParamList, 'EditDetails'>;
