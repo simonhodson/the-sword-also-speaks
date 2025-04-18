@@ -1,7 +1,6 @@
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {  RouteProp } from "@react-navigation/native";
 import { EditDetailsModal } from '../features/character-sheet/components/details-attributes/edit-details-model';
-import { CharacterDetails } from '../features/character-sheet/types/character-details.types';
 import CharacterSheetData from '../features/character-sheet/character-sheet-data';
 
 const Stack = createNativeStackNavigator();
@@ -26,7 +25,7 @@ export function RootStack() {
         fontFamily: "Gaegu-Regular",
         fontSize: 32
       },
-      headerTintColor: '#fff',
+      headerTintColor: '#fff'
     }}>
       <Stack.Group>
         <Stack.Screen

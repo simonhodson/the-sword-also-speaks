@@ -1,14 +1,27 @@
 import React from "react";
-import { Pressable, StyleSheet, View, Text } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  View,
+  Text
+} from "react-native";
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function ExitButton({ onExit }: { onExit: () => void } ) {
+export default function ExitButton({ onExit }: { onExit: () => void }) {
 
-    return (
-        <View>
-            <Pressable onPress={onExit}>
-                <Text>Exit</Text>
-            </Pressable>
-        </View>
-    )
+  return (
+
+    <Pressable onPress={onExit} style={styles.main}>
+      <Icon name='arrow-back-ios' size={26} style={{ color: '#fff' }} />
+    </Pressable>
+
+  )
 
 }
+
+const styles = StyleSheet.create({
+  main: {
+    marginLeft: 20,
+    marginRight: 20,
+  }
+})
