@@ -17,9 +17,6 @@ type CharacterHeaderViewProps = {
     return (
       <View style={[styles.main, { height: screenHeight * 0.10}]}>
         <View style={{ flexDirection: 'row', justifyContent: 'flex-end'}}>
-          <Pressable onPress={goBack}>
-              <Text style={styles.heavyText}>Exit</Text>
-          </Pressable>
         </View>
 
       </View>
