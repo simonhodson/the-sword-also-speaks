@@ -26,20 +26,26 @@ function TornPaperBox({ children }: TornPaperProps) {
 
 
   const buildPath = (dx = 0, dy = 0) => width && height
-    ? `
-      M${0 + dx},${waveHeight + dy}
-      Q${width * 0.25 + dx},${0 + dy} ${width * 0.5 + dx},${waveHeight + dy}
-    
-      L${width * 0.5 - 3 + dx},${waveHeight + dy}
-      L${width * 0.5 + dx},${20 + dy}
-      L${width * 0.5 + 15 + dx},${waveHeight + dy}
+  ? `
+    M${0 + dx},${waveHeight + dy}
+    Q${width * 0.25 + dx},${0 + dy} ${width * 0.5 + dx},${waveHeight + dy}
 
-      T${width + dx},${waveHeight + dy}
-      L${width + dx},${height - waveHeight + dy}
-      Q${width * 0.75 + dx},${height + dy} ${width * 0.5 + dx},${height - waveHeight + dy}
-      T${0 + dx},${height - waveHeight + dy}
-      Z
-    ` : '';
+    L${width * 0.5 - 3 + dx},${waveHeight + dy}
+    L${width * 0.5 + dx},${20 + dy}
+    L${width * 0.5 + 15 + dx},${waveHeight + dy}
+
+    T${width + dx},${waveHeight + dy}
+    Q${width + dx - 10},${(height + waveHeight) / 2 + dy} ${width + dx},${height - waveHeight + dy}
+
+    Q${width * 0.75 + dx},${height + dy} ${width * 0.5 + dx},${height - waveHeight + dy}
+    T${0 + dx},${height - waveHeight + dy}
+
+    Q${-10 + dx},${(height + waveHeight) / 2 + dy} ${0 + dx},${waveHeight + dy}
+
+    Z
+  ` : '';
+
+    console.log(buildPath())
 
     return (
       <>
@@ -62,6 +68,7 @@ function TornPaperBox({ children }: TornPaperProps) {
               d={buildPath()}
               fill="#f6f4ec"
               stroke="#ccc"
+              strokeWidth={2}
             />
           </Svg>
         )}
@@ -78,8 +85,66 @@ export { TornPaperBox }
 
 const styles = StyleSheet.create({
   main: {
-    marginLeft: 15,
-    marginRight: 15,
+    marginLeft: 30,
+    marginRight: 30,
     padding: 5,
   }
 });
+
+
+/*
+
+  const buildPath = (dx = 0, dy = 0) => width && height
+    ? `
+      M${0 + dx},${waveHeight + dy}
+      Q${width * 0.25 + dx},${0 + dy} ${width * 0.5 + dx},${waveHeight + dy}
+      T${width + dx},${waveHeight + dy}
+      L${width + dx},${height - waveHeight + dy}
+      Q${width * 0.75 + dx},${height + dy} ${width * 0.5 + dx},${height - waveHeight + dy}
+      T${0 + dx},${height - waveHeight + dy}
+      Z
+    ` : '';
+
+
+        ? `
+      M${0 + dx},${waveHeight + dy}
+      Q${width * 0.25 + dx},${0 + dy} ${width * 0.5 + dx},${waveHeight + dy}
+    
+      L${width * 0.5 - 3 + dx},${waveHeight + dy}
+      L${width * 0.5 + dx},${20 + dy}
+      L${width * 0.5 + 15 + dx},${waveHeight + dy}
+
+      T${width + dx},${waveHeight + dy}
+      L${width + dx},${height - waveHeight + dy}
+      Q${width * 0.75 + dx},${height + dy} ${width * 0.5 + dx},${height - waveHeight + dy}
+      T${0 + dx},${height - waveHeight + dy}
+      Z
+    ` : '';
+    
+
+
+// GOOD BUT NOT GREAT
+const buildPath = (dx = 0, dy = 0) => width && height
+  ? `
+    M${0 + dx},${waveHeight + dy}
+    Q${width * 0.25 + dx},${0 + dy} ${width * 0.5 + dx},${waveHeight + dy}
+
+    L${width * 0.5 - 3 + dx},${waveHeight + dy}
+    L${width * 0.5 + dx},${20 + dy}
+    L${width * 0.5 + 15 + dx},${waveHeight + dy}
+
+    T${width + dx},${waveHeight + dy}
+    Q${width + dx - 10},${(height + waveHeight) / 2 + dy} ${width + dx},${height - waveHeight + dy}
+
+    Q${width * 0.75 + dx},${height + dy} ${width * 0.5 + dx},${height - waveHeight + dy}
+    T${0 + dx},${height - waveHeight + dy}
+
+    Q${-10 + dx},${(height + waveHeight) / 2 + dy} ${0 + dx},${waveHeight + dy}
+
+    Z
+  ` : '';
+
+
+
+
+*/
