@@ -12,7 +12,7 @@ type CharacterDetailsView = PropsWithChildren<{
 }>;
 
 function CharacterDetailsView({ characterDetails, onPressEdit }: CharacterDetailsView) {
-  console.log('DETAILS >>> ', characterDetails.name)
+
   function renderDetails() {
     const entries = Object.entries(characterDetails) as [CharacterDetailsKey, any][];
 

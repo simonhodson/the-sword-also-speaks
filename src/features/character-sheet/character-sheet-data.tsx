@@ -1,34 +1,96 @@
 import React, { useState, useEffect } from 'react';
-import { View, Dimensions, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { EditDetailsNavigationProp } from '../../navigation/root-stack';
+import {
+  View,
+  ActivityIndicator,
+  StyleSheet,
+  Platform,
+  FlatList,
+  Button
+} from 'react-native';
 import { CharacterSheetView } from './character-sheet-view';
-import { Character } from './types/character-sheet-types';
 import createNewCharacter from '../../factories/character-sheet-factory';
 import { useCharacterStore } from '../../store/useCharcterStore';
+import { CharacterSelectionCardView } from './components/character-selection-card-view';
 
-
+type Selected = { selected: boolean, id?: string | undefined };
 /**
  * Responsible for creating characters or retrieving stored ones
  */
 export default function CharacterSheetData() {
-  const navigation = useNavigation<EditDetailsNavigationProp>();
-  const { width: screenWidth } = Dimensions.get('window');
-
   const addCharacter = useCharacterStore(state => state.addNewCharacter);
+  const characters = useCharacterStore(state => state.characters);
 
-  console.log('Initial start...')
+  const [loading, setLoading] = useState(true);
+  const [selected, setSelected] = useState<Selected>({ selected: false });
 
-  const initialCharacter = createNewCharacter();
-  addCharacter(initialCharacter);
+  // Are there stored characters?
+  useEffect(() => {
+    useCharacterStore.getState().hydrate();
+
+    return () => {
+      setLoading(true);
+      setSelected({ selected: false });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (characters) {
+      setLoading(false);
+    }
+  }, [characters])
+
+  function onPressCreate() {
+    const initialCharacter = createNewCharacter();
+    addCharacter(initialCharacter);
+  }
+
+  if (loading) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator size={Platform.OS === 'android' ? 65 : 'large'} />
+      </View>
+    );
+  }
 
   return (
-      initialCharacter && initialCharacter.id ? (<View style={{ width: screenWidth }}>
-        <CharacterSheetView characterId={initialCharacter.id}/>
-    </View>) : (
-      <View>
-          <Text>Loading View...</Text>
-      </View>
-    )
-  )
+    selected.selected && selected.id ? (
+      <CharacterSheetView characterId={selected.id}/>
+    ) : (
+      <FlatList
+        style={{ flex: 1 }}
+        data={characters}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <CharacterSelectionCardView
+            name={item.details.name}
+            species={item.details.species}
+            archetype={item.details.archetype}
+            currentLevel={item.details.currentLevel}
+            onSelect={() => setSelected({ selected: true, id: item.id })}
+          />
+        )}
+        ListHeaderComponent={
+          <View style={styles.buttonZone}>
+            <Button title="Create New Character" onPress={onPressCreate} />
+          </View>
+        }
+        ItemSeparatorComponent={() => (
+          <View style={{ margin: 10 }} />
+        )}
+      />
+    ))
 }
+
+const styles = StyleSheet.create({
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  buttonZone: {
+    marginTop: 20,
+    marginBottom: 20,
+    width: '100%',
+    alignItems: 'center',
+  }
+})

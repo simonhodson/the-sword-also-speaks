@@ -5,7 +5,6 @@ import { CharacterDetails } from "../../types/character-details.types";
 import { EditDetailsNavigationProp, EditDetailsRouteProp } from "../../../../navigation/root-stack";
 import { useCharacterStore } from "../../../../store/useCharcterStore";
 
-
 function EditDetailsModal() {
     const navigation = useNavigation<EditDetailsNavigationProp>();
     const { characterId } = useRoute<EditDetailsRouteProp>().params;
@@ -16,10 +15,8 @@ function EditDetailsModal() {
 
     function onSave() {
       if (newDetils) {
-        console.log('attempting save..')
         updateCharacter(characterId, newDetils);
       } else {
-        console.warn('OH OH IN EDIT')
         // Alert something went wrong
       }
       navigation.goBack();
