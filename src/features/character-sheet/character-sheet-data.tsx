@@ -12,6 +12,7 @@ import createNewCharacter from '../../factories/character-sheet-factory';
 import { useCharacterStore } from '../../store/useCharcterStore';
 import { CharacterSelectionCardView } from './components/character-selection-card-view';
 import LoadingIndicator from '../../common/components/loading-screen';
+import { useNavigation } from '@react-navigation/native';
 
 type Selected = { selected: boolean, id?: string | undefined };
 /**
@@ -20,6 +21,7 @@ type Selected = { selected: boolean, id?: string | undefined };
 export default function CharacterSheetData() {
   const addCharacter = useCharacterStore(state => state.addNewCharacter);
   const characters = useCharacterStore(state => state.characters);
+  const navigation = useNavigation();
 
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Selected>({ selected: false });
@@ -27,7 +29,6 @@ export default function CharacterSheetData() {
   // Are there stored characters?
   useEffect(() => {
     useCharacterStore.getState().hydrate();
-
     return () => {
       setLoading(true);
       setSelected({ selected: false });
@@ -51,7 +52,7 @@ export default function CharacterSheetData() {
 
   return (
     selected.selected && selected.id ? (
-      <CharacterSheetView characterId={selected.id}/>
+      <CharacterSheetView characterId={selected.id} goBack={() => setSelected({ selected: false })}/>
     ) : (
       <FlatList
         style={{ flex: 1 }}

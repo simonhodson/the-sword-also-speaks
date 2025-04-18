@@ -22,7 +22,7 @@ export function RootStack() {
       headerStyle: {
         backgroundColor: '#000000',
       },
-      headerTintColor: '#ffffff'
+      headerTintColor: '#ffffff',
     }}>
       <Stack.Group>
         <Stack.Screen
