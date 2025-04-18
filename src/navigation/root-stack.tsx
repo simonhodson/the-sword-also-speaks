@@ -20,9 +20,13 @@ export function RootStack() {
   return (
     <Stack.Navigator screenOptions={{
       headerStyle: {
-        backgroundColor: '#000000',
+        backgroundColor: '#000',
       },
-      headerTintColor: '#ffffff',
+      headerTitleStyle: {
+        fontFamily: "Gaegu-Regular",
+        fontSize: 32
+      },
+      headerTintColor: '#fff',
     }}>
       <Stack.Group>
         <Stack.Screen

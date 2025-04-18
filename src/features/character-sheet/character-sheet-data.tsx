@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   View,
-  ActivityIndicator,
   StyleSheet,
-  Platform,
   FlatList,
   Button
 } from 'react-native';
@@ -14,7 +12,7 @@ import { CharacterSelectionCardView } from './components/character-selection-car
 import LoadingIndicator from '../../common/components/loading-screen';
 import { useNavigation } from '@react-navigation/native';
 
-type Selected = { selected: boolean, id?: string | undefined };
+type Selected = { selected: boolean, id?: string | undefined, name?: string | undefined };
 /**
  * Responsible for creating characters or retrieving stored ones
  */
@@ -41,6 +39,13 @@ export default function CharacterSheetData() {
     }
   }, [characters])
 
+  function onReturn() {
+    setSelected({ selected: false })
+    navigation.setOptions({
+      headerTitle: 'Select Character', 
+    });
+  }
+
   function onPressCreate() {
     const initialCharacter = createNewCharacter();
     addCharacter(initialCharacter);
@@ -51,8 +56,12 @@ export default function CharacterSheetData() {
   }
 
   return (
-    selected.selected && selected.id ? (
-      <CharacterSheetView characterId={selected.id} goBack={() => setSelected({ selected: false })}/>
+    selected.selected && selected.id && selected.name ? (
+      <CharacterSheetView
+        characterId={selected.id}
+        charName={selected.name}
+        goBack={onReturn}
+      />
     ) : (
       <FlatList
         style={{ flex: 1 }}
@@ -64,7 +73,7 @@ export default function CharacterSheetData() {
             species={item.details.species}
             archetype={item.details.archetype}
             currentLevel={item.details.currentLevel}
-            onSelect={() => setSelected({ selected: true, id: item.id })}
+            onSelect={() => setSelected({ selected: true, id: item.id, name: item.details.name })}
           />
         )}
         ListHeaderComponent={
