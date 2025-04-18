@@ -5,25 +5,32 @@ import SkillsData from './components/skills/skills-data';
 import { DetailsAbiltiesCombinedData } from './components/details-attributes/details-abilities-view';
 import { CharacterSubHeaderView } from './components/details-attributes/charcter-sub-header-view';
 import ExitButton from '../../common/components/exit-button-view';
+import { useCharacterStore } from '../../store/useCharcterStore';
 
-type CharacterSheetViewProps = { characterId: string, charName: string; goBack: () => void };
+type CharacterSheetViewProps = { characterId: string, goBack: () => void };
 
 /**
  * Controls current view for character sheet
  */
-function CharacterSheetView({ characterId, goBack, charName }: CharacterSheetViewProps) {
+function CharacterSheetView({ characterId, goBack }: CharacterSheetViewProps) {
   const navigation = useNavigation();
   const { width: screenWidth , height: screenHeight } = useWindowDimensions();
+  const character = useCharacterStore(state => state.characters.find(c => c.id === characterId));
 
   useEffect(() => {
-    if (charName) {
       navigation.setOptions({
-        headerTitle: charName,
+        headerTitle: character?.details.name,
         headerLeft: () => (<ExitButton onExit={goBack} />),
       })
-    }
-  },[])
+  },[character]);
 
+
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     headerTitle: charName,
+  //     headerLeft: () => (<ExitButton onExit={goBack} />),
+  //   })
+  // }, [characters])
   const subScreens = [
     { key: 'character-abilities', content: <DetailsAbiltiesCombinedData characterId={characterId} /> },
     { key: 'skills', content: <SkillsData characterId={characterId} /> },

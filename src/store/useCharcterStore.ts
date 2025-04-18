@@ -5,16 +5,14 @@ import { loadCharacters, saveCharacters } from '../utilities/async-storage';
 
 type CharacterStore = {
   characters: Character[];
-  currentCharacter: Character | undefined;
   addNewCharacter: (character: Character) => void;
   getCharacterById: (id: string) => Character | undefined;
   updateCharacterDetails: (id: string, newDetails: Partial<CharacterDetails>) => void;
-  hydrate: () => void
+  hydrate: () => void;
 };
 
 export const useCharacterStore = create<CharacterStore>((set, get) => ({
   characters: [],
-  currentCharacter: undefined,
 
   addNewCharacter: (character: Character) => {
     set((state) => ({
@@ -41,7 +39,6 @@ export const useCharacterStore = create<CharacterStore>((set, get) => ({
     // Save to storage
     saveCharacters(get().characters);
   },
-
   hydrate: async () => {
     const saved = await loadCharacters();
     if (saved) {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Pressable, Text, View } from 'react-native';
 import { CharacterDetails } from '../types/character-details.types';
+import { TornPaperBox } from '../../../common/components/torn-paper-box-view';
 
 type CharacterSelectionCardViewProps = CharacterDetails & {
   onSelect: () => void;
@@ -14,16 +15,16 @@ function CharacterSelectionCardView({
   onSelect
 }: CharacterSelectionCardViewProps) {
   return (
-    <View style={{ alignItems: 'center' }}>
+    <TornPaperBox >
       <Pressable style={styles.main} onPress={onSelect}>
         <Text style={styles.heavyText}>{name}</Text>
         <View style={{ flexDirection: 'row' }}>
-          <Text style={styles.heavyText}>{`Level ${currentLevel}`}</Text>
-          <Text style={[styles.heavyText, { paddingLeft: 20 }]}>{species}</Text>
+          <Text style={styles.text}>{`Level ${currentLevel}`}</Text>
+          <Text style={[styles.text, { paddingLeft: 20 }]}>{species}</Text>
         </View>
-        <Text style={styles.heavyText}>{archetype}</Text>
+        <Text style={styles.text}>{archetype}</Text>
       </Pressable>
-    </View>
+    </TornPaperBox>
   )
 }
 
@@ -34,7 +35,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f3f3f3',
     flexDirection: 'column',
     padding: 15,
-    borderWidth: 1,
     width: '90%',
   },
   text: {

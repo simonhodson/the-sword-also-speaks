@@ -12,12 +12,13 @@ import { CharacterSelectionCardView } from './components/character-selection-car
 import LoadingIndicator from '../../common/components/loading-screen';
 import { useNavigation } from '@react-navigation/native';
 
-type Selected = { selected: boolean, id?: string | undefined, name?: string | undefined };
+type Selected = { selected: boolean, id?: string | undefined };
 /**
  * Responsible for creating characters or retrieving stored ones
  */
 export default function CharacterSheetData() {
   const addCharacter = useCharacterStore(state => state.addNewCharacter);
+
   const characters = useCharacterStore(state => state.characters);
   const navigation = useNavigation();
 
@@ -42,7 +43,7 @@ export default function CharacterSheetData() {
   function onReturn() {
     setSelected({ selected: false })
     navigation.setOptions({
-      headerTitle: 'Select Character', 
+      headerTitle: 'Select Character',
     });
   }
 
@@ -56,10 +57,9 @@ export default function CharacterSheetData() {
   }
 
   return (
-    selected.selected && selected.id && selected.name ? (
+    selected.selected && selected.id ? (
       <CharacterSheetView
         characterId={selected.id}
-        charName={selected.name}
         goBack={onReturn}
       />
     ) : (
@@ -73,7 +73,9 @@ export default function CharacterSheetData() {
             species={item.details.species}
             archetype={item.details.archetype}
             currentLevel={item.details.currentLevel}
-            onSelect={() => setSelected({ selected: true, id: item.id, name: item.details.name })}
+            onSelect={() =>
+              setSelected({ selected: true, id: item.id }
+              )}
           />
         )}
         ListHeaderComponent={
@@ -82,7 +84,7 @@ export default function CharacterSheetData() {
           </View>
         }
         ItemSeparatorComponent={() => (
-          <View style={{ margin: 10 }} />
+          <View style={{ margin: 1 }} />
         )}
       />
     ))
