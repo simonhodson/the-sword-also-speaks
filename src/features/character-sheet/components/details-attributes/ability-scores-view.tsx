@@ -3,6 +3,7 @@ import type { PropsWithChildren } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { AbilityKey, AbilityScores, AbilityStat, abilityDisplayText } from '../../types/ability-score-types';
 import { AttributesContainerView } from '../../../../common/components/attributes-container-view';
+import { TornPaperBox } from '../../../../common/components/torn-paper-box-view';
 
 type AbilityScoresView = PropsWithChildren<{
   abilityScores: AbilityScores
@@ -26,7 +27,7 @@ function AbilityScoresView({ abilityScores }: AbilityScoresView) {
   }
 
   return (
-    <AttributesContainerView >
+    <TornPaperBox >
       <View style={styles.main}>
         <View style={styles.statRow}>
           <Text style={styles.heavyText}>Ability Scores</Text>
@@ -35,7 +36,7 @@ function AbilityScoresView({ abilityScores }: AbilityScoresView) {
         {renderDetails()}
       </View>
 
-    </AttributesContainerView>
+    </TornPaperBox>
   )
 }
 
