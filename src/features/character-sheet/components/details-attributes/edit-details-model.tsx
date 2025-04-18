@@ -2,27 +2,35 @@ import React, { useState } from "react";
 import { View, StyleSheet, Button, TextInput } from 'react-native';
 import { useNavigation, RouteProp, useRoute } from "@react-navigation/native";
 import { CharacterDetails } from "../../types/character-details.types";
-import { EditDetailsRouteProp } from "../../../../navigation/root-stack";
+import { EditDetailsNavigationProp, EditDetailsRouteProp } from "../../../../navigation/root-stack";
+import { useCharacterStore } from "../../../../store/useCharcterStore";
 
 
 function EditDetailsModal() {
-    const navigation = useNavigation();
-    const { currentDetails, setDetails } = useRoute<EditDetailsRouteProp>().params;
+    const navigation = useNavigation<EditDetailsNavigationProp>();
+    const { characterId } = useRoute<EditDetailsRouteProp>().params;
 
-
-    const [newDetils, setNew] = useState<CharacterDetails>(currentDetails);
+    const currentCharacter = useCharacterStore(state => state.getCharacterById(characterId));
+    const updateCharacter = useCharacterStore(state => state.updateCharacterDetails)
+    const [newDetils, setNew] = useState<CharacterDetails | undefined>(currentCharacter?.details);
 
     function onSave() {
-      setDetails(newDetils);
+      if (newDetils) {
+        console.log('attempting save..')
+        updateCharacter(characterId, newDetils);
+      } else {
+        console.warn('OH OH IN EDIT')
+        // Alert something went wrong
+      }
       navigation.goBack();
     }
   
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      newDetils && <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <TextInput
             style={styles.input}
             value={newDetils.name}
-            onChangeText={(v) => setNew({ ...currentDetails, name: v})}
+            onChangeText={(v) => setNew({ ...newDetils, name: v})}
         />
         <Button onPress={onSave} title="Save" />
       </View>

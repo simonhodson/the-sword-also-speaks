@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { EditDetailsNavigationProp } from '../../navigation/root-stack';
 import { CharacterSheetView } from './character-sheet-view';
 import { Character } from './types/character-sheet-types';
 import createNewCharacter from '../../factories/character-sheet-factory';
+import { useCharacterStore } from '../../store/useCharcterStore';
 
 
 /**
@@ -14,17 +15,20 @@ export default function CharacterSheetData() {
   const navigation = useNavigation<EditDetailsNavigationProp>();
   const { width: screenWidth } = Dimensions.get('window');
 
-  const [character, setCharacter] = useState<Character | undefined>(undefined);
+  const addCharacter = useCharacterStore(state => state.addNewCharacter);
 
-  useEffect(() => {
-    const initialCharacter = createNewCharacter();
-    setCharacter(initialCharacter);
-    console.log('Starting.... ', initialCharacter)
-  }, []);
+  console.log('Initial start...')
+
+  const initialCharacter = createNewCharacter();
+  addCharacter(initialCharacter);
 
   return (
-    <View style={{ width: screenWidth }}>
-        <CharacterSheetView characterId={character?.id}/>
-    </View>
+      initialCharacter && initialCharacter.id ? (<View style={{ width: screenWidth }}>
+        <CharacterSheetView characterId={initialCharacter.id}/>
+    </View>) : (
+      <View>
+          <Text>Loading View...</Text>
+      </View>
+    )
   )
 }

@@ -22,7 +22,13 @@ export const useCharacterStore = create<CharacterStore>((set, get) => ({
   updateCharacterDetails: (id, newDetails) => {
     set((state) => ({
       characters: state.characters.map((char) =>
-        char.id === id ? { ...char, ...newDetails } : char
+        char.id === id ? {
+          ...char, 
+          details: {
+            ...char.details,
+            ...newDetails
+          }
+        } : char
       ),
     }));
   },

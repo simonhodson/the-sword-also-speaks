@@ -8,10 +8,11 @@ import { AttributesContainerView } from '../../../../common/components/attribute
 
 type CharacterDetailsView = PropsWithChildren<{
   characterDetails: CharacterDetails;
+  onPressEdit: () => void;
 }>;
 
-function CharacterDetailsView({ characterDetails }: CharacterDetailsView) {
-
+function CharacterDetailsView({ characterDetails, onPressEdit }: CharacterDetailsView) {
+  console.log('DETAILS >>> ', characterDetails.name)
   function renderDetails() {
     const entries = Object.entries(characterDetails) as [CharacterDetailsKey, any][];
 
@@ -30,7 +31,7 @@ function CharacterDetailsView({ characterDetails }: CharacterDetailsView) {
   return (
     <AttributesContainerView >
       <Pressable
-        onPress={() => console.log('Wooo')}
+        onPress={onPressEdit}
         style={{ alignSelf: 'flex-end' }}
       >
         <Icon name='edit' size={26} />

@@ -13,21 +13,32 @@ type DetailsAbiltiesCombinedDataProps = { characterId: string };
 function DetailsAbiltiesCombinedData({ characterId }: DetailsAbiltiesCombinedDataProps) {
   const navigation = useNavigation<EditDetailsNavigationProp>();
   const { width: screenWidth } = Dimensions.get('window');
-  const character = useCharacterStore(state => state.getCharacterById(characterId))
+
+  const character = useCharacterStore(
+    state => state.characters.find((c) => c.id === characterId)
+  );
+
+  console.log('CARAC ... ', character)
 
   function onPressEdit() {
-    navigation.navigate('EditDetails', { characterId })
+    if (characterId) {
+      navigation.navigate('EditDetails', { characterId })
+    }
+    // What happens if not?
   }
 
   return (
     character ? (<View style={{ width: screenWidth }}>
       <CharacterDetailsView
         characterDetails={character.details}
+        onPressEdit={onPressEdit}
       />
       <View style={{ margin: 5 }} />
       <AbilityScoresView abilityScores={character.abilityScores} />
     </View>) : (
-      <View><Text>Loading...</Text></View>
+        <View style={{ width: screenWidth }}>
+          <Text>Loading...</Text>
+        </View>
     )
   )
 };
