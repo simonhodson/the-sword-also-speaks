@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import type { PropsWithChildren } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { AbilityKey, AbilityScores, AbilityStat, abilityDisplayText } from '../types/ability-score-types';
-import { AttributesContainerView } from './attributes-container-view';
+import { AbilityKey, AbilityScores, AbilityStat, abilityDisplayText } from '../../types/ability-score-types';
+import { AttributesContainerView } from '../../../../common/components/attributes-container-view';
 
 type AbilityScoresView = PropsWithChildren<{
   abilityScores: AbilityScores

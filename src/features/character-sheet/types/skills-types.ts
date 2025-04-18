@@ -1,4 +1,4 @@
-import { createDisplayText } from "../../utilities/display-text";
+import { createDisplayText } from "../../../utilities/display-text";
 import { Suit } from "./character-sheet-types";
 
 export type SkillsLevel = { suit: Suit, rank: number };

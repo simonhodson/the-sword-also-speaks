@@ -1,21 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import type { PropsWithChildren } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { CharacterDetails, characterDetailsDisplayText, CharacterDetailsKey } from '../types/character-details.types';
-import { AttributesContainerView } from './attributes-container-view';
+import { StyleSheet, View, Text, Pressable } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
+
+import { CharacterDetails, characterDetailsDisplayText, CharacterDetailsKey } from '../../types/character-details.types';
+import { AttributesContainerView } from '../../../../common/components/attributes-container-view';
 
 type CharacterDetailsView = PropsWithChildren<{
-  characterDetails: CharacterDetails
+  characterDetails: CharacterDetails;
+  onPressEdit: () => void;
 }>;
 
-function CharacterDetailsView({ characterDetails }: CharacterDetailsView) {
-
-  console.log(characterDetails)
-
+function CharacterDetailsView({ characterDetails, onPressEdit }: CharacterDetailsView) {
+  console.log('DETAILS >>> ', characterDetails.name)
   function renderDetails() {
     const entries = Object.entries(characterDetails) as [CharacterDetailsKey, any][];
 
-    return entries.map(([key,value]) => {
+    return entries.map(([key, value]) => {
       return (
         <View key={key} style={styles.main}>
           <Text style={styles.heavyText}>
@@ -24,11 +25,17 @@ function CharacterDetailsView({ characterDetails }: CharacterDetailsView) {
           <Text style={styles.text}>{value}</Text>
         </View>
       )
-    } )
+    })
   }
 
   return (
     <AttributesContainerView >
+      <Pressable
+        onPress={onPressEdit}
+        style={{ alignSelf: 'flex-end' }}
+      >
+        <Icon name='edit' size={26} />
+      </Pressable>
       {renderDetails()}
     </AttributesContainerView>
   )

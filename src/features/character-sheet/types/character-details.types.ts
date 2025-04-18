@@ -1,4 +1,4 @@
-import { createDisplayText } from "../../utilities/display-text";
+import { createDisplayText } from "../../../utilities/display-text";
 import { Archetype, Species } from "./character-sheet-types";
 
 const characterDetailsTemplate = {
