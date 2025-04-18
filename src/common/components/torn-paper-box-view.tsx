@@ -30,14 +30,18 @@ function TornPaperBox({ children }: TornPaperProps) {
     M${0 + dx},${waveHeight + dy}
     Q${width * 0.25 + dx},${0 + dy} ${width * 0.5 + dx},${waveHeight + dy}
 
-    L${width * 0.5 - 3 + dx},${waveHeight + dy}
-    L${width * 0.5 + dx},${20 + dy}
-    L${width * 0.5 + 15 + dx},${waveHeight + dy}
+    L${width * 0.65 - 3 + dx},${waveHeight + dy}
+    L${width * 0.65 + dx},${20 + dy}
+    L${width * 0.65 + 15 + dx},${waveHeight + dy}
 
     T${width + dx},${waveHeight + dy}
     Q${width + dx - 10},${(height + waveHeight) / 2 + dy} ${width + dx},${height - waveHeight + dy}
 
     Q${width * 0.75 + dx},${height + dy} ${width * 0.5 + dx},${height - waveHeight + dy}
+
+    T${width * 0.25 + dx},${height - waveHeight + dy}
+    L${width * 0.22 + dx},${height - waveHeight + -8 + dy}
+    L${width * 0.20 + dx},${height - waveHeight + dy}
     T${0 + dx},${height - waveHeight + dy}
 
     T${0 + dx},${height - waveHeight + dy}
