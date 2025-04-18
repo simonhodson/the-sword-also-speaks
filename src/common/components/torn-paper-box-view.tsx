@@ -40,12 +40,11 @@ function TornPaperBox({ children }: TornPaperProps) {
     Q${width * 0.75 + dx},${height + dy} ${width * 0.5 + dx},${height - waveHeight + dy}
     T${0 + dx},${height - waveHeight + dy}
 
-    Q${-10 + dx},${(height + waveHeight) / 2 + dy} ${0 + dx},${waveHeight + dy}
+    T${0 + dx},${height - waveHeight + dy}
+    Q${10 + dx},${height / 2 + dy} ${0 + dx},${waveHeight + dy}
 
     Z
   ` : '';
-
-    console.log(buildPath())
 
     return (
       <>
@@ -67,8 +66,8 @@ function TornPaperBox({ children }: TornPaperProps) {
             <Path
               d={buildPath()}
               fill="#f6f4ec"
-              stroke="#ccc"
-              strokeWidth={2}
+              stroke="black"
+              strokeWidth={3}
             />
           </Svg>
         )}
@@ -87,7 +86,6 @@ const styles = StyleSheet.create({
   main: {
     marginLeft: 30,
     marginRight: 30,
-    padding: 5,
   }
 });
 
@@ -143,8 +141,5 @@ const buildPath = (dx = 0, dy = 0) => width && height
 
     Z
   ` : '';
-
-
-
 
 */
