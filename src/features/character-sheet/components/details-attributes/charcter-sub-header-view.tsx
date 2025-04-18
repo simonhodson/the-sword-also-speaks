@@ -18,7 +18,6 @@ type CharacterHeaderViewProps = {
       <View style={[styles.main, { height: screenHeight * 0.10}]}>
         <View style={{ flexDirection: 'row', justifyContent: 'flex-end'}}>
         </View>
-
       </View>
     )
 }
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
   main: {
     display: 'flex',
     backgroundColor: 'black',
-    padding: 15
+    padding: 15,
   },
   text: {
     fontFamily: "Gaegu-Regular",

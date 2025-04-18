@@ -43,7 +43,11 @@ function CharacterSheetView({ characterId, goBack, charName }: CharacterSheetVie
         renderItem={({ item }) => {
           return (item.content)
         }}
-        decelerationRate="fast"
+        decelerationRate='normal'
+        bounces={false} // helps reduce 'over pull' on iOS
+        overScrollMode="never" // Android: avoid rubber-banding
+        scrollEventThrottle={30}
+        disableIntervalMomentum={true} // This one helps a lot
       />
     </View>
   )
