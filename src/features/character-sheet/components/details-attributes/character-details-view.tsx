@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import { CharacterDetails, characterDetailsDisplayText, CharacterDetailsKey } from '../../types/character-details.types';
 import { AttributesContainerView } from '../../../../common/components/attributes-container-view';
+import { TornPaperBox } from '../../../../common/components/torn-paper-box-view';
 
 type CharacterDetailsView = PropsWithChildren<{
   characterDetails: CharacterDetails;
@@ -12,7 +13,7 @@ type CharacterDetailsView = PropsWithChildren<{
 }>;
 
 function CharacterDetailsView({ characterDetails, onPressEdit }: CharacterDetailsView) {
-  console.log('DETAILS >>> ', characterDetails.name)
+
   function renderDetails() {
     const entries = Object.entries(characterDetails) as [CharacterDetailsKey, any][];
 
@@ -29,7 +30,7 @@ function CharacterDetailsView({ characterDetails, onPressEdit }: CharacterDetail
   }
 
   return (
-    <AttributesContainerView >
+    <TornPaperBox>
       <Pressable
         onPress={onPressEdit}
         style={{ alignSelf: 'flex-end' }}
@@ -37,7 +38,7 @@ function CharacterDetailsView({ characterDetails, onPressEdit }: CharacterDetail
         <Icon name='edit' size={26} />
       </Pressable>
       {renderDetails()}
-    </AttributesContainerView>
+    </TornPaperBox>
   )
 }
 

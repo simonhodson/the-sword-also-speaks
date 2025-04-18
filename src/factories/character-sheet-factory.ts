@@ -4,9 +4,10 @@ import { Character } from "../features/character-sheet/types/character-sheet-typ
 // Add options to this funciton for the anitial setup
 // details: Omit<CharacterDetails, 'id'>
 export default function createNewCharacter(): Character {
-
+  const date = new Date();
   return {
     id: nanoid(),
+    dateCreated: date.toISOString(),
     details: {
       name: 'Your Name Here',
       species: 'Gnome',

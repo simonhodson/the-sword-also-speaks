@@ -18,8 +18,6 @@ function DetailsAbiltiesCombinedData({ characterId }: DetailsAbiltiesCombinedDat
     state => state.characters.find((c) => c.id === characterId)
   );
 
-  console.log('CARAC ... ', character)
-
   function onPressEdit() {
     if (characterId) {
       navigation.navigate('EditDetails', { characterId })

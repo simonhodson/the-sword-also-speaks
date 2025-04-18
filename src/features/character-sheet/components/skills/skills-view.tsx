@@ -3,6 +3,7 @@ import type { PropsWithChildren } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { AttributesContainerView } from '../../../../common/components/attributes-container-view'; 
 import { skillDisplayText, Skills, SkillsKey, SkillsLevel } from '../../types/skills-types';
+import { TornPaperBox } from '../../../../common/components/torn-paper-box-view';
 
 type SkillsView = PropsWithChildren<{
   skills: Skills
@@ -26,7 +27,7 @@ function SkillsView({ skills }: SkillsView) {
   }
 
   return (
-    <AttributesContainerView >
+    <TornPaperBox >
       <View style={styles.main}>
         <View style={styles.statRow}>
           <Text style={styles.heavyText}>Skills</Text>
@@ -35,7 +36,7 @@ function SkillsView({ skills }: SkillsView) {
         {renderDetails()}
       </View>
 
-    </AttributesContainerView>
+    </TornPaperBox>
   )
 }
 

@@ -12,6 +12,7 @@ export type SpecialBonuses = Record<string, string>;
 
 export type Character = {
   id: string;
+  dateCreated: string;
   details: CharacterDetails;
   abilityScores: AbilityScores
   skills: Skills;
