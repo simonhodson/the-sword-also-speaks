@@ -45,7 +45,8 @@ function CharacterDetailsView({ characterDetails, onPressEdit }: CharacterDetail
 const styles = StyleSheet.create({
   main: {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   },
   text: {
     fontFamily: "Gaegu-Regular",

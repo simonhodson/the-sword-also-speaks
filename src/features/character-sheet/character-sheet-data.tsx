@@ -11,6 +11,7 @@ import { CharacterSheetView } from './character-sheet-view';
 import createNewCharacter from '../../factories/character-sheet-factory';
 import { useCharacterStore } from '../../store/useCharcterStore';
 import { CharacterSelectionCardView } from './components/character-selection-card-view';
+import LoadingIndicator from '../../common/components/loading-screen';
 
 type Selected = { selected: boolean, id?: string | undefined };
 /**
@@ -45,11 +46,7 @@ export default function CharacterSheetData() {
   }
 
   if (loading) {
-    return (
-      <View style={styles.loading}>
-        <ActivityIndicator size={Platform.OS === 'android' ? 65 : 'large'} />
-      </View>
-    );
+    return (<LoadingIndicator />);
   }
 
   return (
