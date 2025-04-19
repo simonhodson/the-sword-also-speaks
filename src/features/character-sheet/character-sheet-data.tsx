@@ -84,7 +84,7 @@ export default function CharacterSheetData() {
           </View>
         }
         ItemSeparatorComponent={() => (
-          <View style={{ margin: 1 }} />
+          <View style={{ margin: 5 }} />
         )}
       />
     ))

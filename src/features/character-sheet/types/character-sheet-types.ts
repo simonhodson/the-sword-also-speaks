@@ -16,5 +16,7 @@ export type Character = {
   details: CharacterDetails;
   abilityScores: AbilityScores
   skills: Skills;
+  // minorSkills: { text: string, rank: number }
   specialBonuses?: SpecialBonuses;
+  // health: number;
 };
