@@ -18,6 +18,7 @@ type Selected = { selected: boolean, id?: string | undefined };
  */
 export default function CharacterSheetData() {
   const addCharacter = useCharacterStore(state => state.addNewCharacter);
+  const deleteCharacter = useCharacterStore(state => state.deleteCharacter);
 
   const characters = useCharacterStore(state => state.characters);
   const navigation = useNavigation();
@@ -52,6 +53,11 @@ export default function CharacterSheetData() {
     addCharacter(initialCharacter);
   }
 
+
+  function onDeleteCharacter(id: string) {
+    deleteCharacter(id);
+  }
+
   if (loading) {
     return (<LoadingIndicator />);
   }
@@ -69,6 +75,7 @@ export default function CharacterSheetData() {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <CharacterSelectionCardView
+            characterId={item.id}
             name={item.details.name}
             species={item.details.species}
             archetype={item.details.archetype}
@@ -76,6 +83,7 @@ export default function CharacterSheetData() {
             onSelect={() =>
               setSelected({ selected: true, id: item.id }
               )}
+            onRemoveCharacter={onDeleteCharacter}
           />
         )}
         ListHeaderComponent={

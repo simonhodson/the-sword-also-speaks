@@ -11,7 +11,6 @@ import {
   FatigueInputModal,
   HealthInputModal
 } from '../../../../common/components/modals';
-import { AbilityScoresInitialValues } from '../../types/ability-score-types';
 import { Initiative } from '../../types/action-stats-types';
 
 
@@ -136,7 +135,7 @@ function CharacterSubHeaderView({
             </Pressable>
           </View>
           <Pressable style={{ flexDirection: 'row' }} onPress={() => setFatigueVisible(true)}>
-            <Text style={styles.text}>Fatigue: </Text>
+            {/* <Text style={styles.text}>Current Fatigue: </Text> */}
             {renderFatigue().map(e => e)}
           </Pressable>
         </View>

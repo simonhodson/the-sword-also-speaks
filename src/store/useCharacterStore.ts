@@ -10,6 +10,7 @@ type CharacterStore = {
   getCharacterById: (id: string) => Character | undefined;
   updateCharacterDetails: (id: string, newDetails: Partial<CharacterDetails>) => void;
   updateCharacterHealth: (id: string, newHealth: Partial<Health>) => void;
+  deleteCharacter: (id: string) => void;
   hydrate: () => void;
 };
 
@@ -42,9 +43,8 @@ export const useCharacterStore = create<CharacterStore>((set, get) => ({
     saveCharacters(get().characters);
   },
   updateCharacterHealth: (id, newHealth) => {
-    console.log(`id ${id} -- health : ${JSON.stringify(newHealth)}`)
     set((state) => ({
-      characters: state.characters.map((char) => 
+      characters: state.characters.map((char) =>
         char.id === id ? {
           ...char,
           health: {
@@ -57,6 +57,14 @@ export const useCharacterStore = create<CharacterStore>((set, get) => ({
     //save to storage
     saveCharacters(get().characters)
 
+  },
+  deleteCharacter: (id: string) => {
+    set((state) => {
+      const updatedCharacters = state.characters.filter(c => c.id !== id);
+      // Save immediately after updating
+      saveCharacters(updatedCharacters);
+      return { characters: updatedCharacters };
+    });
   },
   hydrate: async () => {
     const saved = await loadCharacters();
