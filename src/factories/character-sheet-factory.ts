@@ -36,14 +36,7 @@ export default function createNewCharacter(
     id: nanoid(),
     dateCreated: date.toISOString(),
     abilityScores: abilityScores,
-    actionStats: {
-      speedScore: 0,
-      initiative: {
-        suit: 'Hearts',
-        rank: 1
-      },
-      basesAces: 1
-    },
+    actionStats: actionStats,
     armourStats: {
       head: {
         total: 0,

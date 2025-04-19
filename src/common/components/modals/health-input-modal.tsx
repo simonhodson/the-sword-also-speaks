@@ -9,7 +9,7 @@ type HealthValueInputProps = {
   onSetValue: (value?: number) => void;
 }
 
-export default function HealthInputModal({
+function HealthInputModal({
   modalVisible,
   onSetValue,
   currentHeath,
@@ -49,6 +49,8 @@ export default function HealthInputModal({
     </Modal>
   );
 }
+
+export { HealthInputModal }
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center' },

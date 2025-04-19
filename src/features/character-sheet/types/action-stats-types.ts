@@ -1,7 +1,7 @@
 import { Suit } from "./character-sheet-types";
 import { createDisplayText } from "../../../utilities/display-text";
 
-type Initiative = { suit: Suit, rank: number };
+export type Initiative = { suit: Suit, rank: number };
 
 const actionStatsTemplate = {
     speedScore: undefined as number | undefined,

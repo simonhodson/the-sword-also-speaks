@@ -4,14 +4,20 @@ import {
   StyleSheet,
   Text,
   Pressable,
-  Alert
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useCharacterStore } from '../../../../store/useCharacterStore';
-import FatigueInputModal from '../../../../common/components/modals/fatigue-input-modal';
-import HealthInputModal from '../../../../common/components/modals/health-input-modal';
+import {
+  FatigueInputModal,
+  HealthInputModal
+} from '../../../../common/components/modals';
+import { AbilityScoresInitialValues } from '../../types/ability-score-types';
+import { Initiative } from '../../types/action-stats-types';
+
 
 export const MAX_FATIGUE = 6;
+
+const ICON_TEXT_SIZE = 24;
 
 type CharacterHeaderViewProps = {
   screenHeight: number;
@@ -19,6 +25,9 @@ type CharacterHeaderViewProps = {
   currentHealth: number | undefined;
   currentFatigue: number | undefined;
   characterId: string;
+  speed: number | undefined;
+  initiative: Initiative | undefined;
+  aces: number | undefined;
 }
 
 type FatigueNodeTrack = { element: React.ReactNode, index: number };
@@ -28,7 +37,10 @@ function CharacterSubHeaderView({
   currentHealth,
   currentFatigue,
   characterId,
-  maxHealth
+  speed,
+  maxHealth,
+  initiative,
+  aces
 }: CharacterHeaderViewProps) {
 
   const updateHealth = useCharacterStore(state => state.updateCharacterHealth);
@@ -57,7 +69,7 @@ function CharacterSubHeaderView({
       maxIcons.push(
         <Icon
           key={i}
-          size={18}
+          size={ICON_TEXT_SIZE}
           name={currentFatigue && currentFatigue > i ? 'square-rounded' : 'square-rounded-outline'}
           color={'#fff'}
           style={{ paddingRight: 5 }}
@@ -71,35 +83,64 @@ function CharacterSubHeaderView({
   return (
     <>
       <View style={[styles.main, { height: screenHeight * 0.10 }]}>
-        <View style={styles.fatigue}>
-          <Pressable style={{ flexDirection: 'row' }} onPress={() => setFatigueVisible(true)}>
-            <Text style={styles.text}>Fatigue: </Text>
-            {renderFatigue().map(e => e)}
-          </Pressable>
-
-        </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-
+        {/* Row 1 */}
+        <View style={[styles.rowEvenly, { marginBottom: 10, marginRight: 5 }]}>
           <View style={styles.row}>
             <Icon
-              size={18}
-              name='cards-heart'
+              size={ICON_TEXT_SIZE}
+              name={'foot-print'}
               color={'#fff'}
               style={{ paddingRight: 5 }}
+            />
+            <Text style={styles.text}>{speed}</Text>
+          </View>
+          <View style={styles.row}>
+            <Icon
+              size={ICON_TEXT_SIZE}
+              name={'cards-playing-heart-outline'}
+              color={'#fff'}
+              style={{ paddingRight: 5 }}
+            />
+            <View style={styles.circle}>
+              <Text style={styles.text}>{initiative?.rank}</Text>
+            </View>
+          </View>
+          <View style={styles.row}>
+            <Icon
+              size={ICON_TEXT_SIZE}
+              name={'cards-playing-outline'}
+              color={'#fff'}
+              style={{ paddingRight: 5 }}
+            />
+            <Text style={styles.text}>{aces}</Text>
+          </View>
+        </View>
+        {/* Row 2 */}
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <View style={styles.row}>
+            <Icon
+              size={ICON_TEXT_SIZE}
+              name='cards-heart'
+              color={'#fff'}
+              style={{ marginRight: 5 }}
             />
             <Text style={styles.text}>{maxHealth}</Text>
             <Pressable style={styles.row} onPress={() => setHealthVisible(true)}>
               <Icon
-                size={18}
+                size={ICON_TEXT_SIZE}
                 name='heart-broken'
                 color={'#fff'}
-                style={{ paddingLeft: 5, paddingRight: 5 }}
+                style={{ marginLeft: 5, marginRight: 5 }}
               />
               <Text style={styles.text}>{currentHealth}</Text>
             </Pressable>
           </View>
-          {/* ADD MORE SIMPLE ROW ITEM HERE */}
+          <Pressable style={{ flexDirection: 'row' }} onPress={() => setFatigueVisible(true)}>
+            <Text style={styles.text}>Fatigue: </Text>
+            {renderFatigue().map(e => e)}
+          </Pressable>
         </View>
+        {/* Row 3 */}
       </View>
       {fatigueVisible && currentFatigue !== undefined ? (
         <FatigueInputModal
@@ -107,7 +148,7 @@ function CharacterSubHeaderView({
           modalVisible={fatigueVisible}
           onSetValue={onEditFatigue}
         />
-      ) : false }
+      ) : false}
       {healthVisible && currentHealth && maxHealth ? (
         <HealthInputModal
           currentHeath={currentHealth}
@@ -115,7 +156,7 @@ function CharacterSubHeaderView({
           onSetValue={onEditHealth}
           modalVisible={healthVisible}
         />
-      ) : false }
+      ) : false}
     </>
   )
 }
@@ -130,26 +171,37 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     paddingLeft: 20,
+    paddingRight: 20
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  fatigue: {
+  rowEvenly: {
     flexDirection: 'row',
-    justifyContent: 'flex-end'
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   text: {
     fontFamily: "Gaegu-Regular",
     fontWeight: 500,
-    fontSize: 22,
+    fontSize: ICON_TEXT_SIZE,
     paddingBottom: 2,
     color: '#fff'
   },
   heavyText: {
     fontFamily: "Gaegu-Bold",
-    fontSize: 22,
+    fontSize: ICON_TEXT_SIZE,
     paddingBottom: 2,
     color: '#fff'
   },
+  circle: {
+    height: 30,
+    width: 30,
+    borderRadius: 60,
+    borderWidth: 1,
+    borderColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 })

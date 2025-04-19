@@ -8,7 +8,7 @@ type FatigueInputProps = {
   onSetValue: (value?: number) => void;
 }
 
-export default function FatigueInputModal({
+function FatigueInputModal({
   modalVisible,
   onSetValue,
   currentFatigue
@@ -47,6 +47,8 @@ export default function FatigueInputModal({
     </Modal>
   );
 }
+
+export { FatigueInputModal }
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center' },

@@ -38,6 +38,9 @@ function CharacterSheetView({ characterId, goBack }: CharacterSheetViewProps) {
         screenHeight={screenHeight}
         characterId={character.id}
         maxHealth={character.health.totalHealth}
+        speed={character.actionStats.speedScore}
+        initiative={character.actionStats.initiative}
+        aces={character.actionStats.basesAces}
       />) : false }
       <FlatList
         horizontal
