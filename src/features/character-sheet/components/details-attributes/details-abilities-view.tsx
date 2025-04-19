@@ -4,13 +4,13 @@ import { useNavigation } from '@react-navigation/native';
 import { EditDetailsNavigationProp } from '../../../../navigation/root-stack';
 import { CharacterDetailsView } from '../../components/details-attributes/character-details-view';
 import { AbilityScoresView } from '../../components/details-attributes/ability-scores-view';
-import { useCharacterStore } from '../../../../store/useCharcterStore';
+import { useCharacterStore } from '../../../../store/useCharacterStore';
 
-type DetailsAbiltiesCombinedDataProps = { characterId: string };
+type DetailsAbilitiesCombinedDataProps = { characterId: string };
 /**
  * Data is responsible for creating, storing, fetching data for views
  */
-function DetailsAbiltiesCombinedData({ characterId }: DetailsAbiltiesCombinedDataProps) {
+function DetailsAbilitiesCombinedData({ characterId }: DetailsAbilitiesCombinedDataProps) {
   const navigation = useNavigation<EditDetailsNavigationProp>();
   const { width: screenWidth } = Dimensions.get('window');
 
@@ -41,4 +41,4 @@ function DetailsAbiltiesCombinedData({ characterId }: DetailsAbiltiesCombinedDat
   )
 };
 
-export { DetailsAbiltiesCombinedData };
+export { DetailsAbilitiesCombinedData };

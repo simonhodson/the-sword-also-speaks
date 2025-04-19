@@ -2,12 +2,14 @@ import { create } from 'zustand';
 import { CharacterDetails } from "../features/character-sheet/types/character-details.types";
 import { Character } from '../features/character-sheet/types/character-sheet-types';
 import { loadCharacters, saveCharacters } from '../utilities/async-storage';
+import { Health } from '../features/character-sheet/types/health-types';
 
 type CharacterStore = {
   characters: Character[];
   addNewCharacter: (character: Character) => void;
   getCharacterById: (id: string) => Character | undefined;
   updateCharacterDetails: (id: string, newDetails: Partial<CharacterDetails>) => void;
+  updateCharacterHealth: (id: string, newHealth: Partial<Health>) => void;
   hydrate: () => void;
 };
 
@@ -38,6 +40,23 @@ export const useCharacterStore = create<CharacterStore>((set, get) => ({
     }));
     // Save to storage
     saveCharacters(get().characters);
+  },
+  updateCharacterHealth: (id, newHealth) => {
+    console.log(`id ${id} -- health : ${JSON.stringify(newHealth)}`)
+    set((state) => ({
+      characters: state.characters.map((char) => 
+        char.id === id ? {
+          ...char,
+          health: {
+            ...char.health,
+            ...newHealth
+          }
+        } : char
+      ),
+    }));
+    //save to storage
+    saveCharacters(get().characters)
+
   },
   hydrate: async () => {
     const saved = await loadCharacters();

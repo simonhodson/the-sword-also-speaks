@@ -23,7 +23,7 @@ export function RootStack() {
       },
       headerTitleStyle: {
         fontFamily: "Gaegu-Regular",
-        fontSize: 32
+        fontSize: 28
       },
       headerTintColor: '#fff'
     }}>

@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { CharacterSheetView } from './character-sheet-view';
 import createNewCharacter from '../../factories/character-sheet-factory';
-import { useCharacterStore } from '../../store/useCharcterStore';
+import { useCharacterStore } from '../../store/useCharacterStore';
 import { CharacterSelectionCardView } from './components/character-selection-card-view';
 import LoadingIndicator from '../../common/components/loading-screen';
 import { useNavigation } from '@react-navigation/native';

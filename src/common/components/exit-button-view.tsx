@@ -12,7 +12,7 @@ export default function ExitButton({ onExit }: { onExit: () => void }) {
   return (
 
     <Pressable onPress={onExit} style={styles.main}>
-      <Icon name='arrow-back-ios' size={26} style={{ color: '#fff' }} />
+      <Icon name='arrow-back-ios' size={18} style={{ color: '#fff' }} />
     </Pressable>
 
   )
@@ -21,7 +21,7 @@ export default function ExitButton({ onExit }: { onExit: () => void }) {
 
 const styles = StyleSheet.create({
   main: {
-    marginLeft: 20,
-    marginRight: 20,
+    marginLeft: 5,
+    marginRight: 5,
   }
 })

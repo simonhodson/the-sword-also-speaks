@@ -1,25 +1,133 @@
 import { nanoid } from 'nanoid/non-secure';
-import { Character } from "../features/character-sheet/types/character-sheet-types";
+import { Archetype, Character, Species } from "../features/character-sheet/types/character-sheet-types";
+import { calculateHealthByArchetype } from '../utilities/character-creation-utils';
+import { AbilityScores, AbilityScoresInitialValues } from '../features/character-sheet/types/ability-score-types';
+import { ActionStats } from '../features/character-sheet/types/action-stats-types';
 
-// Add options to this funciton for the anitial setup
-// details: Omit<CharacterDetails, 'id'>
-export default function createNewCharacter(): Character {
+
+export default function createNewCharacter(
+  name: string = 'Your Name',
+  species: Species = 'Dwarf',
+  archetype: Archetype = 'Martial',
+  abilityInitials?: AbilityScoresInitialValues,
+  levelOverride?: number
+): Character {
   const date = new Date();
-  return {
+
+  const abilityScores: AbilityScores = {
+    strength: { suit: 'Clubs', total: abilityInitials?.strength ?? 2 },
+    agility: { suit: 'Spades', total: abilityInitials?.agility ?? 2 },
+    intelligence: { suit: 'Diamonds', total: abilityInitials?.intelligence ?? 2 },
+    charisma: { suit: 'Hearts', total: abilityInitials?.charisma ?? 2 },
+  }
+
+  const totalHealth = calculateHealthByArchetype(archetype, abilityScores.strength.total);
+
+  const actionStats: ActionStats = {
+    // Base 25 + 5 for each agility rank
+    speedScore: 25 + (abilityScores.agility.total * 5),
+    // Value of Charisma rank / 2 rounded down
+    initiative: { suit: 'Hearts', rank: Math.floor(abilityScores.charisma.total / 2)},
+    // Base is one for all character, there are special rules for some later
+    basesAces: 1
+  }
+
+ return  {
     id: nanoid(),
     dateCreated: date.toISOString(),
+    abilityScores: abilityScores,
+    actionStats: {
+      speedScore: 0,
+      initiative: {
+        suit: 'Hearts',
+        rank: 1
+      },
+      basesAces: 1
+    },
+    armourStats: {
+      head: {
+        total: 0,
+        armour: '',
+        max: 0,
+        current: 0
+      },
+      torso: {
+        total: 0,
+        armour: '',
+        max: 0,
+        current: 0
+      },
+      crotch: {
+        total: 0,
+        armour: '',
+        max: 0,
+        current: 0
+      },
+      arms: {
+        total: 0,
+        armour: '',
+        max: 0,
+        current: 0
+      },
+      legs: {
+        total: 0,
+        armour: '',
+        max: 0,
+        current: 0
+      },
+    },
+    currency: {
+      gold: 100
+    },
+    defenses: {
+      dodge: 0,
+      fortitude: 0,
+      will: 0,
+      instinct: 0
+    },
     details: {
-      name: 'Your Name Here',
-      species: 'Gnome',
-      archetype: 'Martial',
-      currentLevel: 1
+      name,
+      species: species,
+      archetype: archetype,
+      currentLevel: levelOverride ?? 1
     },
-    abilityScores: {
-      strength: { suit: 'Clubs', total: 0 },
-      agility: { suit: 'Spades', total: 0 },
-      intelligence: { suit: 'Diamonds', total: 0 },
-      charisma: { suit: 'Hearts', total: 0 },
+    equipment: [],
+    health: {
+      totalHealth: totalHealth,
+      currentHealth: totalHealth,
+      currentFatigue: 0,
+      head: {
+        total: 0,
+        armour: '',
+        max: 0,
+        current: 0
+      },
+      torso: {
+        total: 0,
+        armour: '',
+        max: 0,
+        current: 0
+      },
+      crotch: {
+        total: 0,
+        armour: '',
+        max: 0,
+        current: 0
+      },
+      arms: {
+        total: 0,
+        armour: '',
+        max: 0,
+        current: 0
+      },
+      legs: {
+        total: 0,
+        armour: '',
+        max: 0,
+        current: 0
+      },
     },
+    minorSkills: [],
     skills: {
       acrobatics: { suit: 'Spades', rank: 1},
       arcana: { suit: 'Diamonds', rank: 1},
@@ -43,8 +151,7 @@ export default function createNewCharacter(): Character {
       spellcasting: { suit: 'Diamonds', rank: 1},
       survival: { suit: 'Spades', rank: 1},
     },
-    specialBonuses: {
-      test: 'testing'
-    }
-  }
+    specialBonuses: {},
+    weapons: []
+  };
 }

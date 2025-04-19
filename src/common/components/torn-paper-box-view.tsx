@@ -46,7 +46,7 @@ function TornPaperBox({ children }: TornPaperProps) {
 
     T${0 + dx},${height - waveHeight + dy}
     Q${10 + dx},${height / 2 + dy} ${0 + dx},${waveHeight + dy}
-
+    
     Z
   ` : '';
 
@@ -54,7 +54,7 @@ function TornPaperBox({ children }: TornPaperProps) {
       <>
       <View style={{marginTop: 20}} />
       <View style={styles.main} onLayout={onLayout}>
-        {width && height && (
+        {width && height ? (
           <Svg
             width={width + shadowOffset}
             height={height + shadowOffset}
@@ -74,7 +74,7 @@ function TornPaperBox({ children }: TornPaperProps) {
               strokeWidth={3}
             />
           </Svg>
-        )}
+        ) : ''}
   
         <View style={{ padding: 20, zIndex: 2 }}>
           {children}

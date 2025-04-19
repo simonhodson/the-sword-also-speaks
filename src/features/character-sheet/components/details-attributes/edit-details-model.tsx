@@ -3,7 +3,7 @@ import { View, StyleSheet, Button, TextInput } from 'react-native';
 import { useNavigation, RouteProp, useRoute } from "@react-navigation/native";
 import { CharacterDetails } from "../../types/character-details.types";
 import { EditDetailsNavigationProp, EditDetailsRouteProp } from "../../../../navigation/root-stack";
-import { useCharacterStore } from "../../../../store/useCharcterStore";
+import { useCharacterStore } from "../../../../store/useCharacterStore";
 
 function EditDetailsModal() {
     const navigation = useNavigation<EditDetailsNavigationProp>();

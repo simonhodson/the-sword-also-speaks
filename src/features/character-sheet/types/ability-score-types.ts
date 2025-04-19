@@ -13,7 +13,8 @@ const abilityScoreTemplate = {
   
   export type AbilityKey = keyof typeof abilityScoreTemplate;
 
-  
+  export type AbilityScoresInitialValues = Record<AbilityKey, number>
+
   export type AbilityScores = Record<AbilityKey, AbilityStat>;
   
   export const abilityKeys = Object.keys(abilityScoreTemplate) as AbilityKey[];

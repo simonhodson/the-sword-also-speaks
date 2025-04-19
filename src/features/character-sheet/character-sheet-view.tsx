@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { FlatList, View, useWindowDimensions, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import SkillsData from './components/skills/skills-data';
-import { DetailsAbiltiesCombinedData } from './components/details-attributes/details-abilities-view';
+import { DetailsAbilitiesCombinedData } from './components/details-attributes/details-abilities-view';
 import { CharacterSubHeaderView } from './components/details-attributes/charcter-sub-header-view';
 import ExitButton from '../../common/components/exit-button-view';
-import { useCharacterStore } from '../../store/useCharcterStore';
+import { useCharacterStore } from '../../store/useCharacterStore';
 
 type CharacterSheetViewProps = { characterId: string, goBack: () => void };
 
@@ -24,22 +24,21 @@ function CharacterSheetView({ characterId, goBack }: CharacterSheetViewProps) {
       })
   },[character]);
 
-
-  // useEffect(() => {
-  //   navigation.setOptions({
-  //     headerTitle: charName,
-  //     headerLeft: () => (<ExitButton onExit={goBack} />),
-  //   })
-  // }, [characters])
   const subScreens = [
-    { key: 'character-abilities', content: <DetailsAbiltiesCombinedData characterId={characterId} /> },
+    { key: 'character-abilities', content: <DetailsAbilitiesCombinedData characterId={characterId} /> },
     { key: 'skills', content: <SkillsData characterId={characterId} /> },
   ];
 
   return (
     <View>
       <StatusBar barStyle="light-content" />
-      <CharacterSubHeaderView goBack={goBack} screenHeight={screenHeight} />
+      {character ? (<CharacterSubHeaderView
+        currentHealth={character.health.currentHealth}
+        currentFatigue={character.health.currentFatigue}
+        screenHeight={screenHeight}
+        characterId={character.id}
+        maxHealth={character.health.totalHealth}
+      />) : false }
       <FlatList
         horizontal
         pagingEnabled

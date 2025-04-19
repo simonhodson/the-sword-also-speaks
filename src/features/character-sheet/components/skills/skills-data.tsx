@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Dimensions, Text } from 'react-native';
 
 import { SkillsView } from './skills-view';
-import { useCharacterStore } from '../../../../store/useCharcterStore';
+import { useCharacterStore } from '../../../../store/useCharacterStore';
 import { Character } from '../../types/character-sheet-types';
 
 type SkillDataProps = { characterId: string };
