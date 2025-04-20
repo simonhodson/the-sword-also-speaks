@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import SkillsData from './components/skills/skills-data';
 import { DetailsAbilitiesCombinedData } from './components/details-attributes/details-abilities-view';
 import { CharacterSubHeaderView } from './components/details-attributes/charcter-sub-header-view';
-import ExitButton from '../../common/components/exit-button-view';
+import { ExitButton } from '../../common/';
 import { useCharacterStore } from '../../store/useCharacterStore';
 
 type CharacterSheetViewProps = { characterId: string, goBack: () => void };

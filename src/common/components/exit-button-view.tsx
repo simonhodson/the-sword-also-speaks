@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function ExitButton({ onExit }: { onExit: () => void }) {
+function ExitButton({ onExit }: { onExit: () => void }) {
 
   return (
 
@@ -18,6 +18,8 @@ export default function ExitButton({ onExit }: { onExit: () => void }) {
   )
 
 }
+
+export { ExitButton };
 
 const styles = StyleSheet.create({
   main: {
