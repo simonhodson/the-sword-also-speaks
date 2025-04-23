@@ -1,43 +1,37 @@
-import React, { useState } from 'react';
-import { StyleSheet, Pressable, Text, View, Alert } from 'react-native'
+import React from 'react';
+import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
-import { useNavigation } from '@react-navigation/native';
-import { CharacterDetails } from '../types/character-details.types';
 import MCIIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { OptionsModal } from '../../../common/components/modals';
+
+import { CharacterDetails } from '../types/character-details.types';
 
 type CharacterSelectionCardViewProps = CharacterDetails & {
   characterId: string;
   onSelect: () => void;
-  onRemoveCharacter: (id: string) => void
-}
+  onRemoveCharacter: (id: string) => void;
+};
 
 function CharacterSelectionCardView({
-  characterId,
-  name,
-  species,
   archetype,
+  characterId,
   currentLevel,
+  name,
+  onRemoveCharacter,
   onSelect,
-  onRemoveCharacter
+  species,
 }: CharacterSelectionCardViewProps) {
-
   function onPressOptions() {
-    Alert.alert(
-      'Are you sure',
-      `You will delete ${name} from storage?`,
-      [
-        {
-          text: 'Go back'
+    Alert.alert('Are you sure', `You will delete ${name} from storage?`, [
+      {
+        text: 'Go back',
+      },
+      {
+        text: 'Yes I am sure',
+        onPress: () => {
+          onRemoveCharacter(characterId);
         },
-        {
-          text: 'Yes I am sure',
-          onPress: () => {
-            onRemoveCharacter(characterId);
-          }
-        }
-      ]
-    )
+      },
+    ]);
   }
 
   return (
@@ -62,10 +56,10 @@ function CharacterSelectionCardView({
         />
       </Pressable>
     </View>
-  )
+  );
 }
 
-export { CharacterSelectionCardView }
+export { CharacterSelectionCardView };
 
 const styles = StyleSheet.create({
   main: {
@@ -78,17 +72,17 @@ const styles = StyleSheet.create({
   picture: {
     flexDirection: 'column',
     paddingRight: 15,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   text: {
-    fontFamily: "Gaegu-Regular",
+    fontFamily: 'Gaegu-Regular',
     fontWeight: 500,
     fontSize: 18,
-    paddingBottom: 2
+    paddingBottom: 2,
   },
   heavyText: {
-    fontFamily: "Gaegu-Bold",
+    fontFamily: 'Gaegu-Bold',
     fontSize: 28,
-    paddingBottom: 2
+    paddingBottom: 2,
   },
 });
