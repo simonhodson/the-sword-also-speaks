@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
 import { View, Dimensions, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { EditDetailsNavigationProp } from '../../../../navigation/root-stack';
+import { EditAttributesNavigationProp, EditDetailsNavigationProp } from '../../../../navigation/root-stack';
 import { CharacterDetailsView } from '../../components/details-attributes/character-details-view';
 import { AbilityScoresView } from '../../components/details-attributes/ability-scores-view';
-import { useCharacterStore } from '../../../../store/useCharcterStore';
+import { useCharacterStore } from '../../../../store/useCharacterStore';
 
-type DetailsAbiltiesCombinedDataProps = { characterId: string };
+type DetailsAbilitiesCombinedDataProps = { characterId: string };
 /**
  * Data is responsible for creating, storing, fetching data for views
  */
-function DetailsAbiltiesCombinedData({ characterId }: DetailsAbiltiesCombinedDataProps) {
-  const navigation = useNavigation<EditDetailsNavigationProp>();
+function DetailsAbilitiesCombinedData({ characterId }: DetailsAbilitiesCombinedDataProps) {
+  const navigation = useNavigation<EditDetailsNavigationProp | EditAttributesNavigationProp>();
   const { width: screenWidth } = Dimensions.get('window');
 
   const character = useCharacterStore(
     state => state.characters.find((c) => c.id === characterId)
   );
 
-  function onPressEdit() {
+  function onPressEdit(direction: 'details' | 'attributes') {
     if (characterId) {
-      navigation.navigate('EditDetails', { characterId })
+      direction === 'details' ? navigation.navigate('EditDetails', { characterId })
+        :
+        navigation.navigate('EditAttributes', { characterId })
     }
     // What happens if not?
   }
@@ -32,13 +34,17 @@ function DetailsAbiltiesCombinedData({ characterId }: DetailsAbiltiesCombinedDat
         onPressEdit={onPressEdit}
       />
       <View style={{ margin: 5 }} />
-      <AbilityScoresView abilityScores={character.abilityScores} />
+      <AbilityScoresView
+        abilityScores={character.abilityScores}
+        onPressEdit={onPressEdit}
+
+      />
     </View>) : (
-        <View style={{ width: screenWidth }}>
-          <Text>Loading...</Text>
-        </View>
+      <View style={{ width: screenWidth }}>
+        <Text>Loading...</Text>
+      </View>
     )
   )
 };
 
-export { DetailsAbiltiesCombinedData };
+export { DetailsAbilitiesCombinedData };

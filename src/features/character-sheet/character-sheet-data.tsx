@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import {
   View,
-  ActivityIndicator,
   StyleSheet,
-  Platform,
-  FlatList,
-  Button
+  FlatList
 } from 'react-native';
 import { CharacterSheetView } from './character-sheet-view';
 import createNewCharacter from '../../factories/character-sheet-factory';
-import { useCharacterStore } from '../../store/useCharcterStore';
+import { useCharacterStore } from '../../store/useCharacterStore';
 import { CharacterSelectionCardView } from './components/character-selection-card-view';
+import LoadingIndicator from '../../common/components/loading-screen';
+import { useNavigation } from '@react-navigation/native';
+import { Button } from '../../common';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type Selected = { selected: boolean, id?: string | undefined };
 /**
@@ -18,7 +19,10 @@ type Selected = { selected: boolean, id?: string | undefined };
  */
 export default function CharacterSheetData() {
   const addCharacter = useCharacterStore(state => state.addNewCharacter);
+  const deleteCharacter = useCharacterStore(state => state.deleteCharacter);
+
   const characters = useCharacterStore(state => state.characters);
+  const navigation = useNavigation();
 
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Selected>({ selected: false });
@@ -26,7 +30,6 @@ export default function CharacterSheetData() {
   // Are there stored characters?
   useEffect(() => {
     useCharacterStore.getState().hydrate();
-
     return () => {
       setLoading(true);
       setSelected({ selected: false });
@@ -39,45 +42,60 @@ export default function CharacterSheetData() {
     }
   }, [characters])
 
+  function onReturn() {
+    setSelected({ selected: false })
+    navigation.setOptions({
+      headerTitle: 'Select Character',
+    });
+  }
+
   function onPressCreate() {
     const initialCharacter = createNewCharacter();
     addCharacter(initialCharacter);
   }
 
+
+  function onDeleteCharacter(id: string) {
+    deleteCharacter(id);
+  }
+
   if (loading) {
-    return (
-      <View style={styles.loading}>
-        <ActivityIndicator size={Platform.OS === 'android' ? 65 : 'large'} />
-      </View>
-    );
+    return (<LoadingIndicator />);
   }
 
   return (
     selected.selected && selected.id ? (
-      <CharacterSheetView characterId={selected.id}/>
-    ) : (
-      <FlatList
-        style={{ flex: 1 }}
-        data={characters}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <CharacterSelectionCardView
-            name={item.details.name}
-            species={item.details.species}
-            archetype={item.details.archetype}
-            currentLevel={item.details.currentLevel}
-            onSelect={() => setSelected({ selected: true, id: item.id })}
-          />
-        )}
-        ListHeaderComponent={
-          <View style={styles.buttonZone}>
-            <Button title="Create New Character" onPress={onPressCreate} />
-          </View>
-        }
-        ItemSeparatorComponent={() => (
-          <View style={{ margin: 10 }} />
-        )}
+      <CharacterSheetView
+        characterId={selected.id}
+        goBack={onReturn}
       />
+    ) : (
+      <SafeAreaView style={{ flex: 1 }}>
+        <FlatList
+          style={{ flex: 1 }}
+          data={characters}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <CharacterSelectionCardView
+              characterId={item.id}
+              name={item.details.name}
+              species={item.details.species}
+              archetype={item.details.archetype}
+              currentLevel={item.details.currentLevel}
+              onSelect={() =>
+                setSelected({ selected: true, id: item.id }
+                )}
+              onRemoveCharacter={onDeleteCharacter}
+            />
+          )}
+          ItemSeparatorComponent={() => (
+            <View style={{ margin: 5 }} />
+          )}
+        />
+        <View style={styles.buttonZone}>
+          <Button title="Create New Character" onPress={onPressCreate} />
+        </View>
+      </SafeAreaView>
     ))
 }
 
@@ -88,8 +106,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   buttonZone: {
-    marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 30,
     width: '100%',
     alignItems: 'center',
   }

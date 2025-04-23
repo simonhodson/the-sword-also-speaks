@@ -1,15 +1,25 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import type { PropsWithChildren } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { AbilityKey, AbilityScores, AbilityStat, abilityDisplayText } from '../../types/ability-score-types';
-import { AttributesContainerView } from '../../../../common/components/attributes-container-view';
-import { TornPaperBox } from '../../../../common/components/torn-paper-box-view';
+import { StyleSheet, View, Text, Pressable } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
+
+import {
+  AbilityKey,
+  AbilityScores,
+  AbilityStat,
+  abilityDisplayText
+} from '../../types/ability-score-types';
+import { TornPaperBox } from '../../../../common/';
 
 type AbilityScoresView = PropsWithChildren<{
-  abilityScores: AbilityScores
+  abilityScores: AbilityScores;
+  onPressEdit: (direction: 'details' | 'attributes') => void;
 }>;
 
-function AbilityScoresView({ abilityScores }: AbilityScoresView) {
+function AbilityScoresView({
+  abilityScores,
+  onPressEdit
+}: AbilityScoresView) {
 
   function renderDetails() {
     const entries = Object.entries(abilityScores) as [AbilityKey, AbilityStat][]
@@ -28,23 +38,30 @@ function AbilityScoresView({ abilityScores }: AbilityScoresView) {
 
   return (
     <TornPaperBox >
-      <View style={styles.main}>
+        <View style={styles.topRow}>
+          <Pressable
+            onPress={() => onPressEdit('attributes')}
+            style={{ alignItems: 'flex-end'}}
+          >
+            <Icon name='edit' size={26} />
+          </Pressable>
+        </View>
         <View style={styles.statRow}>
           <Text style={styles.heavyText}>Ability Scores</Text>
           <Text style={styles.heavyText}>Total</Text>
         </View>
         {renderDetails()}
-      </View>
-
     </TornPaperBox>
   )
 }
 
 const styles = StyleSheet.create({
-  main: {
+  topRow: {
     display: 'flex',
-    flexDirection: 'column',
-    width: '100%'
+    width: '100%',
+    flexDirection: 'row',
+    marginBottom: 10,
+    justifyContent: 'flex-end'
   },
   statRow: {
     flexDirection: 'row',

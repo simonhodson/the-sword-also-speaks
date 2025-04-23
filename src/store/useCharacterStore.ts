@@ -2,19 +2,20 @@ import { create } from 'zustand';
 import { CharacterDetails } from "../features/character-sheet/types/character-details.types";
 import { Character } from '../features/character-sheet/types/character-sheet-types';
 import { loadCharacters, saveCharacters } from '../utilities/async-storage';
+import { Health } from '../features/character-sheet/types/health-types';
 
 type CharacterStore = {
   characters: Character[];
-  currentCharacter: Character | undefined;
   addNewCharacter: (character: Character) => void;
   getCharacterById: (id: string) => Character | undefined;
   updateCharacterDetails: (id: string, newDetails: Partial<CharacterDetails>) => void;
-  hydrate: () => void
+  updateCharacterHealth: (id: string, newHealth: Partial<Health>) => void;
+  deleteCharacter: (id: string) => void;
+  hydrate: () => void;
 };
 
 export const useCharacterStore = create<CharacterStore>((set, get) => ({
   characters: [],
-  currentCharacter: undefined,
 
   addNewCharacter: (character: Character) => {
     set((state) => ({
@@ -41,7 +42,30 @@ export const useCharacterStore = create<CharacterStore>((set, get) => ({
     // Save to storage
     saveCharacters(get().characters);
   },
+  updateCharacterHealth: (id, newHealth) => {
+    set((state) => ({
+      characters: state.characters.map((char) =>
+        char.id === id ? {
+          ...char,
+          health: {
+            ...char.health,
+            ...newHealth
+          }
+        } : char
+      ),
+    }));
+    //save to storage
+    saveCharacters(get().characters)
 
+  },
+  deleteCharacter: (id: string) => {
+    set((state) => {
+      const updatedCharacters = state.characters.filter(c => c.id !== id);
+      // Save immediately after updating
+      saveCharacters(updatedCharacters);
+      return { characters: updatedCharacters };
+    });
+  },
   hydrate: async () => {
     const saved = await loadCharacters();
     if (saved) {

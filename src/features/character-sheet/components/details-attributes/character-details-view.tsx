@@ -3,13 +3,16 @@ import type { PropsWithChildren } from 'react';
 import { StyleSheet, View, Text, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
-import { CharacterDetails, characterDetailsDisplayText, CharacterDetailsKey } from '../../types/character-details.types';
-import { AttributesContainerView } from '../../../../common/components/attributes-container-view';
-import { TornPaperBox } from '../../../../common/components/torn-paper-box-view';
+import {
+  CharacterDetails,
+  characterDetailsDisplayText,
+  CharacterDetailsKey
+} from '../../types/character-details.types';
+import { TornPaperBox } from '../../../../common';
 
 type CharacterDetailsView = PropsWithChildren<{
   characterDetails: CharacterDetails;
-  onPressEdit: () => void;
+  onPressEdit: (direction: 'details' | 'attributes') => void;
 }>;
 
 function CharacterDetailsView({ characterDetails, onPressEdit }: CharacterDetailsView) {
@@ -32,7 +35,7 @@ function CharacterDetailsView({ characterDetails, onPressEdit }: CharacterDetail
   return (
     <TornPaperBox>
       <Pressable
-        onPress={onPressEdit}
+        onPress={() => onPressEdit('details')}
         style={{ alignSelf: 'flex-end' }}
       >
         <Icon name='edit' size={26} />
@@ -45,7 +48,8 @@ function CharacterDetailsView({ characterDetails, onPressEdit }: CharacterDetail
 const styles = StyleSheet.create({
   main: {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   },
   text: {
     fontFamily: "Gaegu-Regular",

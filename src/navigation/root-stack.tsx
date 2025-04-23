@@ -1,7 +1,6 @@
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {  RouteProp } from "@react-navigation/native";
-import { EditDetailsModal } from '../features/character-sheet/components/details-attributes/edit-details-model';
-import { CharacterDetails } from '../features/character-sheet/types/character-details.types';
+import { EditDetailsModal, EditAttributeModal } from '../features/character-sheet';
 import CharacterSheetData from '../features/character-sheet/character-sheet-data';
 
 const Stack = createNativeStackNavigator();
@@ -9,10 +8,15 @@ const Stack = createNativeStackNavigator();
 export type RootStackParamList = {
   CharacterSheet: undefined
   EditDetails:  { characterId: string };
+  EditAttributes: { characterId: string };
 }
 
 export type EditDetailsRouteProp = RouteProp<RootStackParamList, 'EditDetails'>;
 export type EditDetailsNavigationProp = NativeStackNavigationProp<RootStackParamList, 'EditDetails'>;
+
+export type EditAttributesRouteProp = RouteProp<RootStackParamList, 'EditAttributes'>;
+export type EditAttributesNavigationProp = NativeStackNavigationProp<RootStackParamList, 'EditAttributes'>;
+
 
 
 export function RootStack() {
@@ -20,9 +24,13 @@ export function RootStack() {
   return (
     <Stack.Navigator screenOptions={{
       headerStyle: {
-        backgroundColor: '#000000',
+        backgroundColor: '#000',
       },
-      headerTintColor: '#ffffff'
+      headerTitleStyle: {
+        fontFamily: "Gaegu-Regular",
+        fontSize: 28
+      },
+      headerTintColor: '#fff'
     }}>
       <Stack.Group>
         <Stack.Screen
@@ -33,6 +41,7 @@ export function RootStack() {
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="EditDetails" component={EditDetailsModal} />
+        <Stack.Screen name='EditAttributes' component={EditAttributeModal} />
       </Stack.Group>
     </Stack.Navigator>
   );

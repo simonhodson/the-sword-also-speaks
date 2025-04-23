@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import type { PropsWithChildren } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { AttributesContainerView } from '../../../../common/components/attributes-container-view'; 
+import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { skillDisplayText, Skills, SkillsKey, SkillsLevel } from '../../types/skills-types';
 import { TornPaperBox } from '../../../../common/components/torn-paper-box-view';
 
@@ -27,16 +26,18 @@ function SkillsView({ skills }: SkillsView) {
   }
 
   return (
-    <TornPaperBox >
-      <View style={styles.main}>
-        <View style={styles.statRow}>
-          <Text style={styles.heavyText}>Skills</Text>
-          <Text style={styles.heavyText}>Rank</Text>
+    <ScrollView>
+      <TornPaperBox >
+        <View style={styles.main}>
+          <View style={styles.statRow}>
+            <Text style={styles.heavyText}>Skills</Text>
+            <Text style={styles.heavyText}>Rank</Text>
+          </View>
+          {renderDetails()}
         </View>
-        {renderDetails()}
-      </View>
-
-    </TornPaperBox>
+      </TornPaperBox>
+      <View style={{marginBottom: 150}} />
+    </ScrollView>
   )
 }
 
@@ -44,7 +45,8 @@ const styles = StyleSheet.create({
   main: {
     display: 'flex',
     flexDirection: 'column',
-    width: '100%'
+    width: '100%',
+    marginBottom: 30,
   },
   statRow: {
     flexDirection: 'row',
