@@ -1,0 +1,17 @@
+// Extensions to be recommended when the workspace is opened.
+// https://code.visualstudio.com/docs/editor/extension-gallery#_workspace-recommended-extensions
+{
+  "recommendations": [
+    "aaron-bond.better-comments",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "vincaslt.highlight-matching-tag",
+    "oderwat.indent-rainbow",
+    "davidanson.vscode-markdownlint",
+    "gruntfuggly.todo-tree",
+    "lihui.vs-color-picker",
+    "wix.vscode-import-cost",
+    "esbenp.prettier-vscode",
+    "streetsidesoftware.code-spell-checker"
+  ]
+}
