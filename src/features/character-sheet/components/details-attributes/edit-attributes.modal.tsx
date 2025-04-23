@@ -1,54 +1,63 @@
-import React, { useState } from "react";
-import { View, StyleSheet, TextInput, Text } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { CharacterDetails } from "../../types/character-details.types";
-import { EditDetailsNavigationProp, EditDetailsRouteProp } from "../../../../navigation/root-stack";
-import { useCharacterStore } from "../../../../store/useCharacterStore";
-import { TornPaperBox } from "../../../../common/components/torn-paper-box-view";
-import { Button } from "../../../../common/";
-import { AbilityKey } from "../../types/ability-score-types";
+import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { Button } from '../../../../common/';
+import { TornPaperBox } from '../../../../common/components/torn-paper-box-view';
+import {
+  EditDetailsNavigationProp,
+  EditDetailsRouteProp,
+} from '../../../../navigation/root-stack';
+import { useCharacterStore } from '../../../../store/useCharacterStore';
+import { CharacterDetails } from '../../types/character-details.types';
 
 function EditAttributeModal() {
   const navigation = useNavigation<EditDetailsNavigationProp>();
   const { characterId } = useRoute<EditDetailsRouteProp>().params;
 
-  const currentCharacter = useCharacterStore(state => state.getCharacterById(characterId));
-  const abilityScores = currentCharacter?.abilityScores;
-  const updateCharacter = useCharacterStore(state => state.updateCharacterDetails);
+  const currentCharacter = useCharacterStore((state) =>
+    state.getCharacterById(characterId),
+  );
+  // const abilityScores = currentCharacter?.abilityScores;
+  const updateCharacter = useCharacterStore(
+    (state) => state.updateCharacterDetails,
+  );
 
-  const [newDetails, setNew] = useState<CharacterDetails | undefined>(currentCharacter?.details);
+  const [newDetails, setNew] = useState<CharacterDetails | undefined>(
+    currentCharacter?.details,
+  );
 
-  let  currentValues: { [key in AbilityKey]: number} = [];
-
-  if (abilityScores) {
-    for (const prop in abilityScores) {
-      currentValues.push({ [prop] : abilityScores[prop].total })
-    }
+  // REmove me
+  if (!newDetails) {
+    setNew(undefined);
   }
+  // let  currentValues: { [key in AbilityKey]: number} = [];
 
-  console.log(currentValues)
+  // if (abilityScores) {
+  //   for (const prop in abilityScores) {
+  //     currentValues.push({ [prop] : abilityScores[prop].total })
+  //   }
+  // }
 
+  // console.log(currentValues);
 
   function onSave() {
-   if (newDetails) {
-    let updateDetails = { ...newDetails };
-    updateCharacter(characterId, updateDetails);
-   };
+    if (newDetails) {
+      let updateDetails = { ...newDetails };
+      updateCharacter(characterId, updateDetails);
+    }
 
     navigation.goBack();
   }
 
-  return (
-    newDetails ? (<TornPaperBox>
-        <Text>WOOTIE WOOT WOOT</Text>
-        <View style={{ marginBottom: 25 }} />
-        <Button
-          onPress={onSave}
-          title='Save'
-        />
-        <View style={{ marginBottom: 25 }} />
-    </TornPaperBox>) : false
+  return newDetails ? (
+    <TornPaperBox>
+      <Text>WOOTIE WOOT WOOT</Text>
+      <View style={{ marginBottom: 25 }} />
+      <Button onPress={onSave} title='Save' />
+      <View style={{ marginBottom: 25 }} />
+    </TornPaperBox>
+  ) : (
+    false
   );
 }
 
@@ -68,13 +77,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 15,
-    borderRadius: 7
+    borderRadius: 7,
   },
   buttonText: {
-    fontFamily: "Gaegu-Regular",
+    fontFamily: 'Gaegu-Regular',
     fontWeight: 500,
     fontSize: 24,
     paddingBottom: 2,
-    color: '#fff'
+    color: '#fff',
   },
-})
+});
