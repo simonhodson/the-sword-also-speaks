@@ -7,21 +7,32 @@ import { EditDetailsNavigationProp, EditDetailsRouteProp } from "../../../../nav
 import { useCharacterStore } from "../../../../store/useCharacterStore";
 import { TornPaperBox } from "../../../../common/components/torn-paper-box-view";
 import { Button } from "../../../../common/";
+import { AbilityKey } from "../../types/ability-score-types";
 
 function EditAttributeModal() {
   const navigation = useNavigation<EditDetailsNavigationProp>();
   const { characterId } = useRoute<EditDetailsRouteProp>().params;
 
   const currentCharacter = useCharacterStore(state => state.getCharacterById(characterId));
+  const abilityScores = currentCharacter?.abilityScores;
   const updateCharacter = useCharacterStore(state => state.updateCharacterDetails);
 
   const [newDetails, setNew] = useState<CharacterDetails | undefined>(currentCharacter?.details);
+
+  let  currentValues: { [key in AbilityKey]: number} = [];
+
+  if (abilityScores) {
+    for (const prop in abilityScores) {
+      currentValues.push({ [prop] : abilityScores[prop].total })
+    }
+  }
+
+  console.log(currentValues)
 
 
   function onSave() {
    if (newDetails) {
     let updateDetails = { ...newDetails };
-
     updateCharacter(characterId, updateDetails);
    };
 
@@ -31,6 +42,12 @@ function EditAttributeModal() {
   return (
     newDetails ? (<TornPaperBox>
         <Text>WOOTIE WOOT WOOT</Text>
+        <View style={{ marginBottom: 25 }} />
+        <Button
+          onPress={onSave}
+          title='Save'
+        />
+        <View style={{ marginBottom: 25 }} />
     </TornPaperBox>) : false
   );
 }
