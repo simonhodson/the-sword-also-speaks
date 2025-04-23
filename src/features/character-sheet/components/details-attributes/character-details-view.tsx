@@ -1,24 +1,29 @@
-import React from 'react';
 import type { PropsWithChildren } from 'react';
-import { StyleSheet, View, Text, Pressable } from 'react-native';
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
+import { TornPaperBox } from '../../../../common';
 import {
   CharacterDetails,
   characterDetailsDisplayText,
-  CharacterDetailsKey
+  CharacterDetailsKey,
 } from '../../types/character-details.types';
-import { TornPaperBox } from '../../../../common';
 
 type CharacterDetailsView = PropsWithChildren<{
   characterDetails: CharacterDetails;
   onPressEdit: (direction: 'details' | 'attributes') => void;
 }>;
 
-function CharacterDetailsView({ characterDetails, onPressEdit }: CharacterDetailsView) {
-
+function CharacterDetailsView({
+  characterDetails,
+  onPressEdit,
+}: CharacterDetailsView) {
   function renderDetails() {
-    const entries = Object.entries(characterDetails) as [CharacterDetailsKey, any][];
+    const entries = Object.entries(characterDetails) as [
+      CharacterDetailsKey,
+      string | number,
+    ][];
 
     return entries.map(([key, value]) => {
       return (
@@ -28,8 +33,8 @@ function CharacterDetailsView({ characterDetails, onPressEdit }: CharacterDetail
           </Text>
           <Text style={styles.text}>{value}</Text>
         </View>
-      )
-    })
+      );
+    });
   }
 
   return (
@@ -42,25 +47,25 @@ function CharacterDetailsView({ characterDetails, onPressEdit }: CharacterDetail
       </Pressable>
       {renderDetails()}
     </TornPaperBox>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   main: {
     display: 'flex',
     flexDirection: 'row',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   text: {
-    fontFamily: "Gaegu-Regular",
+    fontFamily: 'Gaegu-Regular',
     fontWeight: 500,
     fontSize: 26,
-    paddingBottom: 2
+    paddingBottom: 2,
   },
   heavyText: {
-    fontFamily: "Gaegu-Bold",
+    fontFamily: 'Gaegu-Bold',
     fontSize: 26,
-    paddingBottom: 2
+    paddingBottom: 2,
   },
 });
 

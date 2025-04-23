@@ -17,7 +17,7 @@ function EditAttributeModal() {
   const currentCharacter = useCharacterStore((state) =>
     state.getCharacterById(characterId),
   );
-  // const abilityScores = currentCharacter?.abilityScores;
+  const abilityScores = currentCharacter?.abilityScores;
   const updateCharacter = useCharacterStore(
     (state) => state.updateCharacterDetails,
   );
@@ -26,10 +26,6 @@ function EditAttributeModal() {
     currentCharacter?.details,
   );
 
-  // REmove me
-  if (!newDetails) {
-    setNew(undefined);
-  }
   // let  currentValues: { [key in AbilityKey]: number} = [];
 
   // if (abilityScores) {
@@ -38,7 +34,7 @@ function EditAttributeModal() {
   //   }
   // }
 
-  // console.log(currentValues);
+  // console.log(currentValues)
 
   function onSave() {
     if (newDetails) {
