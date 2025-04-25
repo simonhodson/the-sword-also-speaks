@@ -1,50 +1,70 @@
-// import { useNavigation, useRoute } from '@react-navigation/native';
-// import React, { useState } from 'react';
-// import { StyleSheet, Text } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { Text, View } from 'react-native';
 
-// import { TornPaperBox } from '../../../../common/components/torn-paper-box-view';
-// import {
-//   EditDetailsNavigationProp,
-//   EditDetailsRouteProp,
-// } from '../../../../navigation/root-stack';
-// import { useCharacterStore } from '../../../../store/useCharacterStore';
-// import { CharacterDetails } from '../../types/character-details.types';
+import { Button } from '../../../../common/';
+import { TornPaperBox } from '../../../../common/components/torn-paper-box-view';
+import {
+  EditDetailsNavigationProp,
+  EditDetailsRouteProp,
+} from '../../../../navigation/root-stack';
+import { useCharacterStore } from '../../../../store/useCharacterStore';
+import { AbilityKey, AbilityScores } from '../../types/ability-score-types';
+import { CharacterDetails } from '../../types/character-details.types';
 
-// function EditAttributeModal() {
-//   const navigation = useNavigation<EditDetailsNavigationProp>();
-//   const { characterId } = useRoute<EditDetailsRouteProp>().params;
+function EditAttributeModal() {
+  const navigation = useNavigation<EditDetailsNavigationProp>();
+  const { characterId } = useRoute<EditDetailsRouteProp>().params;
 
-//   const currentCharacter = useCharacterStore((state) =>
-//     state.getCharacterById(characterId),
-//   );
-//   const updateCharacter = useCharacterStore(
-//     (state) => state.updateCharacterDetails,
-//   );
+  const currentCharacter = useCharacterStore((state) =>
+    state.getCharacterById(characterId),
+  );
+  const abilityScores = currentCharacter?.abilityScores;
+  const updateCharacter = useCharacterStore(
+    (state) => state.updateCharacterDetails,
+  );
 
-//   const [newDetails, setNew] = useState<CharacterDetails | undefined>(
-//     currentCharacter?.details,
-//   );
+  const [newDetails, setNew] = useState<CharacterDetails | undefined>(
+    currentCharacter?.details,
+  );
 
-//   function onSave() {
-//     if (newDetails) {
-//       const updateDetails = { ...newDetails };
+  type cv = { [key in AbilityKey]: number };
+  const currentValues: cv[] = [];
 
-//       updateCharacter(characterId, updateDetails);
-//     }
+  if (abilityScores) {
+    for (const prop in abilityScores) {
+      const p = prop as keyof AbilityScores;
+      currentValues.push({ [prop]: abilityScores[p].total } as cv);
+    }
+  }
 
-//     navigation.goBack();
-//   }
+  console.log(currentValues);
+  if (currentValues[0].agility === 3) {
+    setNew(newDetails);
+  }
 
-//   return newDetails ? (
-//     <TornPaperBox>
-//       <Text>WOOTIE WOOT WOOT</Text>
-//     </TornPaperBox>
-//   ) : (
-//     false
-//   );
-// }
+  function onSave() {
+    if (newDetails) {
+      const updateDetails = { ...newDetails };
+      updateCharacter(characterId, updateDetails);
+    }
 
-// export { EditAttributeModal };
+    navigation.goBack();
+  }
+
+  return newDetails ? (
+    <TornPaperBox>
+      <Text>WOOTIE WOOT WOOT</Text>
+      <View style={{ marginBottom: 25 }} />
+      <Button onPress={onSave} title='Save' />
+      <View style={{ marginBottom: 25 }} />
+    </TornPaperBox>
+  ) : (
+    false
+  );
+}
+
+export { EditAttributeModal };
 
 // const styles = StyleSheet.create({
 //   input: {
