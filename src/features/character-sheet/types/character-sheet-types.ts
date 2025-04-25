@@ -57,6 +57,6 @@ export type Character = {
   id: string;
   minorSkills: MinorSkill[];
   skills: Skills;
-  specialBonuses: SpecialBonuses | Object;
+  specialBonuses: SpecialBonuses | object;
   weapons: Weapon[];
 };

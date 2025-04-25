@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Alert,
-  Button,
-  Modal,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import { Button, Modal, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { MAX_FATIGUE } from '../../../features/character-sheet/components/details-attributes/charcter-sub-header-view';
 
@@ -25,7 +17,7 @@ function FatigueInputModal({
   const [value, setValue] = useState(currentFatigue.toString());
 
   function onValueEnter() {
-    const v = parseInt(value);
+    const v = parseInt(value, 10);
     onSetValue(v > MAX_FATIGUE ? MAX_FATIGUE : v);
   }
 

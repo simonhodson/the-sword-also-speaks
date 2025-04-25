@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { FlatList, StatusBar, useWindowDimensions, View } from 'react-native';
 
 import { ExitButton } from '../../common/';
@@ -20,12 +20,17 @@ function CharacterSheetView({ characterId, goBack }: CharacterSheetViewProps) {
     state.characters.find((c) => c.id === characterId),
   );
 
+  const exitButton = useCallback(
+    () => <ExitButton onExit={goBack} />,
+    [goBack],
+  );
+
   useEffect(() => {
     navigation.setOptions({
       headerTitle: character?.details.name,
-      headerLeft: () => <ExitButton onExit={goBack} />,
+      headerLeft: exitButton,
     });
-  }, [character]);
+  }, [character, navigation, exitButton]);
 
   const subScreens = [
     {

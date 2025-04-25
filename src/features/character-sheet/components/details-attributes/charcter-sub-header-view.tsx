@@ -24,7 +24,7 @@ type CharacterHeaderViewProps = {
   aces: number | undefined;
 };
 
-type FatigueNodeTrack = { element: React.ReactNode; index: number };
+// type FatigueNodeTrack = { element: React.ReactNode; index: number };
 
 function CharacterSubHeaderView({
   aces,

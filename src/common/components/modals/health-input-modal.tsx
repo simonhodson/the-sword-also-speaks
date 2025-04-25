@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
-import {
-  Alert,
-  Button,
-  Modal,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import { Button, Modal, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import { MAX_FATIGUE } from '../../../features/character-sheet/components/details-attributes/charcter-sub-header-view';
+// import { MAX_FATIGUE } from '../../../features/character-sheet/components/details-attributes/charcter-sub-header-view';
 
 type HealthValueInputProps = {
   modalVisible: boolean;
@@ -27,7 +19,7 @@ function HealthInputModal({
   const [value, setValue] = useState(currentHeath.toString());
 
   function onValueEnter() {
-    const v = parseInt(value);
+    const v = parseInt(value, 10);
     onSetValue(v > maximumHealth ? maximumHealth : v);
   }
 

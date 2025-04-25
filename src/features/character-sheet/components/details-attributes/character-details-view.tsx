@@ -7,7 +7,6 @@ import { TornPaperBox } from '../../../../common';
 import {
   CharacterDetails,
   characterDetailsDisplayText,
-  CharacterDetailsKey,
 } from '../../types/character-details.types';
 
 type CharacterDetailsView = PropsWithChildren<{
@@ -20,16 +19,14 @@ function CharacterDetailsView({
   onPressEdit,
 }: CharacterDetailsView) {
   function renderDetails() {
-    const entries = Object.entries(characterDetails) as [
-      CharacterDetailsKey,
-      any,
-    ][];
+    const entries = Object.entries(characterDetails);
 
     return entries.map(([key, value]) => {
+      console.log('entires === ', key, ' ', value);
       return (
         <View key={key} style={styles.main}>
           <Text style={styles.heavyText}>
-            {`${characterDetailsDisplayText[key]}: `}
+            {`${characterDetailsDisplayText[key as keyof CharacterDetails]}: `}
           </Text>
           <Text style={styles.text}>{value}</Text>
         </View>

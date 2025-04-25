@@ -1,8 +1,8 @@
 import React, { PropsWithChildren, useState } from 'react';
-import { LayoutChangeEvent, StyleSheet, Text, View } from 'react-native';
-import Svg, { Path, Rect } from 'react-native-svg';
+import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
+import Svg, { Path } from 'react-native-svg';
 
-type TornPaperProps = PropsWithChildren & {};
+type TornPaperProps = PropsWithChildren;
 
 function TornPaperBox({ children }: TornPaperProps) {
   const [boxSize, setBoxSize] = useState({ width: 0, height: 0 });

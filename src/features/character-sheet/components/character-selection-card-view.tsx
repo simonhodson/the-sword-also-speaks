@@ -44,9 +44,7 @@ function CharacterSelectionCardView({
           <Text style={styles.heavyText}>{name}</Text>
           <View style={{ flexDirection: 'row' }}>
             <Text style={styles.text}>{`Level ${currentLevel} -`}</Text>
-            <Text style={[styles.text, { paddingLeft: 10, fontFamily: '' }]}>
-              {species}
-            </Text>
+            <Text style={[styles.text, { paddingLeft: 10 }]}>{species}</Text>
           </View>
           <Text style={styles.text}>{archetype}</Text>
         </View>

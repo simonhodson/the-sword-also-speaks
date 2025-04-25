@@ -17,5 +17,6 @@ export type CharacterDetails = {
 export const characterDetailsKeys = Object.keys(
   characterDetailsTemplate,
 ) as CharacterDetailsKey[];
+
 export const characterDetailsDisplayText =
   createDisplayText(characterDetailsKeys);

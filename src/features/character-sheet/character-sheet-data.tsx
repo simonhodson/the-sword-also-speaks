@@ -55,6 +55,10 @@ export default function CharacterSheetData() {
     deleteCharacter(id);
   }
 
+  function renderMargin() {
+    return <View style={{ margin: 5 }} />;
+  }
+
   if (loading) {
     return <LoadingIndicator />;
   }
@@ -78,7 +82,7 @@ export default function CharacterSheetData() {
             onRemoveCharacter={onDeleteCharacter}
           />
         )}
-        ItemSeparatorComponent={() => <View style={{ margin: 5 }} />}
+        ItemSeparatorComponent={renderMargin}
       />
       <View style={styles.buttonZone}>
         <Button title='Create New Character' onPress={onPressCreate} />
