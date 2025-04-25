@@ -1,5 +1,5 @@
-import { createDisplayText } from "../../../utilities/display-text";
-import { Archetype, Species } from "./character-sheet-types";
+import { createDisplayText } from '../../../utilities/display-text';
+import { Archetype, Species } from './character-sheet-types';
 
 const characterDetailsTemplate = {
   name: undefined as string | undefined,
@@ -11,8 +11,11 @@ const characterDetailsTemplate = {
 export type CharacterDetailsKey = keyof typeof characterDetailsTemplate;
 
 export type CharacterDetails = {
-  [K in CharacterDetailsKey]: typeof characterDetailsTemplate[K];
+  [K in CharacterDetailsKey]: (typeof characterDetailsTemplate)[K];
 };
 
-export const characterDetailsKeys = Object.keys(characterDetailsTemplate) as CharacterDetailsKey[];
-export const characterDetailsDisplayText = createDisplayText(characterDetailsKeys);
+export const characterDetailsKeys = Object.keys(
+  characterDetailsTemplate,
+) as CharacterDetailsKey[];
+export const characterDetailsDisplayText =
+  createDisplayText(characterDetailsKeys);

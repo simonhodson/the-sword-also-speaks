@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { Character } from '../features/character-sheet/types/character-sheet-types';
 
 const CHARACTERS_KEY = 'CHARACTERS_STORE';
@@ -21,4 +22,3 @@ export const loadCharacters = async (): Promise<Character[] | null> => {
     return null;
   }
 };
-

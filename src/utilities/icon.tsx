@@ -8,13 +8,12 @@
 //     type: string
 // }
 
-
 // function IconView({ type }: IconType) {
 
 //     switch (type) {
 //         case value:
 //             return <Icon name={'antDesing-stepforward'} />
-    
+
 //         default:
 //             break;
 //     }

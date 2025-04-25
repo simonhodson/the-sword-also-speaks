@@ -1,32 +1,24 @@
 import React, { PropsWithChildren, useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  LayoutChangeEvent,
-  Text
-} from 'react-native';
+import { LayoutChangeEvent, StyleSheet, Text, View } from 'react-native';
 import Svg, { Path, Rect } from 'react-native-svg';
 
-type TornPaperProps = PropsWithChildren & {
-
-}
+type TornPaperProps = PropsWithChildren & {};
 
 function TornPaperBox({ children }: TornPaperProps) {
-
   const [boxSize, setBoxSize] = useState({ width: 0, height: 0 });
 
   const onLayout = (e: LayoutChangeEvent) => {
-    const { width, height } = e.nativeEvent.layout;
+    const { height, width } = e.nativeEvent.layout;
     setBoxSize({ width, height });
   };
 
-  const { width, height } = boxSize;
+  const { height, width } = boxSize;
   const waveHeight = 10;
   const shadowOffset = 7;
 
-
-  const buildPath = (dx = 0, dy = 0) => width && height
-  ? `
+  const buildPath = (dx = 0, dy = 0) =>
+    width && height
+      ? `
     M${0 + dx},${waveHeight + dy}
     Q${width * 0.25 + dx},${0 + dy} ${width * 0.5 + dx},${waveHeight + dy}
 
@@ -35,24 +27,29 @@ function TornPaperBox({ children }: TornPaperProps) {
     L${width * 0.65 + 15 + dx},${waveHeight + dy}
 
     T${width + dx},${waveHeight + dy}
-    Q${width + dx - 10},${(height + waveHeight) / 2 + dy} ${width + dx},${height - waveHeight + dy}
+    Q${width + dx - 10},${(height + waveHeight) / 2 + dy} ${width + dx},${
+      height - waveHeight + dy
+    }
 
-    Q${width * 0.75 + dx},${height + dy} ${width * 0.5 + dx},${height - waveHeight + dy}
+    Q${width * 0.75 + dx},${height + dy} ${width * 0.5 + dx},${
+      height - waveHeight + dy
+    }
 
     T${width * 0.25 + dx},${height - waveHeight + dy}
     L${width * 0.22 + dx},${height - waveHeight + -8 + dy}
-    L${width * 0.20 + dx},${height - waveHeight + dy}
+    L${width * 0.2 + dx},${height - waveHeight + dy}
     T${0 + dx},${height - waveHeight + dy}
 
     T${0 + dx},${height - waveHeight + dy}
     Q${10 + dx},${height / 2 + dy} ${0 + dx},${waveHeight + dy}
     
     Z
-  ` : '';
+  `
+      : '';
 
-    return (
-      <>
-      <View style={{marginTop: 20}} />
+  return (
+    <>
+      <View style={{ marginTop: 20 }} />
       <View style={styles.main} onLayout={onLayout}>
         {width && height ? (
           <Svg
@@ -63,36 +60,35 @@ function TornPaperBox({ children }: TornPaperProps) {
             {/* Shadow Path */}
             <Path
               d={buildPath(shadowOffset, shadowOffset)}
-              fill="#000"
+              fill='#000'
               opacity={0.8}
             />
             {/* Foreground Wavy Path */}
             <Path
               d={buildPath()}
-              fill="#f6f4ec"
-              stroke="black"
+              fill='#f6f4ec'
+              stroke='black'
               strokeWidth={3}
             />
           </Svg>
-        ) : ''}
-  
-        <View style={{ padding: 20, zIndex: 2 }}>
-          {children}
-        </View>
+        ) : (
+          ''
+        )}
+
+        <View style={{ padding: 20, zIndex: 2 }}>{children}</View>
       </View>
-      </>
-    );
+    </>
+  );
 }
 
-export { TornPaperBox }
+export { TornPaperBox };
 
 const styles = StyleSheet.create({
   main: {
     marginLeft: 30,
     marginRight: 30,
-  }
+  },
 });
-
 
 /*
 

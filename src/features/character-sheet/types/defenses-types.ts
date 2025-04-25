@@ -1,11 +1,11 @@
-import { createDisplayText } from "../../../utilities/display-text";
+import { createDisplayText } from '../../../utilities/display-text';
 
 const defensesTemplate = {
-    dodge: undefined,
-    fortitude: undefined,
-    will: undefined,
-    instinct: undefined
-}
+  dodge: undefined,
+  fortitude: undefined,
+  will: undefined,
+  instinct: undefined,
+};
 
 export type DefensesKey = keyof typeof defensesTemplate;
 

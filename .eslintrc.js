@@ -27,28 +27,28 @@ module.exports = {
   },
   rules: {
     /* ERROR */
-    'array-callback-return': [ERROR, {checkForEach: true}],
+    'array-callback-return': [ERROR, { checkForEach: true }],
     'no-await-in-loop': ERROR,
     'no-new-native-nonconstructor': ERROR,
     'no-self-compare': ERROR,
     'no-unused-private-class-members': ERROR,
-    'accessor-pairs': [ERROR, {getWithoutSet: false}],
+    'accessor-pairs': [ERROR, { getWithoutSet: false }],
     'class-methods-use-this': ERROR,
     'no-useless-return': ERROR,
     'semi-spacing': [OFF],
     curly: [ERROR, 'all'],
     eqeqeq: [ERROR, 'always'],
-    camelcase: [WARN, {properties: 'never'}],
+    camelcase: [WARN, { properties: 'never' }],
 
     /* WARN */
     'constructor-super': WARN,
     'no-unreachable-loop': WARN,
-    'no-use-before-define': [WARN, {variables: false}],
+    'no-use-before-define': [WARN, { variables: false }],
     'block-scoped-var': WARN,
     'max-depth': [WARN, 4],
     'prefer-const': [
       WARN,
-      {destructuring: 'any', ignoreReadBeforeAssign: true},
+      { destructuring: 'any', ignoreReadBeforeAssign: true },
     ],
 
     /* Plugins */
@@ -57,7 +57,7 @@ module.exports = {
     'simple-import-sort/exports': 'error',
     'sort-destructure-keys/sort-destructure-keys': [
       ERROR,
-      {caseSensitive: false},
+      { caseSensitive: false },
     ],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',

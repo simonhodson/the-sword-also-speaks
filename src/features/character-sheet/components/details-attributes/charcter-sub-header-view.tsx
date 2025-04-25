@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import {
   FatigueInputModal,
   HealthInputModal,
@@ -23,17 +24,17 @@ type CharacterHeaderViewProps = {
   aces: number | undefined;
 };
 
-// type FatigueNodeTrack = { element: React.ReactNode; index: number };
+type FatigueNodeTrack = { element: React.ReactNode; index: number };
 
 function CharacterSubHeaderView({
-  screenHeight,
-  currentHealth,
-  currentFatigue,
-  characterId,
-  speed,
-  maxHealth,
-  initiative,
   aces,
+  characterId,
+  currentFatigue,
+  currentHealth,
+  initiative,
+  maxHealth,
+  screenHeight,
+  speed,
 }: CharacterHeaderViewProps) {
   const updateHealth = useCharacterStore(
     (state) => state.updateCharacterHealth,

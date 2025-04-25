@@ -22,7 +22,7 @@ function CharacterDetailsView({
   function renderDetails() {
     const entries = Object.entries(characterDetails) as [
       CharacterDetailsKey,
-      string | number,
+      any,
     ][];
 
     return entries.map(([key, value]) => {

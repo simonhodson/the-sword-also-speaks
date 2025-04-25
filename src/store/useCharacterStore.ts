@@ -1,14 +1,18 @@
 import { create } from 'zustand';
-import { CharacterDetails } from "../features/character-sheet/types/character-details.types";
+
+import { CharacterDetails } from '../features/character-sheet/types/character-details.types';
 import { Character } from '../features/character-sheet/types/character-sheet-types';
-import { loadCharacters, saveCharacters } from '../utilities/async-storage';
 import { Health } from '../features/character-sheet/types/health-types';
+import { loadCharacters, saveCharacters } from '../utilities/async-storage';
 
 type CharacterStore = {
   characters: Character[];
   addNewCharacter: (character: Character) => void;
   getCharacterById: (id: string) => Character | undefined;
-  updateCharacterDetails: (id: string, newDetails: Partial<CharacterDetails>) => void;
+  updateCharacterDetails: (
+    id: string,
+    newDetails: Partial<CharacterDetails>,
+  ) => void;
   updateCharacterHealth: (id: string, newHealth: Partial<Health>) => void;
   deleteCharacter: (id: string) => void;
   hydrate: () => void;
@@ -19,8 +23,8 @@ export const useCharacterStore = create<CharacterStore>((set, get) => ({
 
   addNewCharacter: (character: Character) => {
     set((state) => ({
-      characters: [...state.characters, character]
-    }))
+      characters: [...state.characters, character],
+    }));
     // Save to storage
     saveCharacters(get().characters);
   },
@@ -30,13 +34,15 @@ export const useCharacterStore = create<CharacterStore>((set, get) => ({
   updateCharacterDetails: (id, newDetails) => {
     set((state) => ({
       characters: state.characters.map((char) =>
-        char.id === id ? {
-          ...char,
-          details: {
-            ...char.details,
-            ...newDetails
-          }
-        } : char
+        char.id === id
+          ? {
+              ...char,
+              details: {
+                ...char.details,
+                ...newDetails,
+              },
+            }
+          : char,
       ),
     }));
     // Save to storage
@@ -45,22 +51,23 @@ export const useCharacterStore = create<CharacterStore>((set, get) => ({
   updateCharacterHealth: (id, newHealth) => {
     set((state) => ({
       characters: state.characters.map((char) =>
-        char.id === id ? {
-          ...char,
-          health: {
-            ...char.health,
-            ...newHealth
-          }
-        } : char
+        char.id === id
+          ? {
+              ...char,
+              health: {
+                ...char.health,
+                ...newHealth,
+              },
+            }
+          : char,
       ),
     }));
     //save to storage
-    saveCharacters(get().characters)
-
+    saveCharacters(get().characters);
   },
   deleteCharacter: (id: string) => {
     set((state) => {
-      const updatedCharacters = state.characters.filter(c => c.id !== id);
+      const updatedCharacters = state.characters.filter((c) => c.id !== id);
       // Save immediately after updating
       saveCharacters(updatedCharacters);
       return { characters: updatedCharacters };
