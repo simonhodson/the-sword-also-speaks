@@ -1,5 +1,5 @@
-import { Archetype } from "../features/character-sheet/types/character-sheet-types";
-import { ArchetypeConst } from "./archetype-const-types";
+import { Archetype } from '../features/character-sheet/types/character-sheet-types';
+import { ArchetypeConst } from './archetype-const-types';
 
 export const ARCHETYPES: { [K in Archetype]: ArchetypeConst } = {
   Martial: {
@@ -14,22 +14,22 @@ export const ARCHETYPES: { [K in Archetype]: ArchetypeConst } = {
         initialAmount: 3,
         onInit: true,
         onLevel: true,
-        maximumRank: undefined
+        maximumRank: undefined,
       },
       {
         type: 'Control',
         initialAmount: 0,
         onInit: false,
         onLevel: true,
-        maximumRank: 5
-      }
+        maximumRank: 5,
+      },
     ],
     spells: {
       origin: false,
       available: ['arcane'],
       maximumRank: 5,
-      ranksAvailableOnInit: undefined
-    }
+      ranksAvailableOnInit: undefined,
+    },
   },
   Spellcaster: {
     baseHealth: 12,
@@ -43,14 +43,14 @@ export const ARCHETYPES: { [K in Archetype]: ArchetypeConst } = {
         initialAmount: 0,
         onInit: true,
         onLevel: true,
-        maximumRank: undefined
+        maximumRank: undefined,
       },
       {
         type: 'Martial',
         initialAmount: 1,
         onInit: true,
         onLevel: true,
-        maximumRank: 5
+        maximumRank: 5,
       },
       {
         type: 'Control',
@@ -58,13 +58,13 @@ export const ARCHETYPES: { [K in Archetype]: ArchetypeConst } = {
         onInit: true,
         onLevel: true,
         maximumRank: undefined,
-      }
+      },
     ],
     spells: {
       origin: true,
       available: ['arcane', 'dark', 'faen', 'radiant', 'wild'],
       maximumRank: undefined,
-      ranksAvailableOnInit: 4
+      ranksAvailableOnInit: 4,
     },
   },
   Control: {
@@ -79,7 +79,7 @@ export const ARCHETYPES: { [K in Archetype]: ArchetypeConst } = {
         initialAmount: 1,
         onInit: true,
         onLevel: false,
-        maximumRank: undefined
+        maximumRank: undefined,
       },
       {
         type: 'Control',
@@ -87,14 +87,14 @@ export const ARCHETYPES: { [K in Archetype]: ArchetypeConst } = {
         onInit: true,
         onLevel: true,
         maximumRank: undefined,
-      }
+      },
     ],
     spells: {
       origin: false,
       available: ['arcane'],
       maximumRank: 5,
-      ranksAvailableOnInit: undefined
-    }
+      ranksAvailableOnInit: undefined,
+    },
   },
   Defender: {
     baseHealth: 16,
@@ -108,7 +108,7 @@ export const ARCHETYPES: { [K in Archetype]: ArchetypeConst } = {
         initialAmount: 1,
         onInit: true,
         onLevel: true,
-        maximumRank: 5
+        maximumRank: 5,
       },
       {
         type: 'Control',
@@ -116,13 +116,13 @@ export const ARCHETYPES: { [K in Archetype]: ArchetypeConst } = {
         onInit: true,
         onLevel: true,
         maximumRank: undefined,
-      }
+      },
     ],
     spells: {
       origin: false,
       available: ['arcane'],
       maximumRank: 5,
-      ranksAvailableOnInit: undefined
-    }
-  }
-}
+      ranksAvailableOnInit: undefined,
+    },
+  },
+};

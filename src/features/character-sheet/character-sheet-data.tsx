@@ -1,27 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import {
-  View,
-  StyleSheet,
-  FlatList
-} from 'react-native';
-import { CharacterSheetView } from './character-sheet-view';
-import createNewCharacter from '../../factories/character-sheet-factory';
-import { useCharacterStore } from '../../store/useCharacterStore';
-import { CharacterSelectionCardView } from './components/character-selection-card-view';
-import LoadingIndicator from '../../common/components/loading-screen';
 import { useNavigation } from '@react-navigation/native';
-import { Button } from '../../common';
+import React, { useEffect, useState } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-type Selected = { selected: boolean, id?: string | undefined };
+import { Button } from '../../common';
+import LoadingIndicator from '../../common/components/loading-screen';
+import createNewCharacter from '../../factories/character-sheet-factory';
+import { useCharacterStore } from '../../store/useCharacterStore';
+import { CharacterSheetView } from './character-sheet-view';
+import { CharacterSelectionCardView } from './components/character-selection-card-view';
+
+type Selected = { selected: boolean; id?: string | undefined };
 /**
  * Responsible for creating characters or retrieving stored ones
  */
 export default function CharacterSheetData() {
-  const addCharacter = useCharacterStore(state => state.addNewCharacter);
-  const deleteCharacter = useCharacterStore(state => state.deleteCharacter);
+  const addCharacter = useCharacterStore((state) => state.addNewCharacter);
+  const deleteCharacter = useCharacterStore((state) => state.deleteCharacter);
 
-  const characters = useCharacterStore(state => state.characters);
+  const characters = useCharacterStore((state) => state.characters);
   const navigation = useNavigation();
 
   const [loading, setLoading] = useState(true);
@@ -33,17 +30,17 @@ export default function CharacterSheetData() {
     return () => {
       setLoading(true);
       setSelected({ selected: false });
-    }
+    };
   }, []);
 
   useEffect(() => {
     if (characters) {
       setLoading(false);
     }
-  }, [characters])
+  }, [characters]);
 
   function onReturn() {
-    setSelected({ selected: false })
+    setSelected({ selected: false });
     navigation.setOptions({
       headerTitle: 'Select Character',
     });
@@ -54,60 +51,55 @@ export default function CharacterSheetData() {
     addCharacter(initialCharacter);
   }
 
-
   function onDeleteCharacter(id: string) {
     deleteCharacter(id);
   }
 
-  if (loading) {
-    return (<LoadingIndicator />);
+  function renderMargin() {
+    return <View style={{ margin: 5 }} />;
   }
 
-  return (
-    selected.selected && selected.id ? (
-      <CharacterSheetView
-        characterId={selected.id}
-        goBack={onReturn}
+  if (loading) {
+    return <LoadingIndicator />;
+  }
+
+  return selected.selected && selected.id ? (
+    <CharacterSheetView characterId={selected.id} goBack={onReturn} />
+  ) : (
+    <SafeAreaView style={{ flex: 1 }}>
+      <FlatList
+        style={{ flex: 1 }}
+        data={characters}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <CharacterSelectionCardView
+            characterId={item.id}
+            name={item.details.name}
+            species={item.details.species}
+            archetype={item.details.archetype}
+            currentLevel={item.details.currentLevel}
+            onSelect={() => setSelected({ selected: true, id: item.id })}
+            onRemoveCharacter={onDeleteCharacter}
+          />
+        )}
+        ItemSeparatorComponent={renderMargin}
       />
-    ) : (
-      <SafeAreaView style={{ flex: 1 }}>
-        <FlatList
-          style={{ flex: 1 }}
-          data={characters}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <CharacterSelectionCardView
-              characterId={item.id}
-              name={item.details.name}
-              species={item.details.species}
-              archetype={item.details.archetype}
-              currentLevel={item.details.currentLevel}
-              onSelect={() =>
-                setSelected({ selected: true, id: item.id }
-                )}
-              onRemoveCharacter={onDeleteCharacter}
-            />
-          )}
-          ItemSeparatorComponent={() => (
-            <View style={{ margin: 5 }} />
-          )}
-        />
-        <View style={styles.buttonZone}>
-          <Button title="Create New Character" onPress={onPressCreate} />
-        </View>
-      </SafeAreaView>
-    ))
+      <View style={styles.buttonZone}>
+        <Button title='Create New Character' onPress={onPressCreate} />
+      </View>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
   loading: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   buttonZone: {
     marginBottom: 30,
     width: '100%',
     alignItems: 'center',
-  }
-})
+  },
+});

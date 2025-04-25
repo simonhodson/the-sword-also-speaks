@@ -22,6 +22,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     reactNativeFactory = factory
 
     window = UIWindow(frame: UIScreen.main.bounds)
+    
+    // Log Font assets on startup
+    for family: String in UIFont.familyNames{
+      print(family)
+      for names:String in UIFont.fontNames(forFamilyName: family){
+        print("== \(names)")
+      }
+    }
+    // End Font Log
 
     factory.startReactNative(
       withModuleName: "TheSwordAlsoSpeaks",

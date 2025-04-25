@@ -1,18 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import {
-  View,
-  StyleSheet,
-  Text,
-  Pressable,
-} from 'react-native';
+import React, { useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useCharacterStore } from '../../../../store/useCharacterStore';
+
 import {
   FatigueInputModal,
-  HealthInputModal
+  HealthInputModal,
 } from '../../../../common/components/modals';
+import { useCharacterStore } from '../../../../store/useCharacterStore';
 import { Initiative } from '../../types/action-stats-types';
-
 
 export const MAX_FATIGUE = 6;
 
@@ -27,38 +22,38 @@ type CharacterHeaderViewProps = {
   speed: number | undefined;
   initiative: Initiative | undefined;
   aces: number | undefined;
-}
+};
 
-type FatigueNodeTrack = { element: React.ReactNode, index: number };
+// type FatigueNodeTrack = { element: React.ReactNode; index: number };
 
 function CharacterSubHeaderView({
-  screenHeight,
-  currentHealth,
-  currentFatigue,
+  aces,
   characterId,
-  speed,
-  maxHealth,
+  currentFatigue,
+  currentHealth,
   initiative,
-  aces
+  maxHealth,
+  screenHeight,
+  speed,
 }: CharacterHeaderViewProps) {
-
-  const updateHealth = useCharacterStore(state => state.updateCharacterHealth);
+  const updateHealth = useCharacterStore(
+    (state) => state.updateCharacterHealth,
+  );
 
   const [fatigueVisible, setFatigueVisible] = useState(false);
   const [healthVisible, setHealthVisible] = useState(false);
 
-
   function onEditFatigue(value?: number) {
     setFatigueVisible(false);
     if (value !== undefined) {
-      updateHealth(characterId, { currentFatigue: value })
+      updateHealth(characterId, { currentFatigue: value });
     }
   }
 
   function onEditHealth(value?: number) {
     setHealthVisible(false);
     if (value !== undefined) {
-      updateHealth(characterId, { currentHealth: value })
+      updateHealth(characterId, { currentHealth: value });
     }
   }
 
@@ -69,19 +64,22 @@ function CharacterSubHeaderView({
         <Icon
           key={i}
           size={ICON_TEXT_SIZE}
-          name={currentFatigue && currentFatigue > i ? 'square-rounded' : 'square-rounded-outline'}
+          name={
+            currentFatigue && currentFatigue > i
+              ? 'square-rounded'
+              : 'square-rounded-outline'
+          }
           color={'#fff'}
           style={{ paddingRight: 5 }}
-        />
-      )
+        />,
+      );
     }
     return maxIcons;
   }
 
-
   return (
     <>
-      <View style={[styles.main, { height: screenHeight * 0.10 }]}>
+      <View style={[styles.main, { height: screenHeight * 0.1 }]}>
         {/* Row 1 */}
         <View style={[styles.rowEvenly, { marginBottom: 10, marginRight: 5 }]}>
           <View style={styles.row}>
@@ -124,7 +122,10 @@ function CharacterSubHeaderView({
               style={{ marginRight: 5 }}
             />
             <Text style={styles.text}>{maxHealth}</Text>
-            <Pressable style={styles.row} onPress={() => setHealthVisible(true)}>
+            <Pressable
+              style={styles.row}
+              onPress={() => setHealthVisible(true)}
+            >
               <Icon
                 size={ICON_TEXT_SIZE}
                 name='heart-broken'
@@ -134,9 +135,12 @@ function CharacterSubHeaderView({
               <Text style={styles.text}>{currentHealth}</Text>
             </Pressable>
           </View>
-          <Pressable style={{ flexDirection: 'row' }} onPress={() => setFatigueVisible(true)}>
+          <Pressable
+            style={{ flexDirection: 'row' }}
+            onPress={() => setFatigueVisible(true)}
+          >
             {/* <Text style={styles.text}>Current Fatigue: </Text> */}
-            {renderFatigue().map(e => e)}
+            {renderFatigue().map((e) => e)}
           </Pressable>
         </View>
         {/* Row 3 */}
@@ -147,7 +151,9 @@ function CharacterSubHeaderView({
           modalVisible={fatigueVisible}
           onSetValue={onEditFatigue}
         />
-      ) : false}
+      ) : (
+        false
+      )}
       {healthVisible && currentHealth && maxHealth ? (
         <HealthInputModal
           currentHeath={currentHealth}
@@ -155,13 +161,14 @@ function CharacterSubHeaderView({
           onSetValue={onEditHealth}
           modalVisible={healthVisible}
         />
-      ) : false}
+      ) : (
+        false
+      )}
     </>
-  )
+  );
 }
 
 export { CharacterSubHeaderView };
-
 
 const styles = StyleSheet.create({
   main: {
@@ -170,7 +177,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 20,
   },
   row: {
     flexDirection: 'row',
@@ -182,17 +189,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   text: {
-    fontFamily: "Gaegu-Regular",
+    fontFamily: 'Gaegu-Regular',
     fontWeight: 500,
     fontSize: ICON_TEXT_SIZE,
     paddingBottom: 2,
-    color: '#fff'
+    color: '#fff',
   },
   heavyText: {
-    fontFamily: "Gaegu-Bold",
+    fontFamily: 'Gaegu-Bold',
     fontSize: ICON_TEXT_SIZE,
     paddingBottom: 2,
-    color: '#fff'
+    color: '#fff',
   },
   circle: {
     height: 30,
@@ -201,6 +208,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#fff',
     justifyContent: 'center',
-    alignItems: 'center'
-  }
-})
+    alignItems: 'center',
+  },
+});

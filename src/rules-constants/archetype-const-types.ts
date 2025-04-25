@@ -1,16 +1,19 @@
-import { Archetype } from "../features/character-sheet/types/character-sheet-types";
+export type PerksCategory =
+  | 'Martial'
+  | 'Defender'
+  | 'Control'
+  | 'Regular'
+  | 'Spellcaster';
 
-export type PerksCategory = 'Martial' | 'Defender' | 'Control' | 'Regular' | 'Spellcaster';
-export type ArmourWeaponTypes = 'basic' | 'light' | 'medium' | 'heavy'; 
+export type ArmourWeaponTypes = 'basic' | 'light' | 'medium' | 'heavy';
 
-export type ArchetypeConst = {
-  baseHealth: number,
-  weaponRestrictions: ArmourWeaponTypes[],
-  weaponsRestrictionOverride: boolean,
-  armourTypes: ArmourWeaponTypes[],
-  majorityAvailable: boolean,
-  perks: Perk[],
-  spells: Spells
+export type Tag = 'arcane' | 'dark' | 'faen' | 'radiant' | 'wild';
+
+export type Spells = {
+  ranksAvailableOnInit: number | undefined;
+  origin: boolean;
+  available: Tag[];
+  maximumRank: number | undefined;
 };
 
 export type Perk = {
@@ -19,15 +22,20 @@ export type Perk = {
   onInit: boolean;
   onLevel: boolean;
   maximumRank: number | undefined;
-}
+};
 
+export type SpellOrigin =
+  | 'fervent-student'
+  | 'innate-ability'
+  | 'powerful-boon'
+  | 'whims-of-fate';
 
-
-export type Tag = 'arcane' | 'dark' | 'faen' | 'radiant' | 'wild';
-export type SpellOrigin = 'fervent-student' | 'innate-ability' | 'powerful-boon' | 'whims-of-fate';
-export type Spells = {
-  ranksAvailableOnInit: number | undefined,
-  origin: boolean;
-  available: Tag[];
-  maximumRank: number | undefined;
-}
+export type ArchetypeConst = {
+  baseHealth: number;
+  weaponRestrictions: ArmourWeaponTypes[];
+  weaponsRestrictionOverride: boolean;
+  armourTypes: ArmourWeaponTypes[];
+  majorityAvailable: boolean;
+  perks: Perk[];
+  spells: Spells;
+};

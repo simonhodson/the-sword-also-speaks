@@ -1,15 +1,20 @@
-import React, { useEffect } from 'react';
 import type { PropsWithChildren } from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
-import { skillDisplayText, Skills, SkillsKey, SkillsLevel } from '../../types/skills-types';
+import React from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+
 import { TornPaperBox } from '../../../../common/components/torn-paper-box-view';
+import {
+  skillDisplayText,
+  Skills,
+  SkillsKey,
+  SkillsLevel,
+} from '../../types/skills-types';
 
 type SkillsView = PropsWithChildren<{
-  skills: Skills
+  skills: Skills;
 }>;
 
 function SkillsView({ skills }: SkillsView) {
-
   function renderDetails() {
     const entries = Object.entries(skills) as [SkillsKey, SkillsLevel][];
 
@@ -21,13 +26,13 @@ function SkillsView({ skills }: SkillsView) {
           </Text>
           <Text style={styles.text}>{value.rank}</Text>
         </View>
-      )
-    })
+      );
+    });
   }
 
   return (
     <ScrollView>
-      <TornPaperBox >
+      <TornPaperBox>
         <View style={styles.main}>
           <View style={styles.statRow}>
             <Text style={styles.heavyText}>Skills</Text>
@@ -36,9 +41,9 @@ function SkillsView({ skills }: SkillsView) {
           {renderDetails()}
         </View>
       </TornPaperBox>
-      <View style={{marginBottom: 150}} />
+      <View style={{ marginBottom: 150 }} />
     </ScrollView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -51,20 +56,20 @@ const styles = StyleSheet.create({
   statRow: {
     flexDirection: 'row',
     alignItems: 'baseline',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   heavyText: {
-    fontFamily: "Gaegu-Bold",
+    fontFamily: 'Gaegu-Bold',
 
     fontSize: 26,
-    paddingBottom: 2
+    paddingBottom: 2,
   },
   text: {
-    fontFamily: "Gaegu-Regular",
+    fontFamily: 'Gaegu-Regular',
     fontWeight: 500,
     fontSize: 26,
-    marginBottom: 5
-  }
+    marginBottom: 5,
+  },
 });
 
 export { SkillsView };

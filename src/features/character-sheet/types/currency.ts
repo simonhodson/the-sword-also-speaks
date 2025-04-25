@@ -1,8 +1,8 @@
-import { createDisplayText } from "../../../utilities/display-text";
+import { createDisplayText } from '../../../utilities/display-text';
 
 const currencyTemplate = {
-    gold: undefined
-}
+  gold: undefined,
+};
 
 export type CurrencyKey = keyof typeof currencyTemplate;
 
