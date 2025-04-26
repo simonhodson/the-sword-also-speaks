@@ -3,7 +3,7 @@ import React from 'react';
 import { Dimensions, Text, View } from 'react-native';
 
 import {
-  EditAttributesNavigationProp,
+  EditAbilitiesNavigationProp,
   EditDetailsNavigationProp,
 } from '../../../../../navigation/root-stack';
 import { useCharacterStore } from '../../../../../store/useCharacterStore';
@@ -18,7 +18,7 @@ function DetailsAbilitiesCombinedData({
   characterId,
 }: DetailsAbilitiesCombinedDataProps) {
   const navigation = useNavigation<
-    EditDetailsNavigationProp | EditAttributesNavigationProp
+    EditDetailsNavigationProp | EditAbilitiesNavigationProp
   >();
   const { width: screenWidth } = Dimensions.get('window');
 
@@ -26,11 +26,11 @@ function DetailsAbilitiesCombinedData({
     state.characters.find((c) => c.id === characterId),
   );
 
-  function onPressEdit(direction: 'details' | 'attributes') {
+  function onPressEdit(direction: 'details' | 'abilities') {
     if (characterId) {
       direction === 'details'
         ? navigation.navigate('EditDetails', { characterId })
-        : navigation.navigate('EditAttributes', { characterId });
+        : navigation.navigate('EditAbilities', { characterId });
     }
     // What happens if not?
   }

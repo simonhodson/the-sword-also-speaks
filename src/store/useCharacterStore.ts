@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 
+import { AbilityScores } from '../features/character-sheet/types/ability-score-types';
 import { CharacterDetails } from '../features/character-sheet/types/character-details.types';
 import { Character } from '../features/character-sheet/types/character-sheet-types';
 import { Health } from '../features/character-sheet/types/health-types';
@@ -14,6 +15,10 @@ type CharacterStore = {
     newDetails: Partial<CharacterDetails>,
   ) => void;
   updateCharacterHealth: (id: string, newHealth: Partial<Health>) => void;
+  updateCharacterAbilityScores: (
+    id: string,
+    newDetails: Partial<AbilityScores>,
+  ) => void;
   deleteCharacter: (id: string) => void;
   hydrate: () => void;
 };
@@ -46,6 +51,22 @@ export const useCharacterStore = create<CharacterStore>((set, get) => ({
       ),
     }));
     // Save to storage
+    saveCharacters(get().characters);
+  },
+  updateCharacterAbilityScores: (id, newDetails) => {
+    set((state) => ({
+      characters: state.characters.map((char) =>
+        char.id === id
+          ? {
+              ...char,
+              abilityScores: {
+                ...char.abilityScores,
+                ...newDetails,
+              },
+            }
+          : char,
+      ),
+    }));
     saveCharacters(get().characters);
   },
   updateCharacterHealth: (id, newHealth) => {

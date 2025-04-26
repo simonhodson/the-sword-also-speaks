@@ -13,7 +13,10 @@ import {
 
 type AbilityScoresView = PropsWithChildren<{
   abilityScores: AbilityScores;
-  onPressEdit: (direction: 'details' | 'attributes') => void;
+  onPressEdit: (
+    direction: 'details' | 'abilities',
+    abilityKey?: AbilityKey,
+  ) => void;
 }>;
 
 function AbilityScoresView({ abilityScores, onPressEdit }: AbilityScoresView) {
@@ -39,7 +42,7 @@ function AbilityScoresView({ abilityScores, onPressEdit }: AbilityScoresView) {
     <TornPaperBox>
       <View style={styles.topRow}>
         <Pressable
-          onPress={() => onPressEdit('attributes')}
+          onPress={() => onPressEdit('abilities')}
           style={{ alignItems: 'flex-end' }}
         >
           <Icon name='edit' size={26} />
