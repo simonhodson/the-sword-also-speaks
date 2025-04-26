@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+// import IconF from 'react-native-vector-icons/Foundation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
@@ -8,6 +9,7 @@ import {
 } from '../../../common/components/modals';
 import { useCharacterStore } from '../../../store/useCharacterStore';
 import { Initiative } from '../types/action-stats-types';
+import { BodyPart } from '../types/health-types';
 
 export const MAX_FATIGUE = 6;
 
@@ -50,7 +52,26 @@ function CharacterSubHeaderView({
     }
   }
 
-  function onEditHealth(value?: number) {
+  function onEditHealth(bodyPart: BodyPart, value?: number) {
+    switch (bodyPart) {
+      case 'head':
+        console.log(bodyPart, ' ... ', value);
+        break;
+      case 'torso':
+        console.log(bodyPart, ' ... ', value);
+        break;
+      case 'arms':
+        console.log(bodyPart, ' ... ', value);
+        break;
+      case 'crotch':
+        console.log(bodyPart, ' ... ', value);
+        break;
+      case 'legs':
+        console.log(bodyPart, ' ... ', value);
+        break;
+      default:
+        break;
+    }
     setHealthVisible(false);
     if (value !== undefined) {
       updateHealth(characterId, { currentHealth: value });
@@ -79,7 +100,7 @@ function CharacterSubHeaderView({
 
   return (
     <>
-      <View style={[styles.main, { height: screenHeight * 0.1 }]}>
+      <View style={[styles.main, { minHeight: screenHeight * 0.1 }]}>
         {/* Row 1 */}
         <View style={[styles.rowEvenly, { marginBottom: 10, marginRight: 5 }]}>
           <View style={styles.row}>
@@ -113,7 +134,7 @@ function CharacterSubHeaderView({
           </View>
         </View>
         {/* Row 2 */}
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View style={styles.rowTwo}>
           <View style={styles.row}>
             <Icon
               size={ICON_TEXT_SIZE}
@@ -143,7 +164,44 @@ function CharacterSubHeaderView({
             {renderFatigue().map((e) => e)}
           </Pressable>
         </View>
-        {/* Row 3 */}
+        {/* Row 3 Health by Parts*/}
+        <View style={styles.lastRow}>
+          <Pressable
+            onPress={() => onEditHealth('head')}
+            style={styles.bodyParts}
+          >
+            <Text style={styles.text}>Head</Text>
+            <Text style={styles.text}>2</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => onEditHealth('torso')}
+            style={styles.bodyParts}
+          >
+            <Text style={styles.text}>Torso</Text>
+            <Text style={styles.text}>2</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => onEditHealth('arms')}
+            style={styles.bodyParts}
+          >
+            <Text style={styles.text}>Arms</Text>
+            <Text style={styles.text}>2</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => onEditHealth('crotch')}
+            style={styles.bodyParts}
+          >
+            <Text style={styles.text}>Crotch</Text>
+            <Text style={styles.text}>2</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => onEditHealth('legs')}
+            style={styles.bodyParts}
+          >
+            <Text style={styles.text}>Legs</Text>
+            <Text style={styles.text}>2</Text>
+          </Pressable>
+        </View>
       </View>
       {fatigueVisible && currentFatigue !== undefined ? (
         <FatigueInputModal
@@ -183,10 +241,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  rowTwo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
   rowEvenly: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  lastRow: {
+    flexDirection: 'row',
+    marginBottom: 5,
+    justifyContent: 'space-between',
+  },
+  bodyParts: {
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   text: {
     fontFamily: 'Gaegu-Regular',
