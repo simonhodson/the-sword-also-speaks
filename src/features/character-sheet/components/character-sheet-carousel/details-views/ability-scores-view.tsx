@@ -3,17 +3,20 @@ import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
-import { TornPaperBox } from '../../../../common/';
+import { TornPaperBox } from '../../../../../common';
 import {
   abilityDisplayText,
   AbilityKey,
   AbilityScores,
   AbilityStat,
-} from '../../types/ability-score-types';
+} from '../../../types/ability-score-types';
 
 type AbilityScoresView = PropsWithChildren<{
   abilityScores: AbilityScores;
-  onPressEdit: (direction: 'details' | 'attributes') => void;
+  onPressEdit: (
+    direction: 'details' | 'abilities',
+    abilityKey?: AbilityKey,
+  ) => void;
 }>;
 
 function AbilityScoresView({ abilityScores, onPressEdit }: AbilityScoresView) {
@@ -39,7 +42,7 @@ function AbilityScoresView({ abilityScores, onPressEdit }: AbilityScoresView) {
     <TornPaperBox>
       <View style={styles.topRow}>
         <Pressable
-          onPress={() => onPressEdit('attributes')}
+          onPress={() => onPressEdit('abilities')}
           style={{ alignItems: 'flex-end' }}
         >
           <Icon name='edit' size={26} />

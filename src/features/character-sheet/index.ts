@@ -1,2 +1,2 @@
-export { EditAttributeModal } from './components/details-attributes/edit-attributes.modal';
-export { EditDetailsModal } from './components/details-attributes/edit-details-modal';
+export { EditAbilitiesModal } from './components/character-modals/edit-abilities.modal';
+export { EditDetailsModal } from './components/character-modals/edit-details-modal';

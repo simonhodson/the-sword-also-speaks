@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/native-stack';
 
 import {
-  EditAttributeModal,
+  EditAbilitiesModal,
   EditDetailsModal,
 } from '../features/character-sheet';
 import CharacterSheetData from '../features/character-sheet/character-sheet-data';
@@ -15,7 +15,7 @@ const Stack = createNativeStackNavigator();
 export type RootStackParamList = {
   CharacterSheet: undefined;
   EditDetails: { characterId: string };
-  EditAttributes: { characterId: string };
+  EditAbilities: { characterId: string };
 };
 
 export type EditDetailsRouteProp = RouteProp<RootStackParamList, 'EditDetails'>;
@@ -24,13 +24,13 @@ export type EditDetailsNavigationProp = NativeStackNavigationProp<
   'EditDetails'
 >;
 
-export type EditAttributesRouteProp = RouteProp<
+export type EditAbilitiesRouteProp = RouteProp<
   RootStackParamList,
-  'EditAttributes'
+  'EditAbilities'
 >;
-export type EditAttributesNavigationProp = NativeStackNavigationProp<
+export type EditAbilitiesNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
-  'EditAttributes'
+  'EditAbilities'
 >;
 
 export function RootStack() {
@@ -56,7 +56,7 @@ export function RootStack() {
       </Stack.Group>
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name='EditDetails' component={EditDetailsModal} />
-        <Stack.Screen name='EditAttributes' component={EditAttributeModal} />
+        <Stack.Screen name='EditAbilities' component={EditAbilitiesModal} />
       </Stack.Group>
     </Stack.Navigator>
   );

@@ -98,4 +98,4 @@ To learn more about React Native, take a look at the following resources:
 
 ***hours
 
-Total == 39
+Total == 43
