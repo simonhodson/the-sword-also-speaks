@@ -4,9 +4,9 @@ import { FlatList, StatusBar, useWindowDimensions, View } from 'react-native';
 
 import { ExitButton } from '../../common/';
 import { useCharacterStore } from '../../store/useCharacterStore';
-import { CharacterSubHeaderView } from './components/details-attributes/charcter-sub-header-view';
-import { DetailsAbilitiesCombinedData } from './components/details-attributes/details-abilities-view';
-import SkillsData from './components/skills/skills-data';
+import { DetailsAbilitiesCombinedData } from './components/character-sheet-carousel/details-views/details-abilities-view';
+import SkillsData from './components/character-sheet-carousel/skills/skills-data';
+import { CharacterSubHeaderView } from './components/character-sub-header-view';
 
 type CharacterSheetViewProps = { characterId: string; goBack: () => void };
 

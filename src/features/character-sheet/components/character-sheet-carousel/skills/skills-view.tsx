@@ -2,13 +2,13 @@ import type { PropsWithChildren } from 'react';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { TornPaperBox } from '../../../../common/components/torn-paper-box-view';
+import { TornPaperBox } from '../../../../../common/components/torn-paper-box-view';
 import {
   skillDisplayText,
   Skills,
   SkillsKey,
   SkillsLevel,
-} from '../../types/skills-types';
+} from '../../../types/skills-types';
 
 type SkillsView = PropsWithChildren<{
   skills: Skills;

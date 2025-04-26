@@ -5,10 +5,10 @@ import { Dimensions, Text, View } from 'react-native';
 import {
   EditAttributesNavigationProp,
   EditDetailsNavigationProp,
-} from '../../../../navigation/root-stack';
-import { useCharacterStore } from '../../../../store/useCharacterStore';
-import { AbilityScoresView } from '../../components/details-attributes/ability-scores-view';
-import { CharacterDetailsView } from '../../components/details-attributes/character-details-view';
+} from '../../../../../navigation/root-stack';
+import { useCharacterStore } from '../../../../../store/useCharacterStore';
+import { AbilityScoresView } from './ability-scores-view';
+import { CharacterDetailsView } from './character-details-view';
 
 type DetailsAbilitiesCombinedDataProps = { characterId: string };
 /**

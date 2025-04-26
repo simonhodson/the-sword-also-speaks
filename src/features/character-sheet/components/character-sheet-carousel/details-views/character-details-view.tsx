@@ -3,11 +3,11 @@ import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
-import { TornPaperBox } from '../../../../common';
+import { TornPaperBox } from '../../../../../common';
 import {
   CharacterDetails,
   characterDetailsDisplayText,
-} from '../../types/character-details.types';
+} from '../../../types/character-details.types';
 
 type CharacterDetailsView = PropsWithChildren<{
   characterDetails: CharacterDetails;

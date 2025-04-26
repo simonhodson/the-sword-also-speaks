@@ -3,13 +3,13 @@ import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
-import { TornPaperBox } from '../../../../common/';
+import { TornPaperBox } from '../../../../../common';
 import {
   abilityDisplayText,
   AbilityKey,
   AbilityScores,
   AbilityStat,
-} from '../../types/ability-score-types';
+} from '../../../types/ability-score-types';
 
 type AbilityScoresView = PropsWithChildren<{
   abilityScores: AbilityScores;

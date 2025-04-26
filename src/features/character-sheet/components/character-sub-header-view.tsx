@@ -5,9 +5,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   FatigueInputModal,
   HealthInputModal,
-} from '../../../../common/components/modals';
-import { useCharacterStore } from '../../../../store/useCharacterStore';
-import { Initiative } from '../../types/action-stats-types';
+} from '../../../common/components/modals';
+import { useCharacterStore } from '../../../store/useCharacterStore';
+import { Initiative } from '../types/action-stats-types';
 
 export const MAX_FATIGUE = 6;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dimensions, Text, View } from 'react-native';
 
-import { useCharacterStore } from '../../../../store/useCharacterStore';
+import { useCharacterStore } from '../../../../../store/useCharacterStore';
 import { SkillsView } from './skills-view';
 
 type SkillDataProps = { characterId: string };

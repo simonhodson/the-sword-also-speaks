@@ -2,7 +2,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 
-import { Button } from '../../../../common/';
+import { Button } from '../../../../common';
 import { TornPaperBox } from '../../../../common/components/torn-paper-box-view';
 import {
   EditDetailsNavigationProp,
