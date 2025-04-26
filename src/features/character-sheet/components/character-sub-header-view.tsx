@@ -52,26 +52,7 @@ function CharacterSubHeaderView({
     }
   }
 
-  function onEditHealth(bodyPart: BodyPart, value?: number) {
-    switch (bodyPart) {
-      case 'head':
-        console.log(bodyPart, ' ... ', value);
-        break;
-      case 'torso':
-        console.log(bodyPart, ' ... ', value);
-        break;
-      case 'arms':
-        console.log(bodyPart, ' ... ', value);
-        break;
-      case 'crotch':
-        console.log(bodyPart, ' ... ', value);
-        break;
-      case 'legs':
-        console.log(bodyPart, ' ... ', value);
-        break;
-      default:
-        break;
-    }
+  function onEditHealth(bodyPart?: BodyPart, value?: number) {
     setHealthVisible(false);
     if (value !== undefined) {
       updateHealth(characterId, { currentHealth: value });
@@ -167,35 +148,35 @@ function CharacterSubHeaderView({
         {/* Row 3 Health by Parts*/}
         <View style={styles.lastRow}>
           <Pressable
-            onPress={() => onEditHealth('head')}
+            onPress={() => setHealthVisible(true)}
             style={styles.bodyParts}
           >
             <Text style={styles.text}>Head</Text>
             <Text style={styles.text}>2</Text>
           </Pressable>
           <Pressable
-            onPress={() => onEditHealth('torso')}
+            onPress={() => setHealthVisible(true)}
             style={styles.bodyParts}
           >
             <Text style={styles.text}>Torso</Text>
             <Text style={styles.text}>2</Text>
           </Pressable>
           <Pressable
-            onPress={() => onEditHealth('arms')}
+            onPress={() => setHealthVisible(true)}
             style={styles.bodyParts}
           >
             <Text style={styles.text}>Arms</Text>
             <Text style={styles.text}>2</Text>
           </Pressable>
           <Pressable
-            onPress={() => onEditHealth('crotch')}
+            onPress={() => setHealthVisible(true)}
             style={styles.bodyParts}
           >
             <Text style={styles.text}>Crotch</Text>
             <Text style={styles.text}>2</Text>
           </Pressable>
           <Pressable
-            onPress={() => onEditHealth('legs')}
+            onPress={() => setHealthVisible(true)}
             style={styles.bodyParts}
           >
             <Text style={styles.text}>Legs</Text>
@@ -214,7 +195,9 @@ function CharacterSubHeaderView({
       )}
       {healthVisible && currentHealth && maxHealth ? (
         <HealthInputModal
-          currentHeath={currentHealth}
+          currentPartName='head'
+          currentPartHealth={3}
+          maximumPartHealth={5}
           maximumHealth={maxHealth}
           onSetValue={onEditHealth}
           modalVisible={healthVisible}

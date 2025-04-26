@@ -1,27 +1,54 @@
 import React, { useState } from 'react';
-import { Button, Modal, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Modal, StyleSheet, View } from 'react-native';
+
+import { BodyPart } from '../../../features/character-sheet/types/health-types';
+import { PlusMinusView } from './plus-minus-view';
 
 // import { MAX_FATIGUE } from '../../../features/character-sheet/components/details-attributes/charcter-sub-header-view';
 
 type HealthValueInputProps = {
   modalVisible: boolean;
-  currentHeath: number;
+  currentPartName: BodyPart;
+  currentPartHealth: number;
+  maximumPartHealth: number;
   maximumHealth: number;
-  onSetValue: (value?: number) => void;
+  onSetValue: (bodyPart?: BodyPart, value?: number) => void;
 };
 
 function HealthInputModal({
-  currentHeath,
+  currentPartHealth,
+  currentPartName,
+  maximumPartHealth,
   maximumHealth,
   modalVisible,
   onSetValue,
 }: HealthValueInputProps) {
-  const [value, setValue] = useState(currentHeath.toString());
+  const [value, setValue] = useState(currentPartHealth);
 
-  function onValueEnter() {
-    const v = parseInt(value, 10);
-    onSetValue(v > maximumHealth ? maximumHealth : v);
-  }
+  // function onValueEnter() {
+  //   const v = parseInt(value, 10);
+  //   onSetValue(v > maximumHealth ? maximumHealth : v);
+  // }
+
+  // switch (bodyPart) {
+  //   case 'head':
+  //     console.log(bodyPart, ' ... ', value);
+  //     break;
+  //   case 'torso':
+  //     console.log(bodyPart, ' ... ', value);
+  //     break;
+  //   case 'arms':
+  //     console.log(bodyPart, ' ... ', value);
+  //     break;
+  //   case 'crotch':
+  //     console.log(bodyPart, ' ... ', value);
+  //     break;
+  //   case 'legs':
+  //     console.log(bodyPart, ' ... ', value);
+  //     break;
+  //   default:
+  //     break;
+  // }
 
   return (
     <Modal
@@ -32,17 +59,12 @@ function HealthInputModal({
     >
       <View style={styles.modalBackground}>
         <View style={styles.modalView}>
-          <Text>Enter something:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder='Enter new value...'
-            value={value.toString()}
-            onChangeText={setValue}
-            keyboardType='number-pad'
-          />
-          <View style={styles.buttonRow}>
-            <Button title='Cancel' onPress={() => onSetValue()} />
-            <Button title='OK' onPress={onValueEnter} />
+          <View style={styles.modalView}>
+            <PlusMinusView
+              title={currentPartName}
+              value={currentPartHealth}
+              onPress={(increase) => console.log('PRESSED ... ', increase)}
+            />
           </View>
         </View>
       </View>
@@ -60,19 +82,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   modalView: {
-    backgroundColor: 'white',
-    padding: 20,
-    margin: 20,
-    borderRadius: 10,
-    elevation: 5,
-  },
-  input: {
-    borderBottomWidth: 1,
-    marginVertical: 10,
-    padding: 5,
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
