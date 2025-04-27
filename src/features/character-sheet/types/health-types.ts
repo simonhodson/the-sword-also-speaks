@@ -2,7 +2,7 @@ import { createDisplayText } from '../../../utilities/display-text';
 
 type bodyPartStat = {
   total: number;
-  armour: string;
+  armour: number;
   max: number;
   current: number;
 };

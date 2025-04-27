@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Modal, StyleSheet, View } from 'react-native';
+import { Modal, Pressable, StyleSheet, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { BodyPart } from '../../../features/character-sheet/types/health-types';
 import { PlusMinusView } from './plus-minus-view';
@@ -8,10 +9,9 @@ import { PlusMinusView } from './plus-minus-view';
 
 type HealthValueInputProps = {
   modalVisible: boolean;
-  currentPartName: BodyPart;
+  currentPartName: string;
   currentPartHealth: number;
   maximumPartHealth: number;
-  maximumHealth: number;
   onSetValue: (bodyPart?: BodyPart, value?: number) => void;
 };
 
@@ -19,36 +19,18 @@ function HealthInputModal({
   currentPartHealth,
   currentPartName,
   maximumPartHealth,
-  maximumHealth,
   modalVisible,
   onSetValue,
 }: HealthValueInputProps) {
-  const [value, setValue] = useState(currentPartHealth);
+  const [currentValue, setValue] = useState(currentPartHealth);
+  const [disabled, setDisabled] = useState(0);
 
-  // function onValueEnter() {
-  //   const v = parseInt(value, 10);
-  //   onSetValue(v > maximumHealth ? maximumHealth : v);
-  // }
+  function onAdjust(increase: boolean) {
+    const newVal = increase ? currentValue + 1 : currentValue - 1;
 
-  // switch (bodyPart) {
-  //   case 'head':
-  //     console.log(bodyPart, ' ... ', value);
-  //     break;
-  //   case 'torso':
-  //     console.log(bodyPart, ' ... ', value);
-  //     break;
-  //   case 'arms':
-  //     console.log(bodyPart, ' ... ', value);
-  //     break;
-  //   case 'crotch':
-  //     console.log(bodyPart, ' ... ', value);
-  //     break;
-  //   case 'legs':
-  //     console.log(bodyPart, ' ... ', value);
-  //     break;
-  //   default:
-  //     break;
-  // }
+    setDisabled(newVal === 0 ? -1 : newVal === maximumPartHealth ? 1 : 0);
+    setValue(newVal);
+  }
 
   return (
     <Modal
@@ -58,12 +40,16 @@ function HealthInputModal({
       onRequestClose={() => onSetValue()}
     >
       <View style={styles.modalBackground}>
+        <Pressable style={styles.closeButton} onPress={() => onSetValue()}>
+          <Icon name='close' size={50} color={'#fff'} />
+        </Pressable>
         <View style={styles.modalView}>
           <View style={styles.modalView}>
             <PlusMinusView
               title={currentPartName}
-              value={currentPartHealth}
-              onPress={(increase) => console.log('PRESSED ... ', increase)}
+              value={currentValue}
+              onPress={onAdjust}
+              disabled={disabled}
             />
           </View>
         </View>
@@ -79,10 +65,15 @@ const styles = StyleSheet.create({
   modalBackground: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(0,0,0,0.7)',
   },
   modalView: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
   },
 });

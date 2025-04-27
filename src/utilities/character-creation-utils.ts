@@ -15,4 +15,19 @@ function calculateHealthByArchetype(type: Archetype, str: number = 3): number {
   }
 }
 
-export { calculateHealthByArchetype };
+function healthDivisionCalculation(total: number): number[] {
+  const base = Math.floor(total / 5);
+  const remainder = total % 5;
+
+  // Start with 5 parts with the base number
+  const parts: number[] = new Array(5).fill(base);
+
+  // Distribute the remainder to the first few piles
+  for (let i = 0; i < remainder; i++) {
+    parts[i]++;
+  }
+
+  return parts;
+}
+
+export { calculateHealthByArchetype, healthDivisionCalculation };

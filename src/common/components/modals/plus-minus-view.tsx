@@ -14,9 +14,15 @@ type PlusMinusViewProps = {
   title: string;
   value: number;
   onPress: (increase: boolean) => void;
+  disabled: number;
 };
 
-function PlusMinusView({ onPress, title, value }: PlusMinusViewProps) {
+function PlusMinusView({
+  onPress,
+  title,
+  value,
+  disabled = 0,
+}: PlusMinusViewProps) {
   const { width: screenWidth } = useWindowDimensions();
 
   return (
@@ -26,15 +32,33 @@ function PlusMinusView({ onPress, title, value }: PlusMinusViewProps) {
           <Text style={styles.heavyText}>{title}</Text>
         </View>
         <View style={styles.adjustRow}>
-          <Pressable style={{ flexDirection: 'row' }}>
-            <Icon name='minus-circle' size={36} />
+          <Pressable
+            onPress={() => onPress(false)}
+            style={{ flexDirection: 'row' }}
+            disabled={disabled <= -1}
+          >
+            <Icon
+              name='minus-circle'
+              size={36}
+              color={disabled <= -1 ? '#a9a9a9' : '#000'}
+            />
           </Pressable>
           <Text style={styles.heavyText}>{value}</Text>
-          <Pressable style={{ flexDirection: 'row' }}>
-            <Icon name='plus-circle' size={36} />
+          <Pressable
+            onPress={() => onPress(true)}
+            style={{ flexDirection: 'row' }}
+            disabled={disabled >= 1}
+          >
+            <Icon
+              name='plus-circle'
+              size={36}
+              color={disabled >= 1 ? '#a9a9a9' : '#000'}
+            />
           </Pressable>
         </View>
       </View>
+
+      <SaveButton />
     </TornPaperBox>
   );
 }

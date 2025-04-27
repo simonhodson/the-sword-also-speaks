@@ -10,7 +10,11 @@ import {
   Character,
   Species,
 } from '../features/character-sheet/types/character-sheet-types';
-import { calculateHealthByArchetype } from '../utilities/character-creation-utils';
+import { Health } from '../features/character-sheet/types/health-types';
+import {
+  calculateHealthByArchetype,
+  healthDivisionCalculation,
+} from '../utilities/character-creation-utils';
 
 export default function createNewCharacter(
   name: string = 'Your Name',
@@ -18,6 +22,7 @@ export default function createNewCharacter(
   archetype: Archetype = 'Martial',
   abilityInitials?: AbilityScoresInitialValues,
   levelOverride?: number,
+  initialHealth?: Health,
 ): Character {
   const date = new Date();
 
@@ -36,6 +41,75 @@ export default function createNewCharacter(
     abilityScores.strength.total,
   );
 
+  //Disposable function
+  const healthDivided = healthDivisionCalculation(totalHealth);
+
+  const autoHealth: Health = {
+    totalHealth: totalHealth,
+    currentHealth: totalHealth,
+    currentFatigue: 0,
+    head: {
+      total: healthDivided[0],
+      armour: 0,
+      max: 0,
+      current: 0,
+    },
+    torso: {
+      total: healthDivided[1],
+      armour: 0,
+      max: 0,
+      current: 0,
+    },
+    crotch: {
+      total: healthDivided[2],
+      armour: 0,
+      max: 0,
+      current: 0,
+    },
+    arms: {
+      total: healthDivided[3],
+      armour: 0,
+      max: 0,
+      current: 0,
+    },
+    legs: {
+      total: healthDivided[4],
+      armour: 0,
+      max: 0,
+      current: 0,
+    },
+  };
+
+  if (autoHealth.head) {
+    const v = autoHealth.head.total + autoHealth.head.armour;
+    autoHealth.head.current = v;
+    autoHealth.head.max = v;
+  }
+
+  if (autoHealth.torso) {
+    const v = autoHealth.torso.total + autoHealth.torso.armour;
+    autoHealth.torso.current = v;
+    autoHealth.torso.max = v;
+  }
+
+  if (autoHealth.arms) {
+    const v = autoHealth.arms.total + autoHealth.arms.armour;
+    autoHealth.arms.current = v;
+    autoHealth.arms.max = v;
+  }
+
+  if (autoHealth.legs) {
+    const v = autoHealth.legs.total + autoHealth.legs.armour;
+    autoHealth.legs.current = v;
+    autoHealth.legs.max = v;
+  }
+
+  if (autoHealth.crotch) {
+    const v = autoHealth.crotch.total + autoHealth.crotch.armour;
+    autoHealth.crotch.current = v;
+    autoHealth.crotch.max = v;
+  }
+
   const actionStats: ActionStats = {
     // Base 25 + 5 for each agility rank
     speedScore: 25 + abilityScores.agility.total * 5,
@@ -53,6 +127,7 @@ export default function createNewCharacter(
     dateCreated: date.toISOString(),
     abilityScores: abilityScores,
     actionStats: actionStats,
+    // Change this to the simpler form aof armour, INFO not required here
     armourStats: {
       head: {
         total: 0,
@@ -101,41 +176,7 @@ export default function createNewCharacter(
       currentLevel: levelOverride ?? 1,
     },
     equipment: [],
-    health: {
-      totalHealth: totalHealth,
-      currentHealth: totalHealth,
-      currentFatigue: 0,
-      head: {
-        total: 0,
-        armour: '',
-        max: 0,
-        current: 0,
-      },
-      torso: {
-        total: 0,
-        armour: '',
-        max: 0,
-        current: 0,
-      },
-      crotch: {
-        total: 0,
-        armour: '',
-        max: 0,
-        current: 0,
-      },
-      arms: {
-        total: 0,
-        armour: '',
-        max: 0,
-        current: 0,
-      },
-      legs: {
-        total: 0,
-        armour: '',
-        max: 0,
-        current: 0,
-      },
-    },
+    health: autoHealth, // Change to initial function argument when appropriate
     minorSkills: [],
     skills: {
       acrobatics: { suit: 'Spades', rank: 1 },
