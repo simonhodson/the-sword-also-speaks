@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'Gaegu-Regular',
-    fontWeight: 500,
     fontSize: 26,
     marginBottom: 5,
   },

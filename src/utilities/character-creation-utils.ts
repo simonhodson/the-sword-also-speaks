@@ -1,4 +1,8 @@
 import { Archetype } from '../features/character-sheet/types/character-sheet-types';
+import {
+  BodyPart,
+  Health,
+} from '../features/character-sheet/types/health-types';
 import { ARCHETYPES } from '../rules-constants/archetypes';
 
 // Default 3 is 8 start / the four abilities + initial 1 of all abilities
@@ -30,4 +34,38 @@ function healthDivisionCalculation(total: number): number[] {
   return parts;
 }
 
-export { calculateHealthByArchetype, healthDivisionCalculation };
+function adjustHealthByBodyPart(
+  health: Health,
+  bodyPart: BodyPart,
+  value: number,
+) {
+  const newHealth = { ...health };
+
+  const adjustmentValue = newHealth[bodyPart]
+    ? newHealth[bodyPart].max - value
+    : 0;
+
+  if (health.currentHealth) {
+    newHealth.currentHealth = health.currentHealth - adjustmentValue;
+  }
+
+  if (bodyPart === 'head' && newHealth.head) {
+    newHealth.head.current = value;
+  } else if (bodyPart === 'torso' && newHealth.torso) {
+    newHealth.torso.current = value;
+  } else if (bodyPart === 'arms' && newHealth.arms) {
+    newHealth.arms.current = value;
+  } else if (bodyPart === 'crotch' && newHealth.crotch) {
+    newHealth.crotch.current = value;
+  } else if (bodyPart === 'legs' && newHealth.legs) {
+    newHealth.legs.current = value;
+  }
+
+  return newHealth;
+}
+
+export {
+  adjustHealthByBodyPart,
+  calculateHealthByArchetype,
+  healthDivisionCalculation,
+};

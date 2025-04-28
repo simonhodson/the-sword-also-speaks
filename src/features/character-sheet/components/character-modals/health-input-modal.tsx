@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { Modal, Pressable, StyleSheet, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { BodyPart } from '../../../features/character-sheet/types/health-types';
-import { PlusMinusView } from './plus-minus-view';
+import { Button, TornPaperBox } from '../../../../common';
+import { PlusMinusView } from '../../../../common/components/modals/plus-minus-view';
+import { BodyPart } from '../../types/health-types';
 
 // import { MAX_FATIGUE } from '../../../features/character-sheet/components/details-attributes/charcter-sub-header-view';
 
 type HealthValueInputProps = {
   modalVisible: boolean;
-  currentPartName: string;
+  currentPartDisplayName: string;
+  currentPart: BodyPart;
   currentPartHealth: number;
   maximumPartHealth: number;
   onSetValue: (bodyPart?: BodyPart, value?: number) => void;
@@ -17,18 +19,16 @@ type HealthValueInputProps = {
 
 function HealthInputModal({
   currentPartHealth,
-  currentPartName,
+  currentPartDisplayName,
+  currentPart,
   maximumPartHealth,
   modalVisible,
   onSetValue,
 }: HealthValueInputProps) {
   const [currentValue, setValue] = useState(currentPartHealth);
-  const [disabled, setDisabled] = useState(0);
 
   function onAdjust(increase: boolean) {
     const newVal = increase ? currentValue + 1 : currentValue - 1;
-
-    setDisabled(newVal === 0 ? -1 : newVal === maximumPartHealth ? 1 : 0);
     setValue(newVal);
   }
 
@@ -43,16 +43,32 @@ function HealthInputModal({
         <Pressable style={styles.closeButton} onPress={() => onSetValue()}>
           <Icon name='close' size={50} color={'#fff'} />
         </Pressable>
-        <View style={styles.modalView}>
+        <TornPaperBox>
           <View style={styles.modalView}>
             <PlusMinusView
-              title={currentPartName}
+              title={currentPartDisplayName}
               value={currentValue}
               onPress={onAdjust}
-              disabled={disabled}
+              disabled={
+                currentValue === 0
+                  ? -1
+                  : currentValue === maximumPartHealth
+                  ? 1
+                  : 0
+              }
             />
+            <View style={{ height: 25 }} />
+            <View style={{ width: '100%' }}>
+              <Button
+                title='Done'
+                onPress={() => {
+                  onSetValue(currentPart, currentValue);
+                }}
+              />
+            </View>
+            <View style={{ height: 25 }} />
           </View>
-        </View>
+        </TornPaperBox>
       </View>
     </Modal>
   );
@@ -70,10 +86,11 @@ const styles = StyleSheet.create({
   modalView: {
     justifyContent: 'center',
     alignItems: 'center',
+    width: '90%',
   },
   closeButton: {
     position: 'absolute',
-    top: 20,
+    top: 40,
     right: 20,
   },
 });

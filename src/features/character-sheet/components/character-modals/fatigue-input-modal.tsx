@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Modal, StyleSheet, Text, TextInput, View } from 'react-native';
 
-import { MAX_FATIGUE } from '../../../features/character-sheet/components/character-sub-header-view';
+import { MAX_FATIGUE } from '../character-sub-header-view';
 
 type FatigueInputProps = {
   modalVisible: boolean;

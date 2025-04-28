@@ -8,8 +8,6 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
-import { TornPaperBox } from '../torn-paper-box-view';
-
 type PlusMinusViewProps = {
   title: string;
   value: number;
@@ -26,40 +24,36 @@ function PlusMinusView({
   const { width: screenWidth } = useWindowDimensions();
 
   return (
-    <TornPaperBox>
-      <View style={[styles.main, { width: screenWidth * 0.8 }]}>
-        <View style={styles.titleRow}>
-          <Text style={styles.heavyText}>{title}</Text>
-        </View>
-        <View style={styles.adjustRow}>
-          <Pressable
-            onPress={() => onPress(false)}
-            style={{ flexDirection: 'row' }}
-            disabled={disabled <= -1}
-          >
-            <Icon
-              name='minus-circle'
-              size={36}
-              color={disabled <= -1 ? '#a9a9a9' : '#000'}
-            />
-          </Pressable>
-          <Text style={styles.heavyText}>{value}</Text>
-          <Pressable
-            onPress={() => onPress(true)}
-            style={{ flexDirection: 'row' }}
-            disabled={disabled >= 1}
-          >
-            <Icon
-              name='plus-circle'
-              size={36}
-              color={disabled >= 1 ? '#a9a9a9' : '#000'}
-            />
-          </Pressable>
-        </View>
+    <View style={[styles.main, { width: screenWidth * 0.8 }]}>
+      <View style={styles.titleRow}>
+        <Text style={styles.heavyText}>{title}</Text>
       </View>
-
-      <SaveButton />
-    </TornPaperBox>
+      <View style={styles.adjustRow}>
+        <Pressable
+          onPress={() => onPress(false)}
+          style={{ flexDirection: 'row' }}
+          disabled={disabled <= -1}
+        >
+          <Icon
+            name='minus-circle'
+            size={36}
+            color={disabled <= -1 ? '#a9a9a9' : '#000'}
+          />
+        </Pressable>
+        <Text style={styles.heavyText}>{value}</Text>
+        <Pressable
+          onPress={() => onPress(true)}
+          style={{ flexDirection: 'row' }}
+          disabled={disabled >= 1}
+        >
+          <Icon
+            name='plus-circle'
+            size={36}
+            color={disabled >= 1 ? '#a9a9a9' : '#000'}
+          />
+        </Pressable>
+      </View>
+    </View>
   );
 }
 

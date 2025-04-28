@@ -5,6 +5,7 @@ import {
   AbilityScoresInitialValues,
 } from '../features/character-sheet/types/ability-score-types';
 import { ActionStats } from '../features/character-sheet/types/action-stats-types';
+import { ArmourStats } from '../features/character-sheet/types/armour-types';
 import {
   Archetype,
   Character,
@@ -26,6 +27,7 @@ export default function createNewCharacter(
 ): Character {
   const date = new Date();
 
+  // THIS AREA SHOULD BE MOVED TO EXTERNAL CONFIGURATION FILE
   const abilityScores: AbilityScores = {
     strength: { suit: 'Clubs', total: abilityInitials?.strength ?? 2 },
     agility: { suit: 'Spades', total: abilityInitials?.agility ?? 2 },
@@ -36,7 +38,7 @@ export default function createNewCharacter(
     charisma: { suit: 'Hearts', total: abilityInitials?.charisma ?? 2 },
   };
 
-  const totalHealth = calculateHealthByArchetype(
+  let totalHealth = calculateHealthByArchetype(
     archetype,
     abilityScores.strength.total,
   );
@@ -44,39 +46,62 @@ export default function createNewCharacter(
   //Disposable function
   const healthDivided = healthDivisionCalculation(totalHealth);
 
+  const armour: ArmourStats = {
+    head: 0,
+    torso: 3,
+    crotch: 3,
+    arms: 0,
+    legs: 0,
+  };
+
+  Object.entries(armour).forEach(([key, value]) => {
+    if (value > 0) {
+      console.log(`Armour ${key} is ${value}`);
+      totalHealth += value;
+    }
+  });
+
+  const getHealthMax = (total: number, armour: number) => total + armour;
+
+  const headMax = getHealthMax(healthDivided[0], armour.head);
+  const torsoMax = getHealthMax(healthDivided[1], armour.torso);
+  const crotchMax = getHealthMax(healthDivided[2], armour.crotch);
+  const armsMax = getHealthMax(healthDivided[3], armour.arms);
+  const legsMax = getHealthMax(healthDivided[4], armour.legs);
+
   const autoHealth: Health = {
     totalHealth: totalHealth,
     currentHealth: totalHealth,
     currentFatigue: 0,
     head: {
       total: healthDivided[0],
-      armour: 0,
-      max: 0,
-      current: 0,
+      armour: armour.head,
+      max: headMax,
+      current: headMax,
     },
     torso: {
       total: healthDivided[1],
-      armour: 0,
-      max: 0,
-      current: 0,
+      armour: 3,
+      max: torsoMax,
+      current: torsoMax,
     },
     crotch: {
       total: healthDivided[2],
-      armour: 0,
-      max: 0,
-      current: 0,
+      armour: 3,
+      max: crotchMax,
+      current: crotchMax,
     },
     arms: {
       total: healthDivided[3],
       armour: 0,
-      max: 0,
-      current: 0,
+      max: armsMax,
+      current: armsMax,
     },
     legs: {
       total: healthDivided[4],
       armour: 0,
-      max: 0,
-      current: 0,
+      max: legsMax,
+      current: legsMax,
     },
   };
 
@@ -128,38 +153,7 @@ export default function createNewCharacter(
     abilityScores: abilityScores,
     actionStats: actionStats,
     // Change this to the simpler form aof armour, INFO not required here
-    armourStats: {
-      head: {
-        total: 0,
-        armour: '',
-        max: 0,
-        current: 0,
-      },
-      torso: {
-        total: 0,
-        armour: '',
-        max: 0,
-        current: 0,
-      },
-      crotch: {
-        total: 0,
-        armour: '',
-        max: 0,
-        current: 0,
-      },
-      arms: {
-        total: 0,
-        armour: '',
-        max: 0,
-        current: 0,
-      },
-      legs: {
-        total: 0,
-        armour: '',
-        max: 0,
-        current: 0,
-      },
-    },
+    armourStats: armour,
     currency: {
       gold: 100,
     },

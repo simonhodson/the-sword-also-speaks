@@ -3,11 +3,12 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 // import IconF from 'react-native-vector-icons/Foundation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import { useCharacterStore } from '../../../store/useCharacterStore';
+import { adjustHealthByBodyPart } from '../../../utilities/character-creation-utils';
 import {
   FatigueInputModal,
   HealthInputModal,
-} from '../../../common/components/modals';
-import { useCharacterStore } from '../../../store/useCharacterStore';
+} from '../components/character-modals';
 import { Initiative } from '../types/action-stats-types';
 import { BodyPart, Health, healthDisplayText } from '../types/health-types';
 
@@ -62,20 +63,21 @@ function CharacterSubHeaderView({
   });
 
   function onEditFatigue(value?: number) {
-    setFatigueVisible(false);
     if (value !== undefined) {
       updateHealth(characterId, { currentFatigue: value });
     }
+    setFatigueVisible(false);
   }
 
   function onEditHealth(bodyPart?: BodyPart, value?: number) {
-    console.log('HEALTH <<< ', value, ' ', bodyPart);
+    if (bodyPart !== undefined && value !== undefined) {
+      const newHealth = adjustHealthByBodyPart(healthStats, bodyPart, value);
+
+      updateHealth(characterId, newHealth);
+    }
     setHealthVisible({
       visible: false,
     });
-    // if (value !== undefined) {
-    //   updateHealth(characterId, { currentHealth: value });
-    // }
   }
 
   function updatePart(bodyPart: BodyPart) {
@@ -206,35 +208,55 @@ function CharacterSubHeaderView({
             style={styles.bodyParts}
           >
             <Text style={styles.text}>Head</Text>
-            <Text style={styles.text}>{head?.current}</Text>
+            <View style={styles.row}>
+              <Text style={styles.text}>{head?.max}</Text>
+              <Text style={styles.text}>/</Text>
+              <Text style={styles.text}>{head?.current}</Text>
+            </View>
           </Pressable>
           <Pressable
             onPress={() => updatePart('torso')}
             style={styles.bodyParts}
           >
             <Text style={styles.text}>Torso</Text>
-            <Text style={styles.text}>{torso?.current}</Text>
+            <View style={styles.row}>
+              <Text style={styles.text}>{torso?.max}</Text>
+              <Text style={styles.text}>/</Text>
+              <Text style={styles.text}>{torso?.current}</Text>
+            </View>
           </Pressable>
           <Pressable
             onPress={() => updatePart('arms')}
             style={styles.bodyParts}
           >
             <Text style={styles.text}>Arms</Text>
-            <Text style={styles.text}>{arms?.current}</Text>
+            <View style={styles.row}>
+              <Text style={styles.text}>{arms?.max}</Text>
+              <Text style={styles.text}>/</Text>
+              <Text style={styles.text}>{arms?.current}</Text>
+            </View>
           </Pressable>
           <Pressable
             onPress={() => updatePart('crotch')}
             style={styles.bodyParts}
           >
             <Text style={styles.text}>Crotch</Text>
-            <Text style={styles.text}>{crotch?.current}</Text>
+            <View style={styles.row}>
+              <Text style={styles.text}>{crotch?.max}</Text>
+              <Text style={styles.text}>/</Text>
+              <Text style={styles.text}>{crotch?.current}</Text>
+            </View>
           </Pressable>
           <Pressable
             onPress={() => updatePart('legs')}
             style={styles.bodyParts}
           >
             <Text style={styles.text}>Legs</Text>
-            <Text style={styles.text}>{legs?.current}</Text>
+            <View style={styles.row}>
+              <Text style={styles.text}>{legs?.max}</Text>
+              <Text style={styles.text}>/</Text>
+              <Text style={styles.text}>{legs?.current}</Text>
+            </View>
           </Pressable>
         </View>
       </View>
@@ -252,7 +274,8 @@ function CharacterSubHeaderView({
       healthVisible.currentValue &&
       healthVisible.maxAvailable ? (
         <HealthInputModal
-          currentPartName={healthDisplayText[healthVisible.bodyPart]}
+          currentPartDisplayName={healthDisplayText[healthVisible.bodyPart]}
+          currentPart={healthVisible.bodyPart}
           currentPartHealth={healthVisible.currentValue}
           maximumPartHealth={healthVisible.maxAvailable}
           onSetValue={onEditHealth}
@@ -301,7 +324,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'Gaegu-Regular',
-    fontWeight: 500,
     fontSize: ICON_TEXT_SIZE,
     paddingBottom: 2,
     color: '#fff',
