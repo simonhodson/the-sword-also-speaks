@@ -1,18 +1,12 @@
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-// import IconF from 'react-native-vector-icons/Foundation';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import { FatigueAdjustmentView } from '../../../common/components/fatigue-view';
 import { useCharacterStore } from '../../../store/useCharacterStore';
 import { adjustHealthByBodyPart } from '../../../utilities/character-creation-utils';
-import {
-  FatigueInputModal,
-  HealthInputModal,
-} from '../components/character-modals';
+import { HealthInputModal } from '../components/character-modals';
 import { Initiative } from '../types/action-stats-types';
 import { BodyPart, Health, healthDisplayText } from '../types/health-types';
-
-export const MAX_FATIGUE = 6;
 
 const ICON_TEXT_SIZE = 24;
 
@@ -62,11 +56,22 @@ function CharacterSubHeaderView({
     visible: false,
   });
 
-  function onEditFatigue(value?: number) {
-    if (value !== undefined) {
-      updateHealth(characterId, { currentFatigue: value });
+  function updateFatigue(idx: number, max: number) {
+    if (currentFatigue === undefined) return;
+
+    const tappedLevel = idx + 1;
+
+    if (currentFatigue >= tappedLevel) {
+      // If tapping current or lower level: reduce to one below tapped
+      updateHealth(characterId, {
+        currentFatigue: tappedLevel - 1,
+      });
+    } else {
+      // If increasing
+      updateHealth(characterId, {
+        currentFatigue: tappedLevel,
+      });
     }
-    setFatigueVisible(false);
   }
 
   function onEditHealth(bodyPart?: BodyPart, displayedValue?: number) {
@@ -120,26 +125,6 @@ function CharacterSubHeaderView({
         currentValue,
       });
     }
-  }
-
-  function renderFatigue() {
-    const maxIcons = [];
-    for (let i = 0; i <= MAX_FATIGUE - 1; i++) {
-      maxIcons.push(
-        <Icon
-          key={i}
-          size={ICON_TEXT_SIZE}
-          name={
-            currentFatigue && currentFatigue > i
-              ? 'square-rounded'
-              : 'square-rounded-outline'
-          }
-          color={'#fff'}
-          style={{ paddingRight: 5 }}
-        />,
-      );
-    }
-    return maxIcons;
   }
 
   return (
@@ -197,13 +182,10 @@ function CharacterSubHeaderView({
               <Text style={styles.text}>{currentHealth}</Text>
             </View>
           </View>
-          <Pressable
-            style={{ flexDirection: 'row' }}
-            onPress={() => setFatigueVisible(true)}
-          >
-            {/* <Text style={styles.text}>Current Fatigue: </Text> */}
-            {renderFatigue().map((e) => e)}
-          </Pressable>
+          <FatigueAdjustmentView
+            currentFatigue={currentFatigue}
+            onPress={updateFatigue}
+          />
         </View>
         {/* Row 3 Health by Parts*/}
         <View style={styles.lastRow}>
@@ -264,15 +246,15 @@ function CharacterSubHeaderView({
           </Pressable>
         </View>
       </View>
-      {fatigueVisible && currentFatigue !== undefined ? (
+      {/* {fatigueVisible && currentFatigue !== undefined ? (
         <FatigueInputModal
           currentFatigue={currentFatigue}
           modalVisible={fatigueVisible}
-          onSetValue={onEditFatigue}
+          onSetValue={updateFatigue}
         />
       ) : (
         false
-      )}
+      )} */}
       {healthVisible.visible &&
       healthVisible.bodyPart &&
       healthVisible.currentValue !== undefined &&
