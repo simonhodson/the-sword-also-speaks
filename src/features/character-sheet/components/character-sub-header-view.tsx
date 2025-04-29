@@ -112,7 +112,7 @@ function CharacterSubHeaderView({
         break;
     }
 
-    if (currentValue && maxAvailable) {
+    if (currentValue !== undefined && maxAvailable !== undefined) {
       setHealthVisible({
         visible: true,
         bodyPart,
@@ -275,8 +275,8 @@ function CharacterSubHeaderView({
       )}
       {healthVisible.visible &&
       healthVisible.bodyPart &&
-      healthVisible.currentValue &&
-      healthVisible.maxAvailable ? (
+      healthVisible.currentValue !== undefined &&
+      healthVisible.maxAvailable !== undefined ? (
         <HealthInputModal
           currentPartDisplayName={healthDisplayText[healthVisible.bodyPart]}
           currentPart={healthVisible.bodyPart}
