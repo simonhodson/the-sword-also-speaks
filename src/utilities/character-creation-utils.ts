@@ -37,12 +37,12 @@ function healthDivisionCalculation(total: number): number[] {
 function adjustHealthByBodyPart(
   health: Health,
   bodyPart: BodyPart,
-  value: number,
+  displayedValue: number,
 ) {
   const newHealth = { ...health };
 
   const adjustmentValue = newHealth[bodyPart]
-    ? newHealth[bodyPart].max - value
+    ? newHealth[bodyPart].current - displayedValue
     : 0;
 
   if (health.currentHealth) {
@@ -50,15 +50,15 @@ function adjustHealthByBodyPart(
   }
 
   if (bodyPart === 'head' && newHealth.head) {
-    newHealth.head.current = value;
+    newHealth.head.current = displayedValue;
   } else if (bodyPart === 'torso' && newHealth.torso) {
-    newHealth.torso.current = value;
+    newHealth.torso.current = displayedValue;
   } else if (bodyPart === 'arms' && newHealth.arms) {
-    newHealth.arms.current = value;
+    newHealth.arms.current = displayedValue;
   } else if (bodyPart === 'crotch' && newHealth.crotch) {
-    newHealth.crotch.current = value;
+    newHealth.crotch.current = displayedValue;
   } else if (bodyPart === 'legs' && newHealth.legs) {
-    newHealth.legs.current = value;
+    newHealth.legs.current = displayedValue;
   }
 
   return newHealth;

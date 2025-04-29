@@ -56,7 +56,6 @@ export default function createNewCharacter(
 
   Object.entries(armour).forEach(([key, value]) => {
     if (value > 0) {
-      console.log(`Armour ${key} is ${value}`);
       totalHealth += value;
     }
   });

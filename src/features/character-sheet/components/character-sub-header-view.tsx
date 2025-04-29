@@ -69,9 +69,13 @@ function CharacterSubHeaderView({
     setFatigueVisible(false);
   }
 
-  function onEditHealth(bodyPart?: BodyPart, value?: number) {
-    if (bodyPart !== undefined && value !== undefined) {
-      const newHealth = adjustHealthByBodyPart(healthStats, bodyPart, value);
+  function onEditHealth(bodyPart?: BodyPart, displayedValue?: number) {
+    if (bodyPart !== undefined && displayedValue !== undefined) {
+      const newHealth = adjustHealthByBodyPart(
+        healthStats,
+        bodyPart,
+        displayedValue,
+      );
 
       updateHealth(characterId, newHealth);
     }
