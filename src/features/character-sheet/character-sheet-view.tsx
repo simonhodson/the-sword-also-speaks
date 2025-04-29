@@ -45,11 +45,9 @@ function CharacterSheetView({ characterId, goBack }: CharacterSheetViewProps) {
       <StatusBar barStyle='light-content' />
       {character ? (
         <CharacterSubHeaderView
-          currentHealth={character.health.currentHealth}
-          currentFatigue={character.health.currentFatigue}
+          healthStats={character.health}
           screenHeight={screenHeight}
           characterId={character.id}
-          maxHealth={character.health.totalHealth}
           speed={character.actionStats.speedScore}
           initiative={character.actionStats.initiative}
           aces={character.actionStats.basesAces}

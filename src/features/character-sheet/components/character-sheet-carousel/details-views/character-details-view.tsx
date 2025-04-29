@@ -26,7 +26,6 @@ function CharacterDetailsView({
     const entries = Object.entries(characterDetails);
 
     return entries.map(([key, value]) => {
-      console.log('entires === ', key, ' ', value);
       return (
         <View key={key} style={styles.main}>
           <Text style={styles.heavyText}>
@@ -59,7 +58,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'Gaegu-Regular',
-    fontWeight: 500,
     fontSize: 26,
     paddingBottom: 2,
   },

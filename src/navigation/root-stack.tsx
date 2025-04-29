@@ -4,11 +4,11 @@ import {
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 
+import CharacterSheetData from '../features/character-sheet/character-sheet-data';
 import {
   EditAbilitiesModal,
   EditDetailsModal,
-} from '../features/character-sheet';
-import CharacterSheetData from '../features/character-sheet/character-sheet-data';
+} from '../features/character-sheet/components/character-modals';
 
 const Stack = createNativeStackNavigator();
 

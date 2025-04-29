@@ -75,7 +75,7 @@ function EditAbilitiesModal() {
                 <Icon
                   name='minus-circle'
                   size={20}
-                  style={{ color: lowerLimit ? '#a9a9a9' : '#000' }}
+                  color={lowerLimit ? '#a9a9a9' : '#000'}
                 />
               </Pressable>
               <Text style={[styles.text, { marginLeft: 10, marginRight: 10 }]}>
@@ -134,7 +134,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'Gaegu-Regular',
-    fontWeight: 500,
     fontSize: 26,
     marginBottom: 5,
   },

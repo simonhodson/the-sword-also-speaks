@@ -126,7 +126,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontFamily: 'Gaegu-Regular',
-    fontWeight: 500,
     fontSize: 24,
     paddingBottom: 2,
     color: '#fff',

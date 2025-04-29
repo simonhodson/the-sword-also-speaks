@@ -1,15 +1,39 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
 
 type ButtonProps = {
   onPress: () => void;
   title: string;
+  viewStyles?: ViewStyle;
+  textStyles?: TextStyle;
+  disabled?: boolean;
+  disabledTextStyles?: TextStyle;
+  disabledViewStyles?: ViewStyle;
 };
 
-function Button({ onPress, title }: ButtonProps) {
+function Button({
+  disabled,
+  disabledTextStyles,
+  disabledViewStyles,
+  onPress,
+  title,
+  viewStyles,
+  textStyles,
+}: ButtonProps) {
   return (
-    <Pressable style={styles.buttonMain} onPress={onPress}>
-      <Text style={styles.buttonText}>{title}</Text>
+    <Pressable
+      style={[styles.buttonMain, viewStyles, disabledViewStyles]}
+      onPress={onPress}
+    >
+      <Text style={[styles.buttonText, textStyles, disabledTextStyles]}>
+        {title}
+      </Text>
     </Pressable>
   );
 }
@@ -26,7 +50,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontFamily: 'Gaegu-Regular',
-    fontWeight: 500,
     fontSize: 24,
     paddingBottom: 2,
     color: '#fff',
