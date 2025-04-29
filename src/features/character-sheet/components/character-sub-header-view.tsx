@@ -246,15 +246,6 @@ function CharacterSubHeaderView({
           </Pressable>
         </View>
       </View>
-      {/* {fatigueVisible && currentFatigue !== undefined ? (
-        <FatigueInputModal
-          currentFatigue={currentFatigue}
-          modalVisible={fatigueVisible}
-          onSetValue={updateFatigue}
-        />
-      ) : (
-        false
-      )} */}
       {healthVisible.visible &&
       healthVisible.bodyPart &&
       healthVisible.currentValue !== undefined &&
