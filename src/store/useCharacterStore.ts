@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { AbilityScores } from '../features/character-sheet/types/ability-score-types';
 import { CharacterDetails } from '../features/character-sheet/types/character-details.types';
 import { Character } from '../features/character-sheet/types/character-sheet-types';
+import { Defenses } from '../features/character-sheet/types/defenses-types';
 import { Health } from '../features/character-sheet/types/health-types';
 import { loadCharacters, saveCharacters } from '../utilities/async-storage';
 
@@ -19,6 +20,7 @@ type CharacterStore = {
     id: string,
     newDetails: Partial<AbilityScores>,
   ) => void;
+  updateCharacterDefenses: (id: string, newDetails: Partial<Defenses>) => void;
   deleteCharacter: (id: string) => void;
   hydrate: () => void;
 };
@@ -84,6 +86,23 @@ export const useCharacterStore = create<CharacterStore>((set, get) => ({
       ),
     }));
     //save to storage
+    saveCharacters(get().characters);
+  },
+  updateCharacterDefenses: (id, newDetails) => {
+    set((state) => ({
+      characters: state.characters.map((char) =>
+        char.id === id
+          ? {
+              ...char,
+              defenses: {
+                ...char.defenses,
+                ...newDetails,
+              },
+            }
+          : char,
+      ),
+    }));
+    // Save to storage
     saveCharacters(get().characters);
   },
   deleteCharacter: (id: string) => {

@@ -7,6 +7,7 @@ import {
 import CharacterSheetData from '../features/character-sheet/character-sheet-data';
 import {
   EditAbilitiesModal,
+  EditDefensesModal,
   EditDetailsModal,
 } from '../features/character-sheet/components/character-modals';
 
@@ -16,6 +17,7 @@ export type RootStackParamList = {
   CharacterSheet: undefined;
   EditDetails: { characterId: string };
   EditAbilities: { characterId: string };
+  EditDefenses: { characterId: string };
 };
 
 export type EditDetailsRouteProp = RouteProp<RootStackParamList, 'EditDetails'>;
@@ -31,6 +33,15 @@ export type EditAbilitiesRouteProp = RouteProp<
 export type EditAbilitiesNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
   'EditAbilities'
+>;
+
+export type EditDefensesRouteProp = RouteProp<
+  RootStackParamList,
+  'EditDefenses'
+>;
+export type EditDefensesNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'EditDefenses'
 >;
 
 export function RootStack() {
@@ -57,6 +68,7 @@ export function RootStack() {
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name='EditDetails' component={EditDetailsModal} />
         <Stack.Screen name='EditAbilities' component={EditAbilitiesModal} />
+        <Stack.Screen name='EditDefenses' component={EditDefensesModal} />
       </Stack.Group>
     </Stack.Navigator>
   );

@@ -5,34 +5,25 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import { TornPaperBox } from '../../../../../common';
 import {
-  abilityDisplayText,
-  AbilityKey,
-  AbilityScores,
-  AbilityStat,
-} from '../../../types/ability-score-types';
+  Defenses,
+  defensesDisplayText,
+  DefensesKey,
+} from '../../../types/defenses-types';
 
-type AbilityScoresView = PropsWithChildren<{
-  abilityScores: AbilityScores;
-  onPressEdit: (
-    direction: 'defenses' | 'abilities',
-    abilityKey?: AbilityKey,
-  ) => void;
+type DefensesView = PropsWithChildren<{
+  defenses: Defenses;
+  onPressEdit: (direction: 'defenses' | 'abilities') => void;
 }>;
 
-function AbilityScoresView({ abilityScores, onPressEdit }: AbilityScoresView) {
+function DefensesView({ defenses, onPressEdit }: DefensesView) {
   function renderDetails() {
-    const entries = Object.entries(abilityScores) as [
-      AbilityKey,
-      AbilityStat,
-    ][];
+    const entries = Object.entries(defenses) as [DefensesKey, number][];
 
     return entries.map(([key, value]) => {
       return (
         <View style={styles.statRow} key={key}>
-          <Text style={styles.text}>
-            {`${abilityDisplayText[key]}:(${value.suit})`}
-          </Text>
-          <Text style={styles.text}>{value.total}</Text>
+          <Text style={styles.text}>{`${defensesDisplayText[key]}`}</Text>
+          <Text style={styles.text}>{value}</Text>
         </View>
       );
     });
@@ -42,15 +33,15 @@ function AbilityScoresView({ abilityScores, onPressEdit }: AbilityScoresView) {
     <TornPaperBox>
       <View style={styles.topRow}>
         <Pressable
-          onPress={() => onPressEdit('abilities')}
+          onPress={() => onPressEdit('defenses')}
           style={{ alignItems: 'flex-end' }}
         >
           <Icon name='edit' size={26} />
         </Pressable>
       </View>
       <View style={styles.statRow}>
-        <Text style={styles.heavyText}>Ability Scores</Text>
-        <Text style={styles.heavyText}>Total</Text>
+        <Text style={styles.heavyText}>Defenses Scores</Text>
+        <Text style={styles.heavyText}>Rank</Text>
       </View>
       {renderDetails()}
     </TornPaperBox>
@@ -83,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { AbilityScoresView };
+export { DefensesView };

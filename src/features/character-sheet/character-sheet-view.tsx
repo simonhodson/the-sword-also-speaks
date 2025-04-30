@@ -4,7 +4,7 @@ import { FlatList, StatusBar, useWindowDimensions, View } from 'react-native';
 
 import { ExitButton } from '../../common/';
 import { useCharacterStore } from '../../store/useCharacterStore';
-import { DetailsAbilitiesCombinedData } from './components/character-sheet-carousel/details-views/details-abilities-view';
+import { CarouselInitialView } from './components/character-sheet-carousel/carousel-initial-view';
 import SkillsData from './components/character-sheet-carousel/skills/skills-data';
 import { CharacterSubHeaderView } from './components/character-sub-header-view';
 
@@ -35,7 +35,7 @@ function CharacterSheetView({ characterId, goBack }: CharacterSheetViewProps) {
   const subScreens = [
     {
       key: 'character-abilities',
-      content: <DetailsAbilitiesCombinedData characterId={characterId} />,
+      content: <CarouselInitialView characterId={characterId} />,
     },
     { key: 'skills', content: <SkillsData characterId={characterId} /> },
   ];
