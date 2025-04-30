@@ -13,7 +13,7 @@ import {
 type CharacterDetailsView = PropsWithChildren<{
   characterDetails: CharacterDetails;
   onPressEdit: (
-    direction: 'details' | 'abilities',
+    direction: 'details' | 'abilities' | 'defenses',
     abilityKey?: AbilityKey,
   ) => void;
 }>;

@@ -1,20 +1,24 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Dimensions, Text, View } from 'react-native';
+import { Dimensions, ScrollView, Text, View } from 'react-native';
 
 import {
   EditAbilitiesNavigationProp,
   EditDefensesNavigationProp,
+  EditDetailsNavigationProp,
 } from '../../../../navigation/root-stack';
 import { useCharacterStore } from '../../../../store/useCharacterStore';
 import { AbilityScoresView } from './details-views/ability-scores-view';
+import { CharacterDetailsView } from './details-views/character-details-view';
 import { DefensesView } from './details-views/defenses-view';
 
 type CarouselInitialViewProps = { characterId: string };
 
 function CarouselInitialView({ characterId }: CarouselInitialViewProps) {
   const navigation = useNavigation<
-    EditDefensesNavigationProp | EditAbilitiesNavigationProp
+    | EditDefensesNavigationProp
+    | EditAbilitiesNavigationProp
+    | EditDetailsNavigationProp
   >();
   const { width: screenWidth } = Dimensions.get('window');
 
@@ -22,24 +26,37 @@ function CarouselInitialView({ characterId }: CarouselInitialViewProps) {
     state.characters.find((c) => c.id === characterId),
   );
 
-  function onPressEdit(direction: 'defenses' | 'abilities') {
-    if (characterId) {
-      direction === 'defenses'
-        ? navigation.navigate('EditDefenses', { characterId })
-        : navigation.navigate('EditAbilities', { characterId });
+  function onPressEdit(direction: 'details' | 'abilities' | 'defenses') {
+    if (!characterId) return;
+
+    switch (direction) {
+      case 'details':
+        navigation.navigate('EditDetails', { characterId });
+        break;
+      case 'abilities':
+        navigation.navigate('EditAbilities', { characterId });
+        break;
+      case 'defenses':
+        navigation.navigate('EditDefenses', { characterId });
+        break;
+      // Add more cases as needed
+      default:
+        break;
     }
-    // What happens if not?
   }
 
   return character ? (
-    <View style={{ width: screenWidth }}>
+    <ScrollView style={{ width: screenWidth }}>
       <DefensesView defenses={character.defenses} onPressEdit={onPressEdit} />
-      <View style={{ margin: 5 }} />
       <AbilityScoresView
         abilityScores={character.abilityScores}
         onPressEdit={onPressEdit}
       />
-    </View>
+      <CharacterDetailsView
+        characterDetails={character.details}
+        onPressEdit={onPressEdit}
+      />
+    </ScrollView>
   ) : (
     <View style={{ width: screenWidth }}>
       <Text>Loading...</Text>
