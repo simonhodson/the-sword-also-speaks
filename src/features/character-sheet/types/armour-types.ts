@@ -12,7 +12,11 @@ export type ArmourStatsKey = keyof typeof armourStatsTemplate;
 
 export type ArmourStats = Record<ArmourStatsKey, number>;
 
-export type ArmourEquipped = Record<ArmourStatsKey, string>;
+export type ArmourAttributes = { type: string; bonus: number };
+export type ArmourEquipped = Record<
+  ArmourStatsKey,
+  ArmourAttributes | undefined
+>;
 
 export const armourStatsKeys = Object.keys(
   armourStatsTemplate,
