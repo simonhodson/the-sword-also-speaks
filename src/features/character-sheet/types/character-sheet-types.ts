@@ -1,6 +1,6 @@
 import { AbilityScores } from './ability-score-types';
 import { ActionStats } from './action-stats-types';
-import { ArmourStats } from './armour-types';
+import { ArmourEquipped, ArmourStats } from './armour-types';
 import { CharacterDetails } from './character-details.types';
 import { Currency } from './currency';
 import { Defenses } from './defenses-types';
@@ -47,6 +47,7 @@ export type SpecialBonuses = Record<string, string>;
 export type Character = {
   abilityScores: AbilityScores;
   actionStats: ActionStats;
+  armour: ArmourEquipped;
   armourStats: ArmourStats;
   currency: Currency;
   dateCreated: string;
