@@ -4,12 +4,13 @@ import { FlatList, StatusBar, useWindowDimensions, View } from 'react-native';
 
 import { ExitButton } from '../../common/';
 import { useCharacterStore } from '../../store/useCharacterStore';
-import WeaponsArmourData from './components/character-sheet-carousel/armour-weapons-views/weapons-armour-data';
+import ArmourData from './components/character-sheet-carousel/armour-views/armour-data';
 import { CarouselInitialView } from './components/character-sheet-carousel/carousel-initial-view';
 import EquipmentData from './components/character-sheet-carousel/equipment/equipment-data';
 import PerksData from './components/character-sheet-carousel/perks/perks-data';
 import SkillsData from './components/character-sheet-carousel/skills/skills-data';
 import SpellsData from './components/character-sheet-carousel/spells/spells-data';
+import WeaponsData from './components/character-sheet-carousel/weapons-views/weapons-data';
 import { CharacterSubHeaderView } from './components/character-sub-header-view';
 
 type CharacterSheetViewProps = { characterId: string; goBack: () => void };
@@ -43,8 +44,12 @@ function CharacterSheetView({ characterId, goBack }: CharacterSheetViewProps) {
     },
     { key: 'skills', content: <SkillsData characterId={characterId} /> },
     {
-      key: 'weapons-armour',
-      content: <WeaponsArmourData characterId={characterId} />,
+      key: 'weapons',
+      content: <WeaponsData characterId={characterId} />,
+    },
+    {
+      key: 'armour',
+      content: <ArmourData characterId={characterId} />,
     },
     {
       key: 'perks',

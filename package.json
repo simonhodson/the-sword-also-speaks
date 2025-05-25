@@ -8,6 +8,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "start": "react-native start",
+    "release": "react-native run-android --mode=release",
     "test": "jest",
     "prepare": "husky"
   },

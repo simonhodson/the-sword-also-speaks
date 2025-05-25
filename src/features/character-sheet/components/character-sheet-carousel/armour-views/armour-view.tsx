@@ -33,10 +33,18 @@ function ArmourView({ armour, onPressEdit }: ArmourView) {
           </View>
           <View style={styles.statRow}>
             <View style={styles.leftCol}>
-              <Text style={styles.text}>{value.type}</Text>
+              {value.type ? (
+                <Text style={styles.text}>{value.type}</Text>
+              ) : (
+                false
+              )}
             </View>
             <View style={styles.rightCol}>
-              <Text style={styles.text}>{`+${value.bonus}`}</Text>
+              {value.bonus ? (
+                <Text style={styles.text}>{`+${value.bonus}`}</Text>
+              ) : (
+                <View style={{ padding: 15 }} />
+              )}
             </View>
           </View>
         </>

@@ -3,16 +3,13 @@ import { Dimensions, ScrollView, Text, View } from 'react-native';
 
 import { useCharacterStore } from '../../../../../store/useCharacterStore';
 import { ArmourView } from './armour-view';
-import { WeaponsView } from './weapons-view';
 
-type WeaponsArmourDataProps = { characterId: string };
+type ArmourDataProps = { characterId: string };
 
 /**
  * Data is responsible for creating, storing, fetching data for views
  */
-export default function WeaponsArmourData({
-  characterId,
-}: WeaponsArmourDataProps) {
+export default function ArmourData({ characterId }: ArmourDataProps) {
   const { width: screenWidth } = Dimensions.get('window');
   const character = useCharacterStore((state) =>
     state.getCharacterById(characterId),
@@ -20,12 +17,8 @@ export default function WeaponsArmourData({
 
   return character ? (
     <ScrollView style={{ width: screenWidth }}>
-      <WeaponsView
-        onPressEdit={() => console.log('Armour')}
-        weapons={character.weapons}
-      />
       <ArmourView
-        onPressEdit={() => console.log('Armour')}
+        onPressEdit={() => console.log('Armour -- ')}
         armour={character.armour}
       />
     </ScrollView>

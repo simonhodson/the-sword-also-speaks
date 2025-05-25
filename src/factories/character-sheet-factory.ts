@@ -15,6 +15,7 @@ import {
   Species,
 } from '../features/character-sheet/types/character-sheet-types';
 import { Health } from '../features/character-sheet/types/health-types';
+import { Weapon } from '../features/character-sheet/types/weapon-types';
 import {
   calculateHealthByArchetype,
   healthDivisionCalculation,
@@ -58,11 +59,11 @@ export default function createNewCharacter(
   };
 
   const armourEquipped: ArmourEquipped = {
-    head: undefined,
-    crotch: { type: 'Chain', bonus: 3 },
+    head: { type: undefined, bonus: undefined },
     torso: { type: 'Chain', bonus: 3 },
-    arms: undefined,
-    legs: undefined,
+    arms: { type: undefined, bonus: undefined },
+    crotch: { type: 'Chain', bonus: 3 },
+    legs: { type: undefined, bonus: undefined },
   };
 
   Object.entries(armourStats).forEach(([_, value]) => {
@@ -157,6 +158,21 @@ export default function createNewCharacter(
     basesAces: 1,
   };
 
+  const weapons: Weapon[] = [
+    {
+      name: 'Great Club',
+      combatSkill: '',
+      draw: 0,
+      damageLimit: { total: 8, type: 'bludgeoning' },
+    },
+    {
+      name: 'Big Sword',
+      combatSkill: '',
+      draw: 0,
+      damageLimit: { total: 8, type: 'piercing' },
+    },
+  ];
+
   return {
     id: nanoid(),
     dateCreated: date.toISOString(),
@@ -207,6 +223,6 @@ export default function createNewCharacter(
       survival: { suit: 'Spades', rank: 1 },
     },
     specialBonuses: {},
-    weapons: [],
+    weapons,
   };
 }
