@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import Animated, { SharedValue } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import { FatigueAdjustmentView } from '../../../common/components/fatigue-view';
+
 import { useCharacterStore } from '../../../store/useCharacterStore';
 import { adjustHealthByBodyPart } from '../../../utilities/character-creation-utils';
 import { HealthInputModal } from '../components/character-modals';
@@ -17,6 +20,7 @@ type CharacterHeaderViewProps = {
   speed: number | undefined;
   initiative: Initiative | undefined;
   aces: number | undefined;
+  sharedOpacity: SharedValue<number>;
 };
 
 // type FatigueNodeTrack = { element: React.ReactNode; index: number };
@@ -28,6 +32,7 @@ function CharacterSubHeaderView({
   initiative,
   screenHeight,
   speed,
+  sharedOpacity,
 }: CharacterHeaderViewProps) {
   const updateHealth = useCharacterStore(
     (state) => state.updateCharacterHealth,
@@ -44,7 +49,8 @@ function CharacterSubHeaderView({
     totalHealth,
   } = healthStats;
 
-  const [fatigueVisible, setFatigueVisible] = useState(false);
+  // const [fatigueVisible, setFatigueVisible] = useState(false);
+  const showingRef = useRef(true);
 
   type HealthIncreaseModal = {
     visible: boolean;
@@ -129,7 +135,12 @@ function CharacterSubHeaderView({
 
   return (
     <>
-      <View style={[styles.main, { minHeight: screenHeight * 0.1 }]}>
+      <Animated.View
+        style={[
+          styles.main,
+          { minHeight: screenHeight * 0.1, opacity: sharedOpacity },
+        ]}
+      >
         {/* Row 1 */}
         <View style={[styles.rowEvenly, { marginBottom: 10, marginRight: 5 }]}>
           <View style={styles.row}>
@@ -245,7 +256,7 @@ function CharacterSubHeaderView({
             </View>
           </Pressable>
         </View>
-      </View>
+      </Animated.View>
       {healthVisible.visible &&
       healthVisible.bodyPart &&
       healthVisible.currentValue !== undefined &&
@@ -270,7 +281,7 @@ export { CharacterSubHeaderView };
 const styles = StyleSheet.create({
   main: {
     display: 'flex',
-    backgroundColor: 'black',
+    backgroundColor: '#000',
     paddingTop: 5,
     paddingBottom: 5,
     paddingLeft: 20,

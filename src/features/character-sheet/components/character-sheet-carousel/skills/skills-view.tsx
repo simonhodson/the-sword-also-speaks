@@ -41,7 +41,6 @@ function SkillsView({ skills }: SkillsView) {
           {renderDetails()}
         </View>
       </TornPaperBox>
-      <View style={{ marginBottom: 150 }} />
     </ScrollView>
   );
 }

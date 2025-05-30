@@ -19,6 +19,7 @@ export default function WeaponsData({ characterId }: WeaponsDataProps) {
     <View style={{ width: screenWidth }}>
       {character.weapons.map((weapon, i) => (
         <WeaponsView
+          key={weapon.name ?? '' + i}
           onPressEdit={() => console.log('Weapon -- ', i)}
           weapon={weapon}
         />

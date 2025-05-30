@@ -1,8 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { FlatList, StatusBar, useWindowDimensions, View } from 'react-native';
+import { runOnJS, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { ExitButton } from '../../common/';
+import { useAppStore } from '../../store/useAppStore';
 import { useCharacterStore } from '../../store/useCharacterStore';
 import ArmourData from './components/character-sheet-carousel/armour-views/armour-data';
 import { CarouselInitialView } from './components/character-sheet-carousel/carousel-initial-view';
@@ -20,15 +22,29 @@ type CharacterSheetViewProps = { characterId: string; goBack: () => void };
  */
 function CharacterSheetView({ characterId, goBack }: CharacterSheetViewProps) {
   const navigation = useNavigation();
+  const showingRef = useRef(true); // This is used to track if the header bar is showing
   const { height: screenHeight, width: screenWidth } = useWindowDimensions();
+  // const [isHidden, setIsHidden] = useState(false);
+
+  const { showHeaderBar: showHeaderBar, showHeaderBar: toggleHeaderBar } =
+    useAppStore((state) => state);
+
   const character = useCharacterStore((state) =>
     state.characters.find((c) => c.id === characterId),
   );
+
+  const sharedOpacity = useSharedValue(1);
 
   const exitButton = useCallback(
     () => <ExitButton onExit={goBack} />,
     [goBack],
   );
+
+  const animateOpacity = (toEndOn: number) => {
+    sharedOpacity.value = withTiming(toEndOn, { duration: 400 }, () => {
+      runOnJS(setIsHidden)(!isHidden);
+    });
+  };
 
   useEffect(() => {
     navigation.setOptions({
@@ -36,6 +52,20 @@ function CharacterSheetView({ characterId, goBack }: CharacterSheetViewProps) {
       headerLeft: exitButton,
     });
   }, [character, navigation, exitButton]);
+
+  useEffect(() => {
+    // This should only be true on initial render
+    if (showingRef.current === showHeaderBar) return;
+    console.log(`Header bar visibility changed`);
+    showingRef.current = showHeaderBar;
+    if (showHeaderBar) {
+      console.log('Animating to zero opacity');
+      animateOpacity(0);
+    } else {
+      console.log('Animating to full opacity');
+      animateOpacity(1);
+    }
+  }, [showHeaderBar]);
 
   const subScreens = [
     {
@@ -76,6 +106,7 @@ function CharacterSheetView({ characterId, goBack }: CharacterSheetViewProps) {
           speed={character.actionStats.speedScore}
           initiative={character.actionStats.initiative}
           aces={character.actionStats.basesAces}
+          sharedOpacity={sharedOpacity} // Toggle header visibility
         />
       ) : (
         false

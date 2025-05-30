@@ -25,8 +25,8 @@ function ArmourView({ armour, onPressEdit }: ArmourView) {
 
     return entries.map(([key, value]) => {
       return (
-        <>
-          <View style={{ flexDirection: 'row' }} key={key}>
+        <View key={key}>
+          <View style={{ flexDirection: 'row' }}>
             <Text
               style={styles.heavyText}
             >{`${armourStatsDisplayText[key]}`}</Text>
@@ -47,7 +47,7 @@ function ArmourView({ armour, onPressEdit }: ArmourView) {
               )}
             </View>
           </View>
-        </>
+        </View>
       );
     });
   }
